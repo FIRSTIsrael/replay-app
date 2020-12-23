@@ -1,21 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import 'react-native-gesture-handler'
+
+import { StyleSheet, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+
+import WelcomeScreen from './components/welcome_screen'
+import QRAutentication from './components/qr_authentication'
+import PreInstructor from './components/pre_instructor'
+import VideroInstructor from './components/video_instructor'
+import ThankyouScreen from './components/thankyou_screen'
+
+const Stack = createStackNavigator()
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  return (<NavigationContainer>
+    <Stack.Navigator headerMode={false}>
+      <Stack.Screen name='Home' component={WelcomeScreen} />
+      <Stack.Screen name='QR' component={QRAutentication} />
+      <Stack.Screen name='PRE_INST' component={PreInstructor} />
+      <Stack.Screen name='INST' component={VideroInstructor} />
+      <Stack.Screen name='TNK_YOU' component={ThankyouScreen} />
+    </Stack.Navigator>
+  </NavigationContainer>);
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
