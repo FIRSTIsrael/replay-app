@@ -10,6 +10,8 @@ export const HEB = {
 
 	WELCOME: 'ברוכים הבאים לתחרות FLL Replay!',
 	LOGIN: 'כניסה',
+
+	QR: 'סרקו את קוד ה-QR שלכם',
 	
 	PRE_INST: 'שלום קבוצה',
 	START: 'בואו נתחיל',

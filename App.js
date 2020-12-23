@@ -15,7 +15,7 @@ const Stack = createStackNavigator()
 
 export default function App() {
   return (<NavigationContainer>
-    <Stack.Navigator initialRouteName="HOME" headerMode={false}>
+    <Stack.Navigator initialRouteName='HOME' headerMode={false}>
       <Stack.Screen name='HOME' component={WelcomeScreen} />
       <Stack.Screen name='QR' component={QRAutentication} />
       <Stack.Screen name='PRE_INST' component={PreInstructor} />
