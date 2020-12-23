@@ -12,11 +12,9 @@ export default class PreInstructor extends Component {
   }
 
   componentDidMount() {
-
     (async () => {
       this.setState({ orientation: this.getOrientation() })
       Dimensions.addEventListener('change', () => this.setState({ orientation: this.getOrientation() }))
-      alert('here')
       const [[teamNumberKey, teamNumber], [teamNameKey, teamName]] = await AsyncStorage.multiGet(['teamNumber', 'teamName'])
       this.setState({ teamNumber, teamName })
     })()
@@ -37,8 +35,8 @@ export default class PreInstructor extends Component {
         { text: this.state.teamName, style: styles.teamname }
       ]}
       buttons={[
-        { text: HEB.START, disabled: this.state.orientation === 'PORTRAIT', onPress: () => navigation.navigate('PRE_INST') },
-        { text: HEB.NOT_US, color: 'black', onPress: () => navigation.navigate('QR') },
+        { text: HEB.START, disabled: this.state.orientation === 'PORTRAIT', onPress: () => this.props.navigation.navigate('PRE_INST') },
+        { text: HEB.NOT_US, color: 'black', onPress: () => this.props.navigation.navigate('QR') },
       ]}
       notices={this.state.orientation === 'PORTRAIT' ? [HEB.FLIP] : []}
       />
