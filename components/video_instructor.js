@@ -3,6 +3,8 @@ import { Text, View, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
 import { RFValue } from 'react-native-responsive-fontsize'
+// import { Timer } from './timer'
+
 import { INSTRUCTIONS, HEB } from '../config'
 import { processVideo } from '../logic/video_processing'
 
@@ -41,7 +43,10 @@ export default class App extends React.Component {
       this.setState({ index: this.state.index + 1 })
     }
   }
-
+// return <Timer duration={instruction.time} countdown={instruction.countdown} style={styles.timer}
+            // onStart={() => { /* TODO sounds */ }}
+            // everySecond={time => { /* TODO sounds */ }}
+            // onFinish={() => { this.next()/* TODO sounds */ }} />
   render() {
     const { hasCameraPermission } = this.state;
     if (hasCameraPermission === null) {
@@ -50,6 +55,24 @@ export default class App extends React.Component {
       return <Text>No access to camera</Text>;
     } else {
       const instruction = INSTRUCTIONS[this.state.index]
+
+      const overlayComponent = (() => {
+        if (!this.state.isRecording) {
+          return <View style={styles.startButton}>
+            <Button title={HEB.START} onPress={() => this.start()}></Button>
+          </View>
+        }
+        if (instruction.end === 'timer') {
+          return <View />
+        }
+        if (instruction.end === 'button') {
+          return <View style={styles.button}>
+            <Button title={instruction.buttonText || HEB.NEXT} onPress={() => this.next()}></Button>
+          </View>
+        }
+        return <View />
+      }) ()
+
       return (
         <View style={styles.container}>
           {this.state.isRecording ? <View style={styles.instructionsContainer}>
@@ -57,12 +80,7 @@ export default class App extends React.Component {
           </View> : <View />}
           <Camera style={styles.container} type={this.state.type} ref={ref => { this.camera = ref; }}>
           </Camera>
-          {this.state.isRecording ? <View style={styles.button}>
-            <Button title={HEB.NEXT} onPress={() => this.next()}></Button>
-          </View> : 
-          <View style={styles.startButton}>
-            <Button title={HEB.START} onPress={() => this.start()}></Button>
-          </View>}
+          {overlayComponent}
         </View>
       );
     }
