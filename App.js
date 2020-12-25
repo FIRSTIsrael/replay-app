@@ -5,6 +5,8 @@ import { StyleSheet, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
+// import { Navigator, Page } from './components/navigation'
+
 import WelcomeScreen from './components/welcome_screen'
 import QRAutentication from './components/qr_authentication'
 import PreInstructor from './components/pre_instructor'
@@ -24,3 +26,10 @@ export default function App() {
     </Stack.Navigator>
   </NavigationContainer>);
 }
+  // return <Navigator home='HOME'>
+  // 	<Page name='INST' component={VideroInstructor} />
+  // 	<Page name='HOME' component={WelcomeScreen} />
+  // 	<Page name='QR' component={QRAutentication} />
+  // 	<Page name='PRE_INST' component={PreInstructor} />
+  // 	<Page name='TNK_YOU' component={ThankyouScreen} />
+  // </Navigator>

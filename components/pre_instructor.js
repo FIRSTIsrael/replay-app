@@ -35,7 +35,7 @@ export default class PreInstructor extends Component {
         { text: this.state.teamName, style: styles.teamname }
       ]}
       buttons={[
-        { text: HEB.START, disabled: this.state.orientation === 'PORTRAIT', onPress: () => this.props.navigation.navigate('PRE_INST') },
+        { text: HEB.START, disabled: this.state.orientation === 'PORTRAIT', onPress: () => this.props.navigation.navigate('INST') },
         { text: HEB.NOT_US, color: 'black', onPress: () => this.props.navigation.navigate('QR') },
       ]}
       notices={this.state.orientation === 'PORTRAIT' ? [HEB.FLIP] : []}

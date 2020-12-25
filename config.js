@@ -18,6 +18,8 @@ export const HEB = {
 	NOT_US: 'זה לא אנחנו',
 	FLIP: 'בבקשה הפכו את המסך למצב מאוזן',
 
+	NEXT: 'לשלב הבא',
+
 	SHOOT_ANOTHER: 'לחצו כאן לצילום סרטון נוסף',
 	THANK_YOU: 'תודה לכם על השתתפות בתחרות FLL Replay!'
 }
