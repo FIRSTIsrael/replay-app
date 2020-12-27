@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
 import { RFValue } from 'react-native-responsive-fontsize'
-// import { Timer } from './timer'
+import Timer from './timer'
 
 import { INSTRUCTIONS, HEB } from '../config'
 import { processVideo } from '../logic/video_processing'
@@ -25,7 +25,7 @@ export default class App extends React.Component {
   start = async () => {
     if (this.camera) {
       if (!this.state.isRecording) {
-        this.setState({isRecording: true});
+        this.setState({ isRecording: true });
         let video = await this.camera.recordAsync();
         await processVideo(video)
         this.props.navigation.navigate('TNK_YOU')
@@ -36,17 +36,15 @@ export default class App extends React.Component {
   next() {
     if (this.state.index === INSTRUCTIONS.length - 1) {
         if (this.state.isRecording) {
+          alert('stopping')
           this.camera.stopRecording();
-          this.setState({isRecording: false})
+          this.setState({ isRecording: false })
         }
     } else {
       this.setState({ index: this.state.index + 1 })
     }
   }
-// return <Timer duration={instruction.time} countdown={instruction.countdown} style={styles.timer}
-            // onStart={() => { /* TODO sounds */ }}
-            // everySecond={time => { /* TODO sounds */ }}
-            // onFinish={() => { this.next()/* TODO sounds */ }} />
+
   render() {
     const { hasCameraPermission } = this.state;
     if (hasCameraPermission === null) {
@@ -63,7 +61,10 @@ export default class App extends React.Component {
           </View>
         }
         if (instruction.end === 'timer') {
-          return <View />
+          return <Timer duration={instruction.time}
+                      onStart={() => { /* TODO sounds */ }}
+                      everySecond={time => { /* TODO sounds */ }}
+                      onFinished={() => { this.next()/* TODO sounds */ }} />
         }
         if (instruction.end === 'button') {
           return <View style={styles.button}>
