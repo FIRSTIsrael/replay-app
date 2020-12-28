@@ -1,58 +1,61 @@
-import * as React from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, Button } from 'react-native';
-import * as Permissions from 'expo-permissions';
-import { Camera } from 'expo-camera';
+import * as React from 'react'
+import { Text, View, StyleSheet, TouchableOpacity, Button } from 'react-native'
+import * as Permissions from 'expo-permissions'
+import { Camera } from 'expo-camera'
+import ScreenOrientation, { OrientationLock } from 'expo-screen-orientation'
 import { RFValue } from 'react-native-responsive-fontsize'
 import Timer from './timer'
 
 import { INSTRUCTIONS, HEB } from '../config'
 import { processVideo } from '../logic/video_processing'
 
-export default class App extends React.Component {
+export default class VideoInstructor extends React.Component {
   state = {
     hasCameraPermission: null,
     type: Camera.Constants.Type.back,
     isRecording: false,
-    index: 0
+    instructionIndex: 0
   }
 
   async componentDidMount() {
-    const { status } = await Permissions.askAsync(Permissions.CAMERA);
-    const { audio_status } = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
-    this.setState({ hasCameraPermission: status === 'granted' });
+    const cameraPermissionStatus = (await Permissions.askAsync(Permissions.CAMERA)).status
+    const audioPermissionStatus = (await Permissions.askAsync(Permissions.AUDIO_RECORDING)).status
+    this.setState({ hasCameraPermission: cameraPermissionStatus === 'granted' && audioPermissionStatus === 'granted' })
+    // ScreenOrientation.lockAsync(OrientationLock.LANDSCAPE)
   }
 
   start = async () => {
     if (this.camera) {
       if (!this.state.isRecording) {
-        this.setState({ isRecording: true });
-        let video = await this.camera.recordAsync();
+        this.setState({ isRecording: true })
+        let video = await this.camera.recordAsync()
         await processVideo(video)
+        this.setState({ isRecording: false })
         this.props.navigation.navigate('TNK_YOU')
       }
     }
   }
 
   next() {
-    if (this.state.index === INSTRUCTIONS.length - 1) {
+    if (this.state.instructionIndex === INSTRUCTIONS.length - 1) {
         if (this.state.isRecording) {
-          alert('stopping')
-          this.camera.stopRecording();
-          this.setState({ isRecording: false })
+          this.camera.stopRecording()
         }
     } else {
-      this.setState({ index: this.state.index + 1 })
+      this.setState({ instructionIndex: this.state.instructionIndex + 1 })
     }
   }
 
   render() {
-    const { hasCameraPermission } = this.state;
+    const { hasCameraPermission } = this.state
     if (hasCameraPermission === null) {
-      return <View />;
+      return <View />
     } else if (hasCameraPermission === false) {
-      return <Text>No access to camera</Text>;
+      return <View style={styles.error.container}>
+        <Text style={styles.error.text}>{HEB.NEEDS_CAMERA_ACCESS}</Text>
+      </View>
     } else {
-      const instruction = INSTRUCTIONS[this.state.index]
+      const instruction = INSTRUCTIONS[this.state.instructionIndex]
 
       const overlayComponent = (() => {
         if (!this.state.isRecording) {
@@ -79,11 +82,11 @@ export default class App extends React.Component {
           {this.state.isRecording ? <View style={styles.instructionsContainer}>
             <Text style={styles.instruction}>{instruction.text}</Text>
           </View> : <View />}
-          <Camera style={styles.container} type={this.state.type} ref={ref => { this.camera = ref; }}>
+          <Camera style={styles.camera} type={this.state.type} ref={ref => { this.camera = ref }}>
           </Camera>
           {overlayComponent}
         </View>
-      );
+      )
     }
   }
 }
@@ -94,6 +97,23 @@ const styles = {
     width: '100%',
     backgroundColor: 'black',
     display: 'flex'
+  },
+  error: {
+    container: {
+      height: '100%',
+      width: '100%',
+      backgroundColor: 'whitesmoke',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+    text: {
+      fontWeight: 'bold',
+      fontSize: RFValue(20),
+      textAlign: 'center',
+      marginTop: 24,
+      color: '#881111'
+    }
   },
   camera: {
     height: '100%',
