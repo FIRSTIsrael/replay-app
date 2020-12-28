@@ -5,11 +5,10 @@ node_js:
 cache:
   directories:
     - ~/.npm
-    - .jest
 before_script:
   - npm install -g npm@latest
 script:
-  - npm ci
+  - yarn install --frozen-lockfile
 jobs:
   include:
     - stage: deploy
