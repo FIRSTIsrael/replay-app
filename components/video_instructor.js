@@ -2,12 +2,13 @@ import * as React from 'react'
 import { Text, View, StyleSheet, TouchableOpacity, Button } from 'react-native'
 import * as Permissions from 'expo-permissions'
 import { Camera } from 'expo-camera'
-import ScreenOrientation, { OrientationLock } from 'expo-screen-orientation'
+import * as ScreenOrientation from 'expo-screen-orientation'
 import { RFValue } from 'react-native-responsive-fontsize'
 import Timer from './timer'
 
 import { INSTRUCTIONS, HEB } from '../config'
 import { processVideo } from '../logic/video_processing'
+import { playSound } from '../logic/sounds'
 
 export default class VideoInstructor extends React.Component {
   state = {
@@ -21,7 +22,7 @@ export default class VideoInstructor extends React.Component {
     const cameraPermissionStatus = (await Permissions.askAsync(Permissions.CAMERA)).status
     const audioPermissionStatus = (await Permissions.askAsync(Permissions.AUDIO_RECORDING)).status
     this.setState({ hasCameraPermission: cameraPermissionStatus === 'granted' && audioPermissionStatus === 'granted' })
-    // ScreenOrientation.lockAsync(OrientationLock.LANDSCAPE)
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE)
   }
 
   start = async () => {
@@ -65,9 +66,21 @@ export default class VideoInstructor extends React.Component {
         }
         if (instruction.end === 'timer') {
           return <Timer duration={instruction.time}
-                      onStart={() => { /* TODO sounds */ }}
-                      everySecond={time => { /* TODO sounds */ }}
-                      onFinished={() => { this.next()/* TODO sounds */ }} />
+                      everySecond={async time => {
+                        if (instruction.sounds && instruction.sounds[`${time}secs`]) {
+                          playSound(instruction.sounds[`${time}secs`])
+                        }
+                      }}
+                      onFinished={async () => {
+                        if (instruction.sounds && instruction.sounds.end) {
+                          playSound(instruction.sounds.end)
+                        }
+                        const nextInstruction = INSTRUCTIONS[this.state.instructionIndex + 1]
+                        if (nextInstruction && nextInstruction.sounds && nextInstruction.sounds.start) {
+                          playSound(nextInstruction.sounds.start)
+                        }
+                        this.next()
+                      }} />
         }
         if (instruction.end === 'button') {
           return <View style={styles.button}>

@@ -22,7 +22,7 @@ export default class Timer extends Component {
   }
 
   start () {
-    this.timer = setInterval(() => this.tick(), 500)
+    this.timer = setInterval(() => this.tick(), 1000)
     if (this.props.onStart) {
       this.props.onStart()
     }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { View, Text, Button, Image, Dimensions } from 'react-native'
 import { RFValue } from 'react-native-responsive-fontsize'
 import { SvgFromXml } from 'react-native-svg'
+import * as ScreenOrientation from 'expo-screen-orientation'
 
 import logo from '../assets/images/logo.svg'
 
@@ -14,6 +15,7 @@ export default function BasicPage (props) {
       setOrientation(calcOrientation())
     })
   })
+  ScreenOrientation.unlockAsync()
 
   const messages = (props.messages || (props.message ? [props.message] : []))
     .map(message => ((message.text && message.style) ? message : { text: message, style: {} }))

@@ -7,6 +7,6 @@ import { HEB } from '../config'
 export default function ThankyouScreen({ navigation }) {
   return <BasicPage message={HEB.THANK_YOU} buttons={[
   	{ text: HEB.SHOOT_ANOTHER, onPress: () => navigation.navigate('PRE_INST') },
-  	{ text: HEB.EXIT, onPress: () => BackHandler.exitApp() }
+  	{ text: HEB.EXIT, color: 'black', onPress: () => BackHandler.exitApp() }
   	]} />
 }

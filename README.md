@@ -32,3 +32,4 @@ The team data is to be passed to the app using a QR code containing a JSON in th
 }
 '''
 
+You can find an example QR from the team Spikes 2212 in the docs folder.

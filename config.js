@@ -4,7 +4,13 @@ export const INSTRUCTIONS = [
   { text: 'עברו על המשימות אותן תרצו לבצע', end: 'button' },
   { text: 'עמדו בפינת המגרש ותהיו מוכנים להתחלת המקצה', end: 'button', buttonText: 'להתחיל את המקצה' },
   { text: 'אנחנו מתחילים בעוד', end: 'timer', time: 3 },
-  { text: 'המקצה רץ. צלמו באופן יציב.', end: 'timer', time: 15 },
+  { text: 'המקצה רץ. צלמו באופן יציב.', end: 'timer', time: 150,
+  	sounds: {
+	  	start: 'start',
+	  	end :'end',
+	  	'30secs': 'end-game'
+	  }
+  },
   { text: 'אל תגעו במגרש! תעברו על המשימות וספרו לנו מה עשיתם.', end: 'button', buttonText: 'סיימנו' }
 ]
 
