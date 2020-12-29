@@ -4,9 +4,9 @@
     "slug": "replay-app",
     "version": "1.0.0",
     "orientation": "default",
-    "icon": "./assets/icon.jpg",
+    "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -20,14 +20,14 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "firstlegoleauge.israel.replay",
       "adaptiveIcon": {
-        "package": "firstlegoleauge.israel.replay",
-        "foregroundImage": "./assets/adaptive-icon.jpg",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#FFFFFF"
       }
     },
     "web": {
-      "favicon": "./assets/favicon.jpg"
+      "favicon": "./assets/icon.png"
     }
   }
 }
