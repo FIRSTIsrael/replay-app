@@ -6,7 +6,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "build": "expo build:android -t apk --non-interactive --no-wait && expo build:ios -t ipa --non-interactive --no-wait "
+    "build": "expo build:android -t apk --non-interactive --no-wait && expo build:ios -t archive --non-interactive --no-wait "
   },
   "dependencies": {
     "@react-native-community/masked-view": "0.1.10",
