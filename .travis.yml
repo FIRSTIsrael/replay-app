@@ -17,4 +17,4 @@ jobs:
       script:
         - yarn install --frozen-lockfile
         - npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-        - yarn build
+        - yarn build:android
