@@ -14,7 +14,8 @@ jobs:
   include:
     - stage: deploy
       node_js: lts/*
+      test: skip
       script:
         - yarn install --frozen-lockfile
         - npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-        - yarn build
+        - yarn build:ios
