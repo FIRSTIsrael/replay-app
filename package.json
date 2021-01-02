@@ -8,7 +8,7 @@
     "eject": "expo eject",
     "build:android": "expo build:android -t apk --non-interactive --no-wait",
     "build:ios": "expo build:ios -t archive --non-interactive --no-wait",
-    "build": "build:android &&  build:ios"
+    "build": "build:android && build:ios"
   },
   "dependencies": {
     "@react-native-community/masked-view": "0.1.10",

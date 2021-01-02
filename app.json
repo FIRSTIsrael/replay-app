@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "replay-app",
+    "name": "Replay remote match",
     "slug": "replay-app",
     "version": "1.0.0",
     "orientation": "default",
@@ -17,7 +17,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "firstlegoleauge.israel.replay"
     },
     "android": {
       "package": "firstlegoleauge.israel.replay",
