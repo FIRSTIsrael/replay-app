@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Replay remote match",
-    "slug": "replay-app",
+    "slug": "first-isreal-remote-match",
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./assets/icon.png",
@@ -18,10 +18,10 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "firstlegoleauge.israel.replay"
+      "bundleIdentifier": "firstlegoleauge.israel.remove-match"
     },
     "android": {
-      "package": "firstlegoleauge.israel.replay",
+      "package": "firstlegoleauge.israel.remove-match",
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#FFFFFF"
