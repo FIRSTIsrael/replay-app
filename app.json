@@ -18,10 +18,10 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "firstlegoleauge.israel.remove-match"
+      "bundleIdentifier": "firstlegoleauge.israel.remotematch"
     },
     "android": {
-      "package": "firstlegoleauge.israel.remove-match",
+      "package": "firstlegoleauge.israel.remotematch",
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#FFFFFF"

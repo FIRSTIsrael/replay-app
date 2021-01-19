@@ -4,11 +4,14 @@ import * as Permissions from 'expo-permissions'
 import { Camera } from 'expo-camera'
 import * as ScreenOrientation from 'expo-screen-orientation'
 import { RFValue } from 'react-native-responsive-fontsize'
+
 import Timer from './timer'
 
-import { INSTRUCTIONS, HEB } from '../config'
+import { INSTRUCTIONS } from '../config'
 import { processVideo } from '../logic/video_processing'
 import { playSound } from '../logic/sounds'
+import i18n from '../logic/i18n'
+
 
 export default class VideoInstructor extends React.Component {
   state = {
@@ -53,7 +56,7 @@ export default class VideoInstructor extends React.Component {
       return <View />
     } else if (hasCameraPermission === false) {
       return <View style={styles.error.container}>
-        <Text style={styles.error.text}>{HEB.NEEDS_CAMERA_ACCESS}</Text>
+        <Text style={styles.error.text}>{i18n.t('needs_camera_permissions')}</Text>
       </View>
     } else {
       const instruction = INSTRUCTIONS[this.state.instructionIndex]
@@ -61,7 +64,7 @@ export default class VideoInstructor extends React.Component {
       const overlayComponent = (() => {
         if (!this.state.isRecording) {
           return <View style={styles.startButton}>
-            <Button title={HEB.START} onPress={() => this.start()}></Button>
+            <Button title={i18n.t('start')} onPress={() => this.start()}></Button>
           </View>
         }
         if (instruction.end === 'timer') {
@@ -84,7 +87,7 @@ export default class VideoInstructor extends React.Component {
         }
         if (instruction.end === 'button') {
           return <View style={styles.button}>
-            <Button title={instruction.buttonText || HEB.NEXT} onPress={() => this.next()}></Button>
+            <Button title={instruction.buttonText || i18n.t('next')} onPress={() => this.next()}></Button>
           </View>
         }
         return <View />

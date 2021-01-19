@@ -14,28 +14,6 @@ export const INSTRUCTIONS = [
   { text: 'אל תגעו במגרש! תעברו על המשימות וספרו לנו מה עשיתם.', end: 'button', buttonText: 'סיימנו' }
 ]
 
-export const HEB = {
-	UPLOADING: 'מעלה את הסרטון שלכם עכשיו. זה יכול לקחת מעט זמן.',
-	LOADING: 'טוען...',
-
-	WELCOME: 'ברוכים הבאים לתחרות FLL Replay!',
-	LOGIN: 'כניסה',
-
-	QR: 'סרקו את קוד ה-QR שלכם',
-	
-	PRE_INST: 'שלום קבוצה',
-	START: 'בואו נתחיל',
-	NOT_US: 'זה לא אנחנו',
-	FLIP: 'בבקשה הפכו את המסך למצב מאוזן',
-
-	NEXT: 'לשלב הבא',
-	NEEDS_CAMERA_ACCESS: 'אנחנו צריכים גישה למצלמה. אנא שנו את הגישה בהגדרות האפליקציה.',
-
-	SHOOT_ANOTHER: 'לחצו כאן לצילום סרטון נוסף',
-	EXIT: 'לא, תודה. סיימנו לעכשיו',
-	THANK_YOU: 'תודה לכם על השתתפות בתחרות FLL Replay!'
-}
-
 export const TEAM_JSON = {
 	REQUIRED_FIELDS: ['team', 'upload-url']
 }

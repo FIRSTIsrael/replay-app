@@ -3,7 +3,8 @@ import { View, Text, Dimensions, AsyncStorage } from 'react-native'
 import { BarCodeScanner } from 'expo-barcode-scanner'
 import { RFValue } from 'react-native-responsive-fontsize'
 
-import { HEB, TEAM_JSON } from '../config'
+import { TEAM_JSON } from '../config'
+import i18n from '../logic/i18n'
 
 export default class QrAuthentication extends Component {
 
@@ -64,7 +65,7 @@ export default class QrAuthentication extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.instructionsContainer}>
-          <Text style={styles.instruction}>{HEB.QR}</Text>
+          <Text style={styles.instruction}>{i18n.t('qr')}</Text>
         </View>
         <BarCodeScanner
           onBarCodeScanned={this.state.scanned ? undefined : (qr) => this.handleBarCodeRead(qr)}

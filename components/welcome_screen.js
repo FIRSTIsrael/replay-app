@@ -1,7 +1,7 @@
 import React from 'react'
 import { AsyncStorage } from 'react-native'
 
-import { HEB } from '../config'
+import i18n from '../logic/i18n'
 import BasicPage from './basic_page'
 
 export default function WelcomeScreen({ navigation }) {
@@ -12,5 +12,5 @@ export default function WelcomeScreen({ navigation }) {
     }
   }) ()
 
-  return <BasicPage message={HEB.WELCOME} button={{ text: HEB.LOGIN, onPress: () => navigation.navigate('QR') }} />
+  return <BasicPage message={i18n.t('welcome')} button={{ text: i18n.t('login'), onPress: () => navigation.navigate('QR') }} />
 }

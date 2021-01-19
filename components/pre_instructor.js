@@ -3,7 +3,7 @@ import { Dimensions, AsyncStorage } from 'react-native'
 import { RFValue } from 'react-native-responsive-fontsize'
 
 import BasicPage from './basic_page'
-import { HEB } from '../config'
+import i18n from '../logic/i18n'
 
 export default class PreInstructor extends Component {
   constructor(props) {
@@ -31,14 +31,14 @@ export default class PreInstructor extends Component {
   render () {
     return <BasicPage
       messages={[
-        `${HEB.PRE_INST} ${this.state.teamNumber}`,
+        `${i18n.t('pre_inst')} ${this.state.teamNumber}`,
         { text: this.state.teamName, style: styles.teamname }
       ]}
       buttons={[
-        { text: HEB.START, disabled: this.state.orientation === 'PORTRAIT', onPress: () => this.props.navigation.navigate('INST') },
-        { text: HEB.NOT_US, color: 'black', onPress: () => this.props.navigation.navigate('QR') },
+        { text: i18n.t('start'), disabled: this.state.orientation === 'PORTRAIT', onPress: () => this.props.navigation.navigate('INST') },
+        { text: i18n.t('not_us'), color: 'black', onPress: () => this.props.navigation.navigate('QR') },
       ]}
-      notices={this.state.orientation === 'PORTRAIT' ? [HEB.FLIP] : []}
+      notices={this.state.orientation === 'PORTRAIT' ? [i18n.t('flip')] : []}
       />
   }
 }
