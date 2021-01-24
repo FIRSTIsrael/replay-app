@@ -30,6 +30,7 @@ export default function BasicPage (props) {
     return (<View style={pageStyle}>
       {messages.map(({ text, style }, index) => <Text key={index} style={Object.assign({}, styles.message, style)}>{text}</Text>)}
       <SvgFromXml xml={logo} width='50%' height='40%' fill='#000'/>
+      {props.children}
       {buttons.map(({ text, style, onPress, disabled, color }, index) => <View key={index} style={Object.assign({}, styles.button, style || {})}>
         <Button title={text} onPress={onPress} disabled={disabled || false} color={color}></Button>
       </View>)}
@@ -41,6 +42,7 @@ export default function BasicPage (props) {
     return (<View style={pageStyle}>
       <SvgFromXml xml={logo} width='50%' height='40%' fill='#000'/>
       <View style={styles.subpage}>
+        {props.children}
         {messages.map(({ text, style }, index) => <Text key={index} style={Object.assign({}, styles.message, style)}>{text}</Text>)}
         {buttons.map(({ text, style, onPress, disabled, color }, index) => <View key={index} style={Object.assign({}, styles.button, style || {})}>
           <Button title={text} onPress={onPress} disabled={disabled || false} color={color}></Button>

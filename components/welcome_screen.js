@@ -2,6 +2,7 @@ import React from 'react'
 import { AsyncStorage } from 'react-native'
 
 import i18n from '../logic/i18n'
+import { login } from '../logic/auth'
 import BasicPage from './basic_page'
 
 export default function WelcomeScreen({ navigation }) {
@@ -12,5 +13,9 @@ export default function WelcomeScreen({ navigation }) {
     }
   }) ()
 
-  return <BasicPage message={i18n.t('welcome')} button={{ text: i18n.t('login'), onPress: () => navigation.navigate('QR') }} />
+  return <BasicPage message={i18n.t('welcome')} button={{ text: i18n.t('login'), onPress: async () => {
+  	await login()
+  	props.navigation.navigate('PRE_INST')
+  } }}>
+  </BasicPage>
 }

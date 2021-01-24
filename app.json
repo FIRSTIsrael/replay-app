@@ -1,7 +1,9 @@
 {
   "expo": {
     "name": "Replay remote match",
-    "slug": "first-isreal-remote-match",
+    "owner": "firstisrael",
+    "scheme": "remote-matches",
+    "slug": "remote-matches",
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./assets/icon.png",
@@ -18,10 +20,10 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "firstlegoleauge.israel.remotematch"
+      "bundleIdentifier": "first.israel.remotematch"
     },
     "android": {
-      "package": "firstlegoleauge.israel.remotematch",
+      "package": "first.israel.remotematch",
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#FFFFFF"
