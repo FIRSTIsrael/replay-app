@@ -7,7 +7,8 @@ import { createStackNavigator } from '@react-navigation/stack'
 import * as Linking from 'expo-linking'
 
 import WelcomeScreen from './components/welcome_screen'
-import PreInstructor from './components/pre_instructor'
+import Teams from './components/teams'
+import PreInstructor from './components/pre_inst'
 import VideroInstructor from './components/video_instructor'
 import ThankyouScreen from './components/thankyou_screen'
 
@@ -22,6 +23,7 @@ export default function App() {
   return (<NavigationContainer linking={linking}>
     <Stack.Navigator initialRouteName='HOME' headerMode={false}>
       <Stack.Screen name='HOME' component={WelcomeScreen} />
+      <Stack.Screen name='TEAMS' component={Teams} />
       <Stack.Screen name='PRE_INST' component={PreInstructor} />
       <Stack.Screen name='INST' component={VideroInstructor} />
       <Stack.Screen name='TNK_YOU' component={ThankyouScreen} />

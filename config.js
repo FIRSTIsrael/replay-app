@@ -18,7 +18,9 @@ const config = {
   auth: {
     issuer: 'https://login.firstisrael.org.il/connect/auth',
     clientId: 'remotematches_prod'
-  }
+  },
+
+  dashboardUrl: 'https://api.firstisrael.org.il/_private/auth/teams?active=true'
 }
 
 export default config
