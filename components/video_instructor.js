@@ -7,7 +7,7 @@ import { RFValue } from 'react-native-responsive-fontsize'
 
 import Timer from './timer'
 
-import { INSTRUCTIONS } from '../config'
+import config from '../config'
 import { processVideo } from '../logic/video_processing'
 import { playSound } from '../logic/sounds'
 import i18n from '../logic/i18n'
@@ -18,13 +18,17 @@ export default class VideoInstructor extends React.Component {
     hasCameraPermission: null,
     type: Camera.Constants.Type.back,
     isRecording: false,
-    instructionIndex: 0
+    instructionIndex: 0,
+    instructions: []
   }
 
   async componentDidMount() {
     const cameraPermissionStatus = (await Permissions.askAsync(Permissions.CAMERA)).status
     const audioPermissionStatus = (await Permissions.askAsync(Permissions.AUDIO_RECORDING)).status
-    this.setState({ hasCameraPermission: cameraPermissionStatus === 'granted' && audioPermissionStatus === 'granted' })
+    this.setState({
+      hasCameraPermission: cameraPermissionStatus === 'granted' && audioPermissionStatus === 'granted',
+      instructions: config.INSTRUCTIONS[this.props.route.params.team.program]
+    })
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE)
   }
 
@@ -41,7 +45,7 @@ export default class VideoInstructor extends React.Component {
   }
 
   next() {
-    if (this.state.instructionIndex === INSTRUCTIONS.length - 1) {
+    if (this.state.instructionIndex === this.state.instructions.length - 1) {
         if (this.state.isRecording) {
           this.camera.stopRecording()
         }
@@ -59,7 +63,7 @@ export default class VideoInstructor extends React.Component {
         <Text style={styles.error.text}>{i18n.t('needs_camera_permissions')}</Text>
       </View>
     } else {
-      const instruction = INSTRUCTIONS[this.state.instructionIndex]
+      const instruction = this.state.instructions[this.state.instructionIndex]
 
       const overlayComponent = (() => {
         if (!this.state.isRecording) {
@@ -78,7 +82,7 @@ export default class VideoInstructor extends React.Component {
                         if (instruction.sounds && instruction.sounds.end) {
                           playSound(instruction.sounds.end)
                         }
-                        const nextInstruction = INSTRUCTIONS[this.state.instructionIndex + 1]
+                        const nextInstruction = this.state.instructions[this.state.instructionIndex + 1]
                         if (nextInstruction && nextInstruction.sounds && nextInstruction.sounds.start) {
                           playSound(nextInstruction.sounds.start)
                         }

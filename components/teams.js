@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Dimensions, AsyncStorage, View, Text } from 'react-native'
+import { Dimensions, View, Text, TouchableOpacity, Button } from 'react-native'
 import { RFValue } from 'react-native-responsive-fontsize'
 
 import BasicPage from './basic_page'
@@ -10,7 +10,7 @@ export default class Teams extends Component {
   constructor(props) {
     super(props)  
 
-    this.state = { teams: null }
+    this.state = { teams: null, selection: null }
   }
 
   componentDidMount () {
@@ -19,8 +19,15 @@ export default class Teams extends Component {
     })
   }
 
+  next () {
+    const team = this.state.teams.find(t => t.number === this.state.selection)
+    this.props.navigation.navigate('PRE_INST', { team, authId: this.props.route.params.authId })
+  }
+
   renderTeam (team) {
-    return <View><Text>{team.number}</Text></View>
+    return <TouchableOpacity key={team.number} onPress={() => this.setState({ selection: team.number })}>
+      <View style={(this.state.selection === team.number) ? styles.selectedTeam : styles.team}><Text>{team.number}</Text></View>
+    </TouchableOpacity>
   }
 
   render () {
@@ -29,12 +36,19 @@ export default class Teams extends Component {
     }
     return <View>
      {this.state.teams.map(team => this.renderTeam(team))}
+     <Button onPress={() => this.next()} title="Next" />
     </View>
   }
 }
 
 const styles = {
-  teamname: {
+  team: {
+    height: 50,
     fontSize: RFValue(36),
+  }, 
+  selectedTeam: {
+    height: 50,
+    fontSize: RFValue(36),
+    backgroundColor: 'blue'
   }
 }
