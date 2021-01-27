@@ -68,7 +68,7 @@ export default class VideoInstructor extends React.Component {
       const overlayComponent = (() => {
         if (!this.state.isRecording) {
           return <View style={styles.startButton}>
-            <Button title={i18n.t('start')} onPress={() => this.start()}></Button>
+            <Button title={i18n.t('start')} onPress={() => this.start()} color="#0b487c"></Button>
           </View>
         }
         if (instruction.end === 'timer') {
@@ -91,7 +91,7 @@ export default class VideoInstructor extends React.Component {
         }
         if (instruction.end === 'button') {
           return <View style={styles.button}>
-            <Button title={instruction.buttonText || i18n.t('next')} onPress={() => this.next()}></Button>
+            <Button title={instruction.buttonText || i18n.t('next')} onPress={() => this.next()} color="#0b487c"></Button>
           </View>
         }
         return <View />
