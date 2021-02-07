@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { Dimensions, View, Text, TouchableOpacity, ScrollView, Button } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView, Button } from 'react-native'
 import { RFValue } from 'react-native-responsive-fontsize'
 import { Surface, Avatar } from 'react-native-paper'
 
 import BasicPage from './basic_page'
 import i18n from '../logic/i18n'
-import Dashboard from '../logic/dashboard'
+import Backend from '../logic/backend'
 
 import FLL from '../assets/images/fll.png'
 import FTC from '../assets/images/ftc.png'
@@ -18,34 +18,40 @@ const IMAGES = {
 export default class Teams extends Component {
   constructor(props) {
     super(props)
-
     this.state = { teams: null, selection: null }
   }
 
   componentDidMount() {
-    Dashboard.loadTeams(this.props.route.params.authId).then(teams => {
+    Backend.fetchTeams(this.props.route.params.authToken).then(teams => {
       this.setState({ teams })
     })
   }
 
   next() {
-    const team = this.state.teams.find(t => t.number === this.state.selection)
-    this.props.navigation.navigate('PRE_INST', { team, authId: this.props.route.params.authId })
+    const item = this.state.teams.find(t => t.id === this.state.selection)
+    this.props.navigation.navigate('PRE_INST', {
+      item,
+      authToken: this.props.route.params.authToken
+    })
   }
 
-  renderTeam(team) {
+  renderTeam(item) {
     const style = Object.assign({}, styles.team)
-    if (this.state.selection === team.number) {
+    if (this.state.selection === item.id) {
       Object.assign(style, styles.selectedTeam)
     }
     return (
-      <TouchableOpacity key={team.number} onPress={() => this.setState({ selection: team.number })}>
+      <TouchableOpacity key={item.id} onPress={() => this.setState({ selection: item.id })}>
         <Surface style={style}>
-          <Avatar.Image style={styles.avatar} size={RFValue(50)} source={IMAGES[team.program]} />
+          <Avatar.Image
+            style={styles.avatar}
+            size={RFValue(50)}
+            source={IMAGES[item.team.program]}
+          />
           <View>
-            <Text style={styles.teamNumber}>{team.number}</Text>
+            <Text style={styles.teamNumber}>{item.team.number}</Text>
             <Text style={styles.meta}>
-              {team.affiliation}, {team.city}
+              {item.team.affiliation}, {item.team.city}
             </Text>
           </View>
         </Surface>

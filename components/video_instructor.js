@@ -27,7 +27,7 @@ export default class VideoInstructor extends React.Component {
     this.setState({
       hasCameraPermission:
         cameraPermissionStatus === 'granted' && audioPermissionStatus === 'granted',
-      instructions: config.INSTRUCTIONS[this.props.route.params.team.program]
+      instructions: config.INSTRUCTIONS[this.props.route.params.item.team.program]
     })
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE)
   }

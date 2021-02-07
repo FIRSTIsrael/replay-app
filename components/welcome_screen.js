@@ -19,8 +19,8 @@ export default function WelcomeScreen({ navigation }) {
       button={{
         text: i18n.t('login'),
         onPress: async () => {
-          const authId = await login()
-          navigation.navigate('TEAMS', { authId })
+          const authToken = await login()
+          navigation.navigate('TEAMS', { authToken })
         }
       }}
     ></BasicPage>

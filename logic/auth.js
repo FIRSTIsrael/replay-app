@@ -5,7 +5,7 @@ import Constants from 'expo-constants'
 import config from '../config'
 
 export const login = async () => {
-  const authUrl = `${config.auth.issuer}?redirect_uri=${encodeURIComponent(
+  const authUrl = `${config.auth.issuer}/auth?redirect_uri=${encodeURIComponent(
     AuthSession.getRedirectUrl()
   )}&client_id=${
     config.auth.clientId

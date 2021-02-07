@@ -16,8 +16,7 @@ export default class PreInstructor extends Component {
     Dimensions.addEventListener('change', () =>
       this.setState({ orientation: this.getOrientation() })
     )
-
-    this.setState({ teamNumber: this.props.route.params.team.number })
+    this.setState({ teamNumber: this.props.route.params.item.team.number })
   }
 
   getOrientation() {
@@ -37,7 +36,7 @@ export default class PreInstructor extends Component {
             text: i18n.t('start'),
             disabled: this.state.orientation === 'PORTRAIT',
             onPress: () =>
-              this.props.navigation.navigate('INST', { team: this.props.route.params.team })
+              this.props.navigation.navigate('INST', { item: this.props.route.params.item })
           },
           {
             text: i18n.t('not_us'),
