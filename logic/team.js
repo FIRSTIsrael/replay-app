@@ -1,5 +1,5 @@
 export default class Team {
-	constructor(attr) {
-		Object.assign(this, attr)
-	}
+  constructor(attr) {
+    Object.assign(this, attr)
+  }
 }

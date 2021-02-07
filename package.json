@@ -8,7 +8,8 @@
     "eject": "expo eject",
     "build:android": "expo build:android -t apk --non-interactive --no-wait",
     "build:ios": "expo build:ios -t archive --non-interactive --no-wait",
-    "build": "build:android && build:ios"
+    "build": "build:android && build:ios",
+    "prettier": "prettier --write ."
   },
   "dependencies": {
     "@react-native-community/masked-view": "0.1.10",
@@ -44,7 +45,9 @@
     "shortid": "^2.2.16"
   },
   "devDependencies": {
-    "@babel/core": "~7.9.0"
+    "@babel/core": "~7.9.0",
+    "@firstisrael/prettier-config": "^1.0.2",
+    "prettier": "^2.2.1"
   },
   "private": true
 }

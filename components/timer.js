@@ -3,8 +3,7 @@ import { View, Text } from 'react-native'
 import { RFValue } from 'react-native-responsive-fontsize'
 
 export default class Timer extends Component {
-
-  state = {  }
+  state = {}
 
   componentDidMount() {
     this.start()
@@ -21,38 +20,43 @@ export default class Timer extends Component {
     return null
   }
 
-  start () {
+  start() {
     this.timer = setInterval(() => this.tick(), 1000)
     if (this.props.onStart) {
       this.props.onStart()
     }
   }
 
-  tick () {
-    if (this.props.duration <= ((Date.now() - this.state.startTime) / 1000)) {
+  tick() {
+    if (this.props.duration <= (Date.now() - this.state.startTime) / 1000) {
       if (this.props.onFinished) {
         this.props.onFinished()
       }
     } else {
-      this.setState({ time: Math.ceil(this.props.duration - ((Date.now() - this.state.startTime) / 1000)) }, () => {
-        if(this.props.everySecond) {
-          this.props.everySecond(this.state.time)
+      this.setState(
+        { time: Math.ceil(this.props.duration - (Date.now() - this.state.startTime) / 1000) },
+        () => {
+          if (this.props.everySecond) {
+            this.props.everySecond(this.state.time)
+          }
         }
-      })
+      )
     }
   }
 
-  formatTime (time) {
-  	const twoDigits = num => (num <= 9 ? `0${num}` : num)
-  	const minutes = twoDigits(Math.floor(time / 60))
-  	const seconds = twoDigits(time % 60)
-  	return `${minutes}:${seconds}`
+  formatTime(time) {
+    const pad = num => (num <= 9 ? `0${num}` : num)
+    const minutes = pad(Math.floor(time / 60))
+    const seconds = pad(time % 60)
+    return `${minutes}:${seconds}`
   }
 
-  render () {
-    return <View style={styles.container}>
-      <Text style={styles.text}>{this.formatTime(this.state.time)}</Text>
-    </View>
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.text}>{this.formatTime(this.state.time)}</Text>
+      </View>
+    )
   }
 }
 

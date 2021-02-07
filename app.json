@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Replay remote match",
+    "name": "Remote Matches App",
     "owner": "firstisrael",
     "scheme": "remote-matches",
     "slug": "remote-matches",
@@ -15,9 +15,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "first.israel.remotematch"
