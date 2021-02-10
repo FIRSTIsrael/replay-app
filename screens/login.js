@@ -1,11 +1,11 @@
 import React from 'react'
 import { View } from 'react-native'
+import { Button, Text } from 'react-native-paper'
+import { RFValue } from 'react-native-responsive-fontsize'
 
 import i18n from '../lib/i18n'
 import { login } from '../lib/auth'
 import BasicPage from '../components/page-template'
-import { Button, Headline, Text } from 'react-native-paper'
-import { RFValue } from 'react-native-responsive-fontsize'
 
 export default function LoginScreen({ navigation }) {
   const handleLogin = () => {
@@ -27,7 +27,7 @@ export default function LoginScreen({ navigation }) {
           height: '100%'
         }}
       >
-        <Headline style={styles.headline}>{i18n.t('welcome')}</Headline>
+        <Text style={styles.headline}>{i18n.t('welcome')}</Text>
         <Text
           style={{
             fontSize: RFValue(16),
