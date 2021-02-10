@@ -32,7 +32,14 @@ const config = {
     clientId: 'remotematches_prod',
     redirectUri: 'https://api.firstisrael.org.il/_private/auth/remote/auth'
   },
-  apiBaseUrl: 'https://api.firstisrael.org.il/_private/auth/remote'
+  apiBaseUrl: 'https://api.firstisrael.org.il/_private/auth/remote',
+  programColors: {
+    'FIRST LEGO League Discover': '#662D91',
+    'FIRST LEGO League Explore': '#00A651',
+    'FIRST LEGO League Challenge': '#ED1C24',
+    'FIRST Tech Challenge': '#F57E25',
+    'FIRST Robotics Competition': '#009CD7'
+  }
 }
 
 export default config

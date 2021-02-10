@@ -4,12 +4,16 @@ import { Text } from 'react-native-paper'
 export default {
   uploading: 'מעלה את הסרטון שלכם עכשיו. זה יכול לקחת מעט זמן.',
   loading: 'טוען...',
-  welcome: (
-    <>
-      ברוכים הבאים לאפליקציית <Text style={{ fontFamily: 'Roboto_900Black' }}>Remote Matches</Text>{' '}
-      של <Text style={{ fontFamily: 'Roboto_900Black_Italic' }}>FIRST</Text> ישראל!
-    </>
-  ),
+  welcome: {
+    headline: (
+      <>
+        ברוכים הבאים לאפליקציית{' '}
+        <Text style={{ fontFamily: 'Roboto_900Black' }}>Remote Matches</Text> של{' '}
+        <Text style={{ fontFamily: 'Roboto_900Black_Italic' }}>FIRST</Text> ישראל!
+      </>
+    ),
+    intro: 'אנחנו כבר לא יכולים לחכות לראות את הדברים עליהם עבדתם בעונה זו!'
+  },
   login: 'התחברות',
   hello_user: 'שלום, %{name}!',
   pre_instructor: {
@@ -35,6 +39,6 @@ export default {
   datetime_formats: {
     short: 'D בMMM בשעה HH:mm',
     long: 'יום dd׳, D בMMMM, בשעה HH:mm עד %{endTime}',
-    '2dates': '%{date1} עד ה־%{date2}'
+    datespan: '%{date1} עד ה־%{date2}'
   }
 }

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, Dimensions, Image, SafeAreaView } from 'react-native'
+import { View, Text, Dimensions, SafeAreaView } from 'react-native'
 import { RFValue } from 'react-native-responsive-fontsize'
 import * as ScreenOrientation from 'expo-screen-orientation'
 import { Button } from 'react-native-paper'
+
 import Header from './header'
 
-export default function PageTemplates(props) {
+export default function PageTemplate(props) {
   const calcOrientation = () =>
     Dimensions.get('window').width < Dimensions.get('window').height ? 'PORTRAIT' : 'LANDSCAPE'
 

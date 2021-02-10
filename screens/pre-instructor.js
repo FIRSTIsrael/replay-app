@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Dimensions, Image, View } from 'react-native'
+import { Dimensions, View } from 'react-native'
 import * as ScreenOrientation from 'expo-screen-orientation'
 import { RFValue } from 'react-native-responsive-fontsize'
 import { Button, Text } from 'react-native-paper'
 
-import BasicPage from '../components/page-template'
+import PageTemplate from '../components/page-template'
 import i18n from '../lib/i18n'
-import RotateIcon from '../assets/images/rotate.png'
+import RotateDevice from '../components/rotate-device'
 
 export default function PreInstructorScreen({ navigation, route }) {
   const [isLandscape, setLandscape] = useState(true)
@@ -34,22 +34,14 @@ export default function PreInstructorScreen({ navigation, route }) {
 
   if (!isLandscape) {
     return (
-      <BasicPage>
-        <View style={{ flex: 1, justifyContent: 'center', padding: 32, width: '100%' }}>
-          <Image style={styles.rotateIcon} source={RotateIcon} />
-          <Text style={styles.rotateTitle}>{i18n.t('rotate_phone.title')}</Text>
-          <Text style={styles.rotateHelper}>
-            {i18n.t(
-              Platform.OS === 'ios' ? 'rotate_phone.helper_ios' : 'rotate_phone.helper_android'
-            )}
-          </Text>
-        </View>
-      </BasicPage>
+      <PageTemplate>
+        <RotateDevice />
+      </PageTemplate>
     )
   }
 
   return (
-    <BasicPage hideHeader>
+    <PageTemplate hideHeader>
       <View style={styles.container}>
         <Text style={styles.title}>
           {i18n.t('pre_instructor.welcome_team', { number: team.number })}
@@ -74,7 +66,7 @@ export default function PreInstructorScreen({ navigation, route }) {
           </Button>
         </View>
       </View>
-    </BasicPage>
+    </PageTemplate>
   )
 }
 
@@ -96,22 +88,5 @@ const styles = {
   },
   exitButton: {
     marginTop: 4
-  },
-  rotateIcon: {
-    width: '100%',
-    height: 250,
-    resizeMode: 'contain'
-  },
-  rotateTitle: {
-    marginTop: RFValue(12),
-    fontSize: RFValue(16),
-    fontFamily: 'Heebo_500Medium',
-    textAlign: 'center'
-  },
-  rotateHelper: {
-    color: '#666',
-    marginTop: RFValue(2),
-    fontSize: RFValue(14),
-    textAlign: 'center'
   }
 }
