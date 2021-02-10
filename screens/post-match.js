@@ -1,10 +1,10 @@
 import React from 'react'
 import { BackHandler } from 'react-native'
 
-import BasicPage from './basic_page'
-import i18n from '../logic/i18n'
+import BasicPage from '../components/page-template'
+import i18n from '../lib/i18n'
 
-export default function ThankyouScreen({ navigation }) {
+export default function PostMatchScreen({ navigation }) {
   return (
     <BasicPage
       message={i18n.t('thank_you')}

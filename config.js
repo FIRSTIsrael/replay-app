@@ -29,7 +29,8 @@ const config = {
   },
   auth: {
     issuer: 'https://login.firstisrael.org.il/connect',
-    clientId: 'remotematches_prod'
+    clientId: 'remotematches_prod',
+    redirectUri: 'https://api.firstisrael.org.il/_private/auth/remote/auth'
   },
   apiBaseUrl: 'https://api.firstisrael.org.il/_private/auth/remote'
 }

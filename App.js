@@ -4,31 +4,83 @@ import 'react-native-gesture-handler'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import * as Linking from 'expo-linking'
-import { Provider as PaperProvider } from 'react-native-paper'
+import { configureFonts, DefaultTheme, Provider as PaperProvider } from 'react-native-paper'
+import {
+  useFonts,
+  Heebo_300Light,
+  Heebo_400Regular,
+  Heebo_500Medium,
+  Heebo_700Bold,
+  Heebo_900Black
+} from '@expo-google-fonts/heebo'
+import { Roboto_900Black, Roboto_900Black_Italic } from '@expo-google-fonts/roboto'
 
-import WelcomeScreen from './components/welcome_screen'
-import Teams from './components/teams'
-import PreInstructor from './components/pre_inst'
-import VideroInstructor from './components/video_instructor'
-import ThankyouScreen from './components/thankyou_screen'
+import LoginScreen from './screens/login'
+import HomeScreen from './screens/home'
+import PreInstructorScreen from './screens/pre-instructor'
+import VideoInstructorScreen from './screens/video-instructor'
+import PostMatchScreen from './screens/post-match'
+import { View } from 'react-native'
 
 const prefix = Linking.makeUrl('/')
-
 const Stack = createStackNavigator()
 
-export default function App() {
-  const linking = {
-    prefixes: [prefix]
+const fontConfig = {
+  default: {
+    regular: {
+      fontFamily: 'Heebo_400Regular',
+      fontWeight: 'normal'
+    },
+    medium: {
+      fontFamily: 'Heebo_500Medium',
+      fontWeight: 'normal'
+    },
+    light: {
+      fontFamily: 'Heebo_300Light',
+      fontWeight: 'normal'
+    },
+    thin: {
+      fontFamily: 'Heebo_100Thin',
+      fontWeight: 'normal'
+    }
   }
+}
+fontConfig.ios = fontConfig.default
+fontConfig.android = fontConfig.default
+
+const theme = {
+  ...DefaultTheme,
+  roundness: 6,
+  fonts: configureFonts(fontConfig),
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#0066B3'
+  }
+}
+
+export default function App() {
+  const [fontsLoaded] = useFonts({
+    Heebo_300Light,
+    Heebo_400Regular,
+    Heebo_500Medium,
+    Heebo_700Bold,
+    Heebo_900Black,
+    Roboto_900Black,
+    Roboto_900Black_Italic
+  })
+
+  if (!fontsLoaded) return <View />
+
+  const linking = { prefixes: [prefix] }
   return (
-    <PaperProvider>
+    <PaperProvider theme={theme}>
       <NavigationContainer linking={linking}>
-        <Stack.Navigator initialRouteName="HOME" headerMode={false}>
-          <Stack.Screen name="HOME" component={WelcomeScreen} />
-          <Stack.Screen name="TEAMS" component={Teams} />
-          <Stack.Screen name="PRE_INST" component={PreInstructor} />
-          <Stack.Screen name="INST" component={VideroInstructor} />
-          <Stack.Screen name="TNK_YOU" component={ThankyouScreen} />
+        <Stack.Navigator initialRouteName="LOGIN" headerMode={false}>
+          <Stack.Screen name="LOGIN" component={LoginScreen} />
+          <Stack.Screen name="HOME" component={HomeScreen} />
+          <Stack.Screen name="PRE_INST" component={PreInstructorScreen} />
+          <Stack.Screen name="INST" component={VideoInstructorScreen} />
+          <Stack.Screen name="TNK_YOU" component={PostMatchScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
