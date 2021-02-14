@@ -4,6 +4,7 @@ import { Button, Text } from 'react-native-paper'
 import { RFValue } from 'react-native-responsive-fontsize'
 
 import PageTemplate from '../ui/page-template'
+import FIRST from '../ui/FIRST'
 import i18n from '../../lib/i18n'
 import { login } from '../../lib/auth'
 
@@ -13,11 +14,17 @@ export default function LoginScreen({ navigation }) {
       if (authToken) navigation.replace('HOME', { authToken })
     })
   }
-
   return (
     <PageTemplate>
       <View style={styles.container}>
-        <Text style={styles.headline}>{i18n.t('welcome.headline')}</Text>
+        <Text
+          style={{
+            fontFamily: i18n.locale === 'en' ? 'Roboto_900Black' : 'Heebo_900Black',
+            ...styles.headline
+          }}
+        >
+          <FIRST italicFont="Roboto_900Black_Italic">{i18n.t('welcome.headline')}</FIRST>
+        </Text>
         <Text style={styles.intro}>{i18n.t('welcome.intro')}</Text>
         <Button
           mode="contained"
@@ -45,7 +52,7 @@ const styles = {
   },
   headline: {
     fontSize: RFValue(24),
-    fontFamily: 'Heebo_900Black',
+    lineHeight: RFValue(32),
     textAlign: 'center'
   },
   intro: {

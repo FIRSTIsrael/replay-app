@@ -1,16 +1,8 @@
-import React from 'react'
-import { Text } from 'react-native-paper'
-
 export default {
   uploading: 'מעלה את הסרטון שלכם עכשיו. זה יכול לקחת מעט זמן.',
   loading: 'Loading...',
   welcome: {
-    headline: (
-      <>
-        Welcome to <Text style={{ fontFamily: 'Roboto_900Black_Italic' }}>FIRST</Text> Israel Remote
-        Matches App!
-      </>
-    ),
+    headline: 'Welcome to FIRST Israel Remote Matches App!',
     intro: 'אנחנו כבר לא יכולים לחכות לראות את הדברים עליהם עבדתם בעונה זו!'
   },
   login: 'Login',

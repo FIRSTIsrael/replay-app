@@ -1,17 +1,8 @@
-import React from 'react'
-import { Text } from 'react-native-paper'
-
 export default {
   uploading: 'מעלה את הסרטון שלכם עכשיו. זה יכול לקחת מעט זמן.',
   loading: 'טוען...',
   welcome: {
-    headline: (
-      <>
-        ברוכים הבאים לאפליקציית{' '}
-        <Text style={{ fontFamily: 'Roboto_900Black' }}>Remote Matches</Text> של{' '}
-        <Text style={{ fontFamily: 'Roboto_900Black_Italic' }}>FIRST</Text> ישראל!
-      </>
-    ),
+    headline: 'ברוכים הבאים לאפליקציית Remote Matches של FIRST ישראל!',
     intro: 'אנחנו כבר לא יכולים לחכות לראות את הדברים עליהם עבדתם בעונה זו!'
   },
   login: 'התחברות',
