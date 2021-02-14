@@ -1048,6 +1048,16 @@
   dependencies:
     "@types/hammerjs" "^2.0.36"
 
+"@expo-google-fonts/heebo@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/heebo/-/heebo-0.1.0.tgz#ca35aa909dbf483118c718281dfbd0bb0d96e1e2"
+  integrity sha512-5ewt5PJsrmQvq7ffAJ61SY4o+/TfML4Dpr3wOTn8jfdKsJ9svyMDtVFlWJHgfZsXoUYosmtujkI06iUs3SmSaQ==
+
+"@expo-google-fonts/roboto@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/roboto/-/roboto-0.1.0.tgz#2897dc09db4ceb9f5ba337103090e1d70236e811"
+  integrity sha512-q+68xWZpLIS/iPC5jwoakEskyTVgIC1jfpNzWFMnUnBoZsWRq1rlpnleR3MjKDeN1Vt0NcvUI/aaZoCyIXhisw==
+
 "@expo/babel-preset-cli@0.2.18":
   version "0.2.18"
   resolved "https://registry.yarnpkg.com/@expo/babel-preset-cli/-/babel-preset-cli-0.2.18.tgz#136acf8a0efe259e29ebc614b68552e5acb47d86"
@@ -2577,18 +2587,6 @@ expo-asset@~8.2.1:
     path-browserify "^1.0.0"
     url-parse "^1.4.4"
 
-expo-auth-session@~3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/expo-auth-session/-/expo-auth-session-3.0.0.tgz#784471b9609cd81ef736c87ac65fe6783c32798d"
-  integrity sha512-7iSAMFQZnH6eTV3L0buRFpKaaBgqU1df23lw9uoVrgmmFbHImZioMpr0XEgAhOiY1+lVRYNvxb93fAH2iLoh+g==
-  dependencies:
-    expo-constants "^9.3.3"
-    expo-crypto "^8.4.0"
-    expo-linking "~2.0.0"
-    expo-web-browser "^8.6.0"
-    invariant "^2.2.4"
-    qs "6.9.1"
-
 expo-av@^8.7.0:
   version "8.7.0"
   resolved "https://registry.yarnpkg.com/expo-av/-/expo-av-8.7.0.tgz#01030256dc75cebd5d02060393ba0ad36c10a7f8"
@@ -2613,7 +2611,7 @@ expo-camera@~9.1.0:
     invariant "2.2.4"
     lodash "^4.6.0"
 
-expo-constants@^9.3.3, expo-constants@~9.3.3:
+expo-constants@~9.3.3:
   version "9.3.5"
   resolved "https://registry.yarnpkg.com/expo-constants/-/expo-constants-9.3.5.tgz#78085763e8ed100a5f2df7c682fd99631aa03d5e"
   integrity sha512-qIlv2ffSjQl3wrvJwXYoNfQNfH/sK46EXcgyEQnQ1SAQO4ukwTEpG9j3fdW6aTiVEVrv/DsA1IaVRqKrUwSd3A==
@@ -2621,11 +2619,6 @@ expo-constants@^9.3.3, expo-constants@~9.3.3:
     "@expo/config" "^3.3.18"
     fbjs "1.0.0"
     uuid "^3.3.2"
-
-expo-crypto@^8.4.0:
-  version "8.4.0"
-  resolved "https://registry.yarnpkg.com/expo-crypto/-/expo-crypto-8.4.0.tgz#59a5b0640bb39db93e6857feafa2c9514b172cef"
-  integrity sha512-EHEFx5sHTDVIuQH8/juuecQWj1uQ7ClM98fKXPFcNYcBlYSCQvkik37hwfJC5WLcVnelFDpvZJmHxiTfB5GKCg==
 
 expo-error-recovery@~1.4.0:
   version "1.4.0"
@@ -2717,7 +2710,7 @@ expo-status-bar@~1.0.3:
   resolved "https://registry.yarnpkg.com/expo-status-bar/-/expo-status-bar-1.0.3.tgz#62b4d6145680abd43ba6ecfa465f835e88bf6263"
   integrity sha512-/Orgla1nkIrfswNHbuAOTbPVq0g3+GrhoQVk7MRafY2dwrFLgXhaPExS+eN2hpmzqPv2LG5cqAZDCQUAjmZYBQ==
 
-expo-web-browser@^8.6.0:
+expo-web-browser@~8.6.0:
   version "8.6.0"
   resolved "https://registry.yarnpkg.com/expo-web-browser/-/expo-web-browser-8.6.0.tgz#121ad81b2597b8273739b630c278a6f6937b95ae"
   integrity sha512-VHFuBl0im00yEVbEzOZUrQVvq8uGhyU/4WivJkfLF4GA3Pj7CaG6PMo0+6YNzkzB1JoVx5AfuKgBbSuOuETP9Q==
@@ -3633,6 +3626,11 @@ jsonify@~0.0.0:
   resolved "https://registry.yarnpkg.com/jsonify/-/jsonify-0.0.0.tgz#2c74b6ee41d93ca51b7b5aaee8f503631d252a73"
   integrity sha1-LHS27kHZPKUbe1qu6PUDYx0lKnM=
 
+jwt-decode@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/jwt-decode/-/jwt-decode-3.1.2.tgz#3fb319f3675a2df0c2895c8f5e9fa4b67b04ed59"
+  integrity sha512-UfpWE/VZn0iP50d8cz9NrZLM9lSWhcJ+0Gt/nm4by88UL+J1SiKN8/5dkjMmbEzwL2CAe+67GsegCbIKtbp75A==
+
 kind-of@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-1.1.0.tgz#140a3d2d41a36d2efcfa9377b62c24f8495a5c44"
@@ -4260,6 +4258,18 @@ mkdirp@^0.5.1:
   dependencies:
     minimist "^1.2.5"
 
+moment-timezone@^0.5.33:
+  version "0.5.33"
+  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.33.tgz#b252fd6bb57f341c9b59a5ab61a8e51a73bbd22c"
+  integrity sha512-PTc2vcT8K9J5/9rDEPe5czSIKgLoGsH8UNpA4qZTVw0Vd/Uz19geE9abbIOQKaAQFcnQ3v5YEXrbSc5BpshH+w==
+  dependencies:
+    moment ">= 2.9.0"
+
+"moment@>= 2.9.0", moment@^2.29.1:
+  version "2.29.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
+  integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
+
 ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
@@ -4771,11 +4781,6 @@ pump@^3.0.0:
   dependencies:
     end-of-stream "^1.1.0"
     once "^1.3.1"
-
-qs@6.9.1:
-  version "6.9.1"
-  resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.1.tgz#20082c65cb78223635ab1a9eaca8875a29bf8ec9"
-  integrity sha512-Cxm7/SS/y/Z3MHWSxXb8lIFqgqBowP5JMlTUFyJN88y0SGQhVmZnqFK/PeuMX9LzUyWsqqhNxIyg0jlzq946yA==
 
 qs@^6.5.0:
   version "6.9.4"

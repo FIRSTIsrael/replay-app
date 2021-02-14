@@ -1,18 +1,17 @@
 import * as React from 'react'
-import { Text, View, StyleSheet, TouchableOpacity, Button } from 'react-native'
+import { Text, View, Button } from 'react-native'
 import * as Permissions from 'expo-permissions'
 import { Camera } from 'expo-camera'
 import * as ScreenOrientation from 'expo-screen-orientation'
 import { RFValue } from 'react-native-responsive-fontsize'
 
-import Timer from './timer'
+import config from '../../config'
+import Timer from '../ui/timer'
+import { processVideo } from '../../lib/video_processing'
+import { playSound } from '../../lib/sounds'
+import i18n from '../../lib/i18n'
 
-import config from '../config'
-import { processVideo } from '../logic/video_processing'
-import { playSound } from '../logic/sounds'
-import i18n from '../logic/i18n'
-
-export default class VideoInstructor extends React.Component {
+export default class VideoInstructorScreen extends React.Component {
   state = {
     hasCameraPermission: null,
     type: Camera.Constants.Type.back,

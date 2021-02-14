@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "Remote Matches App",
+    "name": "Remote Matches",
     "owner": "firstisrael",
-    "scheme": "remote-matches",
+    "scheme": "remotematchesapp",
     "slug": "remote-matches",
     "version": "1.0.0",
-    "orientation": "default",
+    "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/icon.png",
@@ -17,6 +17,7 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
+      "requireFullScreen": true,
       "supportsTablet": true,
       "bundleIdentifier": "first.israel.remotematch"
     },
