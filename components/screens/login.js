@@ -3,9 +3,9 @@ import { View } from 'react-native'
 import { Button, Text } from 'react-native-paper'
 import { RFValue } from 'react-native-responsive-fontsize'
 
-import i18n from '../lib/i18n'
-import { login } from '../lib/auth'
-import PageTemplate from '../components/page-template'
+import PageTemplate from '../ui/page-template'
+import i18n from '../../lib/i18n'
+import { login } from '../../lib/auth'
 
 export default function LoginScreen({ navigation }) {
   const handleLoginClick = () => {

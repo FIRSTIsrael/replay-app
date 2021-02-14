@@ -2,8 +2,8 @@ import React from 'react'
 import { Image, View } from 'react-native'
 import { Appbar } from 'react-native-paper'
 
-import FIRSTLogo from '../assets/images/FIRST-logo.png'
-import TechnionLogo from '../assets/images/technion-logo.png'
+import FIRSTLogo from '../../assets/images/FIRST-logo.png'
+import TechnionLogo from '../../assets/images/technion-logo.png'
 
 export default function Header() {
   return (

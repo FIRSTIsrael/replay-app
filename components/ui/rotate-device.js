@@ -3,8 +3,8 @@ import { Image, View } from 'react-native'
 import { Text } from 'react-native-paper'
 import { RFValue } from 'react-native-responsive-fontsize'
 
-import i18n from '../lib/i18n'
-import RotateIcon from '../assets/images/rotate.png'
+import i18n from '../../lib/i18n'
+import RotateIcon from '../../assets/images/rotate.png'
 
 export default function RotateDevice() {
   return (

@@ -1,8 +1,8 @@
 import React from 'react'
 import { BackHandler } from 'react-native'
 
-import PageTemplate from '../components/page-template'
-import i18n from '../lib/i18n'
+import PageTemplate from '../ui/page-template'
+import i18n from '../../lib/i18n'
 
 export default function PostMatchScreen({ navigation }) {
   return (

@@ -3,11 +3,11 @@ import { View, ScrollView, Dimensions } from 'react-native'
 import { Text, List, ActivityIndicator } from 'react-native-paper'
 import { RFValue } from 'react-native-responsive-fontsize'
 
-import PageTemplate from '../components/page-template'
-import i18n from '../lib/i18n'
-import Backend from '../lib/backend'
-import TeamItem from '../components/team-item'
-import { getUserGivenName } from '../lib/auth'
+import PageTemplate from '../ui/page-template'
+import TeamItem from '../ui/team-item'
+import i18n from '../../lib/i18n'
+import Backend from '../../lib/backend'
+import { getUserGivenName } from '../../lib/auth'
 
 export default function HomeScreen({ route, navigation }) {
   const { authToken } = route.params

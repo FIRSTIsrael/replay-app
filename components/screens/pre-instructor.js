@@ -4,9 +4,9 @@ import * as ScreenOrientation from 'expo-screen-orientation'
 import { RFValue } from 'react-native-responsive-fontsize'
 import { Button, Text } from 'react-native-paper'
 
-import PageTemplate from '../components/page-template'
-import i18n from '../lib/i18n'
-import RotateDevice from '../components/rotate-device'
+import PageTemplate from '../ui/page-template'
+import RotateDevice from '../ui/rotate-device'
+import i18n from '../../lib/i18n'
 
 export default function PreInstructorScreen({ navigation, route }) {
   const [isLandscape, setLandscape] = useState(true)

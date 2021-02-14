@@ -5,12 +5,11 @@ import { Camera } from 'expo-camera'
 import * as ScreenOrientation from 'expo-screen-orientation'
 import { RFValue } from 'react-native-responsive-fontsize'
 
-import Timer from '../components/timer'
-
-import config from '../config'
-import { processVideo } from '../lib/video_processing'
-import { playSound } from '../lib/sounds'
-import i18n from '../lib/i18n'
+import config from '../../config'
+import Timer from '../ui/timer'
+import { processVideo } from '../../lib/video_processing'
+import { playSound } from '../../lib/sounds'
+import i18n from '../../lib/i18n'
 
 export default class VideoInstructorScreen extends React.Component {
   state = {

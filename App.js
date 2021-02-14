@@ -1,6 +1,6 @@
 import React from 'react'
+import { View } from 'react-native'
 import 'react-native-gesture-handler'
-
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import * as Linking from 'expo-linking'
@@ -15,12 +15,11 @@ import {
 } from '@expo-google-fonts/heebo'
 import { Roboto_900Black, Roboto_900Black_Italic } from '@expo-google-fonts/roboto'
 
-import LoginScreen from './screens/login'
-import HomeScreen from './screens/home'
-import PreInstructorScreen from './screens/pre-instructor'
-import VideoInstructorScreen from './screens/video-instructor'
-import PostMatchScreen from './screens/post-match'
-import { View } from 'react-native'
+import LoginScreen from './components/screens/login'
+import HomeScreen from './components/screens/home'
+import PreInstructorScreen from './components/screens/pre-instructor'
+import VideoInstructorScreen from './components/screens/video-instructor'
+import PostMatchScreen from './components/screens/post-match'
 
 const prefix = Linking.makeUrl('/')
 const Stack = createStackNavigator()
