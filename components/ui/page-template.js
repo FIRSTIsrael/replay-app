@@ -7,16 +7,16 @@ import { Button } from 'react-native-paper'
 import Header from './header'
 
 export default function PageTemplate(props) {
-  const calcOrientation = () =>
-    Dimensions.get('window').width < Dimensions.get('window').height ? 'PORTRAIT' : 'LANDSCAPE'
+  // const calcOrientation = () =>
+  //   Dimensions.get('window').width < Dimensions.get('window').height ? 'PORTRAIT' : 'LANDSCAPE'
 
-  const [orientation, setOrientation] = useState(calcOrientation())
-  useEffect(() => {
-    Dimensions.addEventListener('change', () => {
-      setOrientation(calcOrientation())
-    })
-  })
-  ScreenOrientation.unlockAsync()
+  // const [orientation, setOrientation] = useState(calcOrientation())
+  // useEffect(() => {
+  //   Dimensions.addEventListener('change', () => {
+  //     setOrientation(calcOrientation())
+  //   })
+  // })
+  // // ScreenOrientation.unlockAsync()
 
   const messages = (props.messages || (props.message ? [props.message] : [])).map(message =>
     message.text && message.style ? message : { text: message, style: {} }

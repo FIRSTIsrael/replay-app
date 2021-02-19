@@ -29,7 +29,7 @@ export default function PreInstructorScreen({ navigation, route }) {
     }
   }, [checkLandscape])
 
-  const handleStart = () => navigation.navigate('INST', { item: route.params.item })
+  const handleStart = () => navigation.navigate('INST', route.params)
   const handleExit = () => navigation.pop()
 
   if (!isLandscape) {

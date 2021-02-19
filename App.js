@@ -13,7 +13,11 @@ import {
   Heebo_700Bold,
   Heebo_900Black
 } from '@expo-google-fonts/heebo'
-import { Roboto_900Black, Roboto_900Black_Italic } from '@expo-google-fonts/roboto'
+import {
+  Roboto_400Regular_Italic,
+  Roboto_900Black,
+  Roboto_900Black_Italic
+} from '@expo-google-fonts/roboto'
 
 import LoginScreen from './components/screens/login'
 import HomeScreen from './components/screens/home'
@@ -64,6 +68,7 @@ export default function App() {
     Heebo_500Medium,
     Heebo_700Bold,
     Heebo_900Black,
+    Roboto_400Regular_Italic,
     Roboto_900Black,
     Roboto_900Black_Italic
   })

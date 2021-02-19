@@ -14,7 +14,7 @@ export default function HomeScreen({ route, navigation }) {
   const [events, setEvents] = useState(null)
 
   useEffect(() => {
-    Backend.fetchTeams(route.params.authToken).then(teams => {
+    Backend.fetchTeams(authToken).then(teams => {
       const events = teams.reduce((obj, team) => {
         if (!obj[team.event.name]) obj[team.event.name] = []
         obj[team.event.name].push(team)

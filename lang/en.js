@@ -1,5 +1,4 @@
 export default {
-  uploading: 'מעלה את הסרטון שלכם עכשיו. זה יכול לקחת מעט זמן.',
   loading: 'Loading...',
   welcome: {
     headline: 'Welcome to FIRST Israel Remote Matches App!',
@@ -18,9 +17,25 @@ export default {
     helper_android: 'Make sure Auto-rotate is enabled in your device settings.',
     helper_ios: 'Make sure Portrait Orientation Lock is disabled in the Control Center.'
   },
+  permissions: {
+    permission_required: 'Permission Required',
+    settings: 'Settings',
+    cam_access_android:
+      'To record this match, allow FIRST access to your camera. Tap Settings > Permissions, and turn Camera on.',
+    cam_access_ios:
+      'To record this match, allow FIRST access to your camera. Tap Settings, and turn Camera on.',
+    mic_access_android:
+      'To record this match, allow FIRST access to your microphone. Tap Settings > Permissions, and turn Microphone on.',
+    mic_access_ios:
+      'To record this match, allow FIRST access to your microphone. Tap Settings, and turn Microphone on.'
+  },
+  processing: {
+    title: 'Just a moment',
+    text:
+      'Please wait while we process the video and upload it to the FIRST Servers. This may take a few minutes, do not close the app.'
+  },
   start: 'Start',
   next: 'Next',
-  needs_camera_permissions: 'אנחנו צריכים גישה למצלמה. אנא שנו את הגישה בהגדרות האפליקציה.',
 
   shoot_another: 'לחצו כאן לצילום סרטון נוסף',
   exit: 'לא, תודה. סיימנו לעכשיו',
