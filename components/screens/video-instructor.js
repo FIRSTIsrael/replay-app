@@ -8,11 +8,12 @@ import { RFValue } from 'react-native-responsive-fontsize'
 
 import config from '../../config'
 import Timer from '../ui/timer'
-import { processVideo } from '../../lib/video_processing'
+import { processVideo } from '../../lib/video-processing'
 import { playSound } from '../../lib/sounds'
 import i18n from '../../lib/i18n'
 import PermissionRequired from '../ui/permission-required'
 import UploadingIllustration from '../../assets/images/uploading-illustration.png'
+import FIRST from '../ui/FIRST'
 
 const VideoInstructorScreen = ({ navigation, route: { params } }) => {
   const [cameraPermission] = Permissions.usePermissions(Permissions.CAMERA, { ask: true })
@@ -36,7 +37,7 @@ const VideoInstructorScreen = ({ navigation, route: { params } }) => {
     if (cameraRef.current && !isRecording) {
       setRecording(true)
       const video = await cameraRef.current.recordAsync({
-        quality: Camera.Constants.VideoQuality['720p']
+        quality: Camera.Constants.VideoQuality['720p'] || Camera.Constants.VideoQuality['480p']
       })
       await processVideo(video, params.item.id, params.authToken)
       setProcessing(false)
@@ -83,7 +84,9 @@ const VideoInstructorScreen = ({ navigation, route: { params } }) => {
           <Image source={UploadingIllustration} style={styles.processing.illustration} />
           <View style={{ maxWidth: '45%' }}>
             <Text style={styles.processing.title}>{i18n.t('processing.title')}</Text>
-            <Text style={styles.processing.text}>{i18n.t('processing.text')} </Text>
+            <Text style={styles.processing.text}>
+              <FIRST>{i18n.t('processing.text')}</FIRST>
+            </Text>
           </View>
         </View>
       )}
