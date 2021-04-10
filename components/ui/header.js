@@ -7,7 +7,7 @@ import TechnionLogo from '../../assets/images/technion-logo.png'
 
 export default function Header() {
   return (
-    <Appbar.Header style={{ backgroundColor: '#0b487c' }}>
+    <Appbar.Header style={{ backgroundColor: '#003c66' }}>
       <View style={styles.header}>
         <Image style={styles.image} source={FIRSTLogo} />
         <Image style={styles.image} source={TechnionLogo} />

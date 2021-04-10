@@ -1,9 +1,8 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { Image, SafeAreaView, View } from 'react-native'
+import React, { useCallback, useEffect, useState, useRef } from 'react'
+import { Dimensions, Image, SafeAreaView, View } from 'react-native'
 import { Button, Text } from 'react-native-paper'
 import * as Permissions from 'expo-permissions'
 import { Camera } from 'expo-camera'
-import * as ScreenOrientation from 'expo-screen-orientation'
 import { RFValue } from 'react-native-responsive-fontsize'
 
 import config from '../../config'
@@ -14,15 +13,18 @@ import i18n from '../../lib/i18n'
 import PermissionRequired from '../ui/permission-required'
 import UploadingIllustration from '../../assets/images/uploading-illustration.png'
 import FIRST from '../ui/FIRST'
+import RotateDevice from '../ui/rotate-device'
+import useOrientation from '../../lib/use-orientation'
 
 const VideoInstructorScreen = ({ navigation, route: { params } }) => {
+  const isOrientated = useOrientation('LANDSCAPE')
   const [cameraPermission] = Permissions.usePermissions(Permissions.CAMERA, { ask: true })
   const [micPermission] = Permissions.usePermissions(Permissions.AUDIO_RECORDING, { ask: true })
   const cameraRef = useRef()
   const [instructionIndex, setInstructionIndex] = useState(0)
   const [isRecording, setRecording] = useState(false)
   const [isProcessing, setProcessing] = useState(false)
-  const instructions = config.INSTRUCTIONS[params.item.team.program]
+  const instructions = config.INSTRUCTIONS[params.teamAtEvent.team.program]
   const instruction = instructions[instructionIndex]
 
   useEffect(() => {
@@ -39,7 +41,7 @@ const VideoInstructorScreen = ({ navigation, route: { params } }) => {
       const video = await cameraRef.current.recordAsync({
         quality: Camera.Constants.VideoQuality['720p'] || Camera.Constants.VideoQuality['480p']
       })
-      await processVideo(video, params.item.id, params.authToken)
+      await processVideo(video, params.teamAtEvent.id, params.authToken)
       setProcessing(false)
       setRecording(false)
       navigation.navigate('TNK_YOU')
@@ -60,7 +62,9 @@ const VideoInstructorScreen = ({ navigation, route: { params } }) => {
     }
   }
 
-  if (!cameraPermission?.granted) {
+  if (!isOrientated) {
+    return <RotateDevice />
+  } else if (!cameraPermission?.granted) {
     return (
       <PermissionRequired
         androidText="permissions.cam_access_andorid"

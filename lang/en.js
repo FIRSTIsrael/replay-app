@@ -41,7 +41,9 @@ export default {
   exit: 'לא, תודה. סיימנו לעכשיו',
   thank_you: 'תודה לכם על השתתפות בתחרות FLL Replay!',
 
-  team_name: 'Team #%{number} - %{affiliation}',
+  team_name: 'Team #%{number}',
+  team_name_long: 'Team #%{number} - %{affiliation}',
+  deadline: 'Submission Deadline: %{date}',
   datetime_formats: {
     short: 'D בMMM בשעה HH:mm',
     long: 'יום dd׳, D בMMMM, בשעה HH:mm עד %{endTime}',

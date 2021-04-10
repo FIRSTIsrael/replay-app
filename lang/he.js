@@ -7,8 +7,10 @@ export default {
   login: 'התחברות',
   hello_user: 'שלום, %{name}!',
   pre_instructor: {
+    title: 'צילום %{match_name}',
     welcome_team: 'קבוצת #%{number}, ברוכים הבאים!',
-    description: 'אנו שמחים מאוד שהצטרפתם אלינו ל%{event}. טקסט הסבר רץ כאן.',
+    description:
+      'קבוצת #%{team}, אנו שמחים מאוד שהצטרפתם אלינו ל%{event}, כעת נצלם את ה%{match}. מקמו את הטלפון כך שיהיה בזיוות המתאימה לצילום הזירה ועקבו אחר הנחיות הצילום המלאות המופיעות במפת המשאבים באתר FIRST. התכוננו לתחילת המקצה.',
     start: 'אנחנו מוכנים',
     exit: 'לא כרגע, יציאה'
   },
@@ -41,7 +43,9 @@ export default {
   exit: 'לא, תודה. סיימנו לעכשיו',
   thank_you: 'תודה לכם על השתתפות בתחרות FLL Replay!',
 
-  team_name: 'קבוצת #%{number} - %{affiliation}',
+  team_name: 'קבוצת #%{number}',
+  team_name_long: 'קבוצת #%{number} - %{affiliation}',
+  deadline: 'מועד אחרון להגשה: %{date}',
   datetime_formats: {
     short: 'D בMMM בשעה HH:mm',
     long: 'יום dd׳, D בMMMM, בשעה HH:mm עד %{endTime}',

@@ -3,8 +3,11 @@ import { BackHandler } from 'react-native'
 
 import PageTemplate from '../ui/page-template'
 import i18n from '../../lib/i18n'
+import useOrientation from '../../lib/use-orientation'
 
 export default function PostMatchScreen({ navigation }) {
+  useOrientation('PORTRAIT')
+
   return (
     <PageTemplate
       message={i18n.t('thank_you')}

@@ -1,38 +1,22 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { Dimensions, View } from 'react-native'
-import * as ScreenOrientation from 'expo-screen-orientation'
+import React from 'react'
+import { View } from 'react-native'
 import { RFValue } from 'react-native-responsive-fontsize'
 import { Button, Text } from 'react-native-paper'
 
 import PageTemplate from '../ui/page-template'
 import RotateDevice from '../ui/rotate-device'
 import i18n from '../../lib/i18n'
+import useOrientation from '../../lib/use-orientation'
 
 export default function PreInstructorScreen({ navigation, route }) {
-  const [isLandscape, setLandscape] = useState(true)
-  const { team, event } = route.params.item
+  const isOrientated = useOrientation('LANDSCAPE')
+  const { teamAtEvent, match } = route.params
+  const { team, event } = route.params.teamAtEvent
 
-  const checkLandscape = useCallback(() => {
-    setLandscape(Dimensions.get('window').width > Dimensions.get('window').height)
-  }, [])
-
-  useEffect(() => {
-    checkLandscape()
-    Dimensions.addEventListener('change', checkLandscape)
-
-    // Try force landscape
-    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE).catch(() => {})
-
-    return () => {
-      Dimensions.removeEventListener('change', checkLandscape)
-      ScreenOrientation.unlockAsync().catch(() => {})
-    }
-  }, [checkLandscape])
-
-  const handleStart = () => navigation.navigate('INST', route.params)
+  const handleStart = () => navigation.replace('INST', route.params)
   const handleExit = () => navigation.pop()
 
-  if (!isLandscape) {
+  if (!isOrientated) {
     return (
       <PageTemplate>
         <RotateDevice />
@@ -44,10 +28,14 @@ export default function PreInstructorScreen({ navigation, route }) {
     <PageTemplate hideHeader>
       <View style={styles.container}>
         <Text style={styles.title}>
-          {i18n.t('pre_instructor.welcome_team', { number: team.number })}
+          {i18n.t('pre_instructor.title', { match_name: match.name })}
         </Text>
         <Text style={styles.description}>
-          {i18n.t('pre_instructor.description', { event: event.name })}
+          {i18n.t('pre_instructor.description', {
+            team: team.number,
+            event: event.name,
+            match: match.name
+          })}
         </Text>
         <View style={{ flex: 1, justifyContent: 'center' }}>
           <Button mode="contained" style={styles.actionButton} onPress={handleStart}>
