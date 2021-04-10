@@ -41,7 +41,7 @@ const VideoInstructorScreen = ({ navigation, route: { params } }) => {
       const video = await cameraRef.current.recordAsync({
         quality: Camera.Constants.VideoQuality['720p'] || Camera.Constants.VideoQuality['480p']
       })
-      await processVideo(video, params.teamAtEvent.id, params.authToken)
+      await processVideo(video, match.id, params.teamAtEvent.id, params.authToken)
       setProcessing(false)
       setRecording(false)
       navigation.navigate('TNK_YOU')
