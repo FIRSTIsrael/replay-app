@@ -13,10 +13,15 @@ import {
   Heebo_700Bold,
   Heebo_900Black
 } from '@expo-google-fonts/heebo'
-import { Roboto_900Black, Roboto_900Black_Italic } from '@expo-google-fonts/roboto'
+import {
+  Roboto_400Regular_Italic,
+  Roboto_900Black,
+  Roboto_900Black_Italic
+} from '@expo-google-fonts/roboto'
 
 import LoginScreen from './components/screens/login'
 import HomeScreen from './components/screens/home'
+import TeamScreen from './components/screens/team'
 import PreInstructorScreen from './components/screens/pre-instructor'
 import VideoInstructorScreen from './components/screens/video-instructor'
 import PostMatchScreen from './components/screens/post-match'
@@ -64,6 +69,7 @@ export default function App() {
     Heebo_500Medium,
     Heebo_700Bold,
     Heebo_900Black,
+    Roboto_400Regular_Italic,
     Roboto_900Black,
     Roboto_900Black_Italic
   })
@@ -77,9 +83,10 @@ export default function App() {
         <Stack.Navigator initialRouteName="LOGIN" headerMode={false}>
           <Stack.Screen name="LOGIN" component={LoginScreen} />
           <Stack.Screen name="HOME" component={HomeScreen} />
+          <Stack.Screen name="TEAM" component={TeamScreen} />
           <Stack.Screen name="PRE_INST" component={PreInstructorScreen} />
           <Stack.Screen name="INST" component={VideoInstructorScreen} />
-          <Stack.Screen name="TNK_YOU" component={PostMatchScreen} />
+          <Stack.Screen name="POST_MATCH" component={PostMatchScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>

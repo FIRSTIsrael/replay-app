@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
+import { Text } from 'react-native-paper'
 import { RFValue } from 'react-native-responsive-fontsize'
 
 export default class Timer extends Component {
@@ -62,20 +63,18 @@ export default class Timer extends Component {
 
 const styles = {
   container: {
-    width: '50%',
-    height: RFValue(40),
     position: 'absolute',
-    bottom: RFValue(10),
-    left: '25%',
+    right: '8%',
+    bottom: '8%',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    borderRadius: RFValue(10)
+    borderRadius: RFValue(10),
+    paddingHorizontal: 18,
+    paddingVertical: 6
   },
   text: {
-    fontWeight: 'bold',
-    lineHeight: RFValue(24),
+    fontFamily: 'Heebo_700Bold',
     fontSize: RFValue(24),
     textAlign: 'center',
-    marginTop: RFValue(12),
     color: 'white'
   }
 }

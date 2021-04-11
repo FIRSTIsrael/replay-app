@@ -4,15 +4,14 @@ import { List } from 'react-native-paper'
 
 import config from '../../config'
 import i18n from '../../lib/i18n'
-import { formatDates } from '../../lib/moment'
 
-const TeamItem = ({ item, onPress }) => {
-  const { team, event } = item
+const TeamItem = ({ teamAtEvent, onPress }) => {
+  const { team, event } = teamAtEvent
   return (
     <TouchableOpacity onPress={onPress}>
       <List.Item
-        title={i18n.t('team_name', team)}
-        description={formatDates(event)}
+        title={i18n.t('team_name_long', team)}
+        description={event.name}
         left={props => (
           <List.Icon
             {...props}

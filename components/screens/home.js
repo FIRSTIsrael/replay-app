@@ -8,29 +8,29 @@ import TeamItem from '../ui/team-item'
 import i18n from '../../lib/i18n'
 import Backend from '../../lib/backend'
 import { getUserGivenName } from '../../lib/auth'
+import moment from '../../lib/moment'
+import useOrientation from '../../lib/use-orientation'
+import useScreenSize from '../../lib/use-screen-size'
 
 export default function HomeScreen({ route, navigation }) {
+  useOrientation('PORTRAIT')
+  const screenSize = useScreenSize()
+  const [teams, setTeams] = useState(null)
   const { authToken } = route.params
-  const [events, setEvents] = useState(null)
 
   useEffect(() => {
-    Backend.fetchTeams(route.params.authToken).then(teams => {
-      const events = teams.reduce((obj, team) => {
-        if (!obj[team.event.name]) obj[team.event.name] = []
-        obj[team.event.name].push(team)
-        return obj
-      }, {})
-      setEvents(events)
+    Backend.fetchTeams(authToken).then(teams => {
+      teams.sort((a, b) => moment(a.event.start_date).unix - moment(b.event.start_date).unix)
+      setTeams(teams)
     })
   }, [])
 
-  const width = Dimensions.get('window').width
-
-  const handleTeamSelect = item => navigation.navigate('PRE_INST', { item, authToken })
+  const handleTeamSelect = teamAtEvent =>
+    navigation.navigate('TEAM', { teamAtEventId: teamAtEvent.id, authToken })
 
   return (
     <PageTemplate showMenu={true} route={route} navigation={navigation}>
-      {!events ? (
+      {!teams ? (
         <View style={styles.loading}>
           <ActivityIndicator size="large" />
         </View>
@@ -41,14 +41,14 @@ export default function HomeScreen({ route, navigation }) {
               {i18n.t('hello_user', { name: getUserGivenName(authToken) })}
             </Text>
           </View>
-          <ScrollView style={{ width }}>
-            {Object.entries(events).map(([eventName, items]) => (
-              <View key={eventName}>
-                <List.Subheader>{eventName}</List.Subheader>
-                {items.map(item => (
-                  <TeamItem key={item.id} item={item} onPress={() => handleTeamSelect(item)} />
-                ))}
-              </View>
+          <ScrollView style={{ width: screenSize.width }}>
+            <List.Subheader>בחרו קבוצה</List.Subheader>
+            {teams.map(teamAtEvent => (
+              <TeamItem
+                key={teamAtEvent.id}
+                teamAtEvent={teamAtEvent}
+                onPress={() => handleTeamSelect(teamAtEvent)}
+              />
             ))}
           </ScrollView>
         </>

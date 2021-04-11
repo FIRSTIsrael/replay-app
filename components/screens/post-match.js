@@ -1,17 +1,54 @@
 import React from 'react'
-import { BackHandler } from 'react-native'
+import { Image, View } from 'react-native'
+import { Button, Text } from 'react-native-paper'
+import { RFValue } from 'react-native-responsive-fontsize'
 
 import PageTemplate from '../ui/page-template'
 import i18n from '../../lib/i18n'
+import useOrientation from '../../lib/use-orientation'
+import ConfettiIcon from '../../assets/images/confetti.png'
 
-export default function PostMatchScreen({ navigation }) {
+export default function PostMatchScreen({ navigation, route: { params } }) {
+  useOrientation('PORTRAIT')
+  const { teamAtEvent, match } = params
+
   return (
-    <PageTemplate
-      message={i18n.t('thank_you')}
-      buttons={[
-        { text: i18n.t('shoot_another'), onPress: () => navigation.navigate('PRE_INST') },
-        { text: i18n.t('exit'), color: 'black', onPress: () => BackHandler.exitApp() }
-      ]}
-    />
+    <PageTemplate>
+      <View style={styles.container}>
+        <Image style={styles.icon} source={ConfettiIcon} />
+        <Text style={styles.headline}>{i18n.t('post_match.title', { match: match.name })}</Text>
+        <Button
+          mode="contained"
+          style={{ marginTop: RFValue(36), paddingHorizontal: RFValue(18) }}
+          onPress={() => navigation.pop()}
+        >
+          <Text style={{ fontSize: RFValue(14), color: '#fff', fontFamily: 'Heebo_700Bold' }}>
+            {i18n.t('close')}
+          </Text>
+        </Button>
+      </View>
+    </PageTemplate>
   )
+}
+
+const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    padding: 32,
+    height: '100%'
+  },
+  icon: {
+    height: RFValue(80),
+    resizeMode: 'contain',
+    marginBottom: RFValue(54)
+  },
+  headline: {
+    fontSize: RFValue(24),
+    lineHeight: RFValue(32),
+    textAlign: 'center'
+  }
 }

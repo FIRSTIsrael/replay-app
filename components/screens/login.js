@@ -7,13 +7,17 @@ import PageTemplate from '../ui/page-template'
 import FIRST from '../ui/FIRST'
 import i18n from '../../lib/i18n'
 import { login } from '../../lib/auth'
+import useOrientation from '../../lib/use-orientation'
 
 export default function LoginScreen({ navigation }) {
+  useOrientation('PORTRAIT')
+
   const handleLoginClick = () => {
     login().then(authToken => {
       if (authToken) navigation.replace('HOME', { authToken })
     })
   }
+
   return (
     <PageTemplate>
       <View style={styles.container}>
