@@ -1,17 +1,21 @@
 import React, { useMemo } from 'react'
-import { Text } from 'react-native-paper'
+import { Text } from 'react-native'
 
-export default function FIRST({ italicFont, children }) {
-  return useMemo(
-    () =>
-      String(children)
-        .split(' ')
-        .map((text, index) => [
-          <React.Fragment key={index}>
-            {text === 'FIRST' ? <Text style={{ fontFamily: italicFont }}>{text}</Text> : text}
-          </React.Fragment>,
-          ' '
-        ]),
-    [italicFont, children]
-  )
+const Logotype = ({ fontFamily }) => <Text style={{ fontFamily, fontStyle: 'italic' }}>FIRST</Text>
+
+// Italic `FIRST` in text
+const FIRST = ({ italicFont = 'Roboto_400Regular_Italic', children = 'FIRST' }) => {
+  return useMemo(() => {
+    const arr = String(children).split('FIRST')
+    return arr.map((text, index) => {
+      const render = []
+      if (text) render.push(text)
+      if (index !== arr.length - 1) {
+        render.push(<Logotype key={index + 'FIRST'} fontFamily={italicFont} />)
+      }
+      return render
+    })
+  }, [italicFont, children])
 }
+
+export default FIRST

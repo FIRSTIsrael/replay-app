@@ -1,5 +1,4 @@
 export default {
-  uploading: 'מעלה את הסרטון שלכם עכשיו. זה יכול לקחת מעט זמן.',
   loading: 'Loading...',
   welcome: {
     headline: 'Welcome to FIRST Israel Remote Matches App!',
@@ -8,8 +7,10 @@ export default {
   login: 'Login',
   hello_user: 'Hello, %{name}!',
   pre_instructor: {
-    welcome_team: 'קבוצת #%{number}, ברוכים הבאים!',
-    description: 'אנו שמחים מאוד שהצטרפתם אלינו ל%{event}. טקסט הסבר רץ כאן.',
+    title: 'Start %{match_name}',
+    welcome_team: 'Team #%{number}, Welcome!',
+    description:
+      'קבוצת #%{team}, אנו שמחים מאוד שהצטרפתם אלינו ל%{event}, כעת נצלם את ה%{match}. מקמו את הטלפון כך שיהיה בזיוות המתאימה לצילום הזירה ועקבו אחר הנחיות הצילום המלאות המופיעות במפת המשאבים באתר FIRST. התכוננו לתחילת המקצה.',
     start: 'We Are Ready',
     exit: 'Not now, Exit'
   },
@@ -18,15 +19,44 @@ export default {
     helper_android: 'Make sure Auto-rotate is enabled in your device settings.',
     helper_ios: 'Make sure Portrait Orientation Lock is disabled in the Control Center.'
   },
+  overwrite_warning: {
+    title: '%{match} has already been submitted',
+    description:
+      'שימו לב, %{match} שלכם כבר הוגש. במידה ותמשיכו, ההגשה הקודמת תמחק ונשתמש בהגשה זו.',
+    overwrite: 'Resubmission',
+    cancel: 'Cancel'
+  },
+  permissions: {
+    permission_required: 'Permission Required',
+    settings: 'Settings',
+    cam_access_android:
+      'To record this match, allow FIRST access to your camera. Tap Settings > Permissions, and turn Camera on.',
+    cam_access_ios:
+      'To record this match, allow FIRST access to your camera. Tap Settings, and turn Camera on.',
+    mic_access_android:
+      'To record this match, allow FIRST access to your microphone. Tap Settings > Permissions, and turn Microphone on.',
+    mic_access_ios:
+      'To record this match, allow FIRST access to your microphone. Tap Settings, and turn Microphone on.'
+  },
+  processing: {
+    title: 'Just a moment',
+    text:
+      'Please wait while we process the video and upload it to the FIRST Servers. This may take a few minutes, do not close the app.'
+  },
+  post_match: {
+    title: '%{match} Submitted Successfully!'
+  },
   start: 'Start',
   next: 'Next',
-  needs_camera_permissions: 'אנחנו צריכים גישה למצלמה. אנא שנו את הגישה בהגדרות האפליקציה.',
+  close: 'Close',
 
   shoot_another: 'לחצו כאן לצילום סרטון נוסף',
   exit: 'לא, תודה. סיימנו לעכשיו',
   thank_you: 'תודה לכם על השתתפות בתחרות FLL Replay!',
 
-  team_name: 'Team #%{number} - %{affiliation}',
+  team_name: 'Team #%{number}',
+  team_name_long: 'Team #%{number} - %{affiliation}',
+  deadline: 'Submission Deadline: %{date}',
   datetime_formats: {
     short: 'D בMMM בשעה HH:mm',
     long: 'יום dd׳, D בMMMM, בשעה HH:mm עד %{endTime}',
