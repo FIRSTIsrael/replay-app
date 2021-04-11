@@ -4,6 +4,7 @@ import { RFValue } from 'react-native-responsive-fontsize'
 import * as ScreenOrientation from 'expo-screen-orientation'
 import { Button } from 'react-native-paper'
 
+import i18n from '../../lib/i18n'
 import Header from './header'
 
 export default function PageTemplate(props) {
@@ -24,9 +25,11 @@ export default function PageTemplate(props) {
   const buttons = props.buttons || (props.button ? [props.button] : [])
   const notices = props.notices || (props.notice ? [props.notice] : [])
 
+  const [language, setLanguage] = useState(i18n.locale)
+
   return (
     <>
-      {!props.hideHeader && <Header />}
+      {!props.hideHeader && <Header showMenu={props.showMenu} setLanguage={setLanguage} />}
 
       <SafeAreaView style={styles.page}>
         {messages.map(({ text, style }, index) => (

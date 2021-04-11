@@ -30,7 +30,8 @@ const config = {
   auth: {
     issuer: 'https://login.firstisrael.org.il/connect',
     clientId: 'remotematches_prod',
-    redirectUri: 'https://api.firstisrael.org.il/_private/auth/remote/auth'
+    redirectUri: 'https://api.firstisrael.org.il/_private/auth/remote/auth',
+    logoutUri: 'https://login.firstisrael.org.il/connect/session/end'
   },
   apiBaseUrl: 'https://api.firstisrael.org.il/_private/auth/remote',
   programColors: {
@@ -39,7 +40,16 @@ const config = {
     'FIRST LEGO League Challenge': '#ED1C24',
     'FIRST Tech Challenge': '#F57E25',
     'FIRST Robotics Competition': '#009CD7'
-  }
+  },
+  menu: {
+    helpMailURL: 'mailto:flltech@firstisrael.org.il',
+    infoURL: 'https://firstisrael.org.il/fll/challenge'
+  },
+  langs: [
+    { locale: 'en', title: 'english' },
+    { locale: 'he', title: 'עברית' },
+    { locale: 'ar', title: 'عربى' }
+  ]
 }
 
 export default config

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { View, ScrollView, Dimensions } from 'react-native'
-import { Text, List, ActivityIndicator } from 'react-native-paper'
+import { Text, Button, List, ActivityIndicator } from 'react-native-paper'
 import { RFValue } from 'react-native-responsive-fontsize'
 
 import PageTemplate from '../ui/page-template'
@@ -29,7 +29,7 @@ export default function HomeScreen({ route, navigation }) {
   const handleTeamSelect = item => navigation.navigate('PRE_INST', { item, authToken })
 
   return (
-    <PageTemplate>
+    <PageTemplate showMenu={true}>
       {!events ? (
         <View style={styles.loading}>
           <ActivityIndicator size="large" />

@@ -31,5 +31,10 @@ export default {
     short: 'D בMMM בשעה HH:mm',
     long: 'יום dd׳, D בMMMM, בשעה HH:mm עד %{endTime}',
     datespan: '%{date1} עד ה־%{date2}'
-  }
+  },
+
+  logout: 'יציאה',
+  language: 'שפה',
+  help: 'עזרה',
+  about: 'על האפליקציה'
 }
