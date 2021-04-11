@@ -3,8 +3,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { List } from 'react-native-paper'
 
 const statusName = {
-  UNSUBMITTED: 'לא נשלח',
-  SUBMITTED: 'נשלח'
+  UNSUBMITTED: 'לא הוגש',
+  SUBMITTED: 'הוגש'
 }
 
 const MatchItem = ({ match, onPress }) => {

@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { View, ScrollView, Dimensions } from 'react-native'
-import { Text, ActivityIndicator, Card } from 'react-native-paper'
+import {
+  Text,
+  ActivityIndicator,
+  Card,
+  Portal,
+  Dialog,
+  Paragraph,
+  Button
+} from 'react-native-paper'
 import { RFValue } from 'react-native-responsive-fontsize'
 import { useFocusEffect } from '@react-navigation/native'
 
@@ -17,6 +25,7 @@ export default function HomeScreen({ route, navigation }) {
   const screenSize = useScreenSize()
   const { authToken, teamAtEventId } = route.params
   const [teamAtEvent, setTeamAtEvent] = useState(null)
+  const [overwriteMatch, setOverwriteMatch] = useState(null)
 
   useFocusEffect(() => {
     Backend.fetchTeamData(authToken, teamAtEventId).then(teamAtEvent => {
@@ -24,8 +33,15 @@ export default function HomeScreen({ route, navigation }) {
     })
   }, [])
 
-  const handleMatchSelect = match =>
-    navigation.navigate('PRE_INST', { teamAtEvent, match, authToken })
+  const startMatch = match => navigation.navigate('PRE_INST', { teamAtEvent, match, authToken })
+
+  const handleMatchSelect = match => {
+    if (match.status === 'SUBMITTED') {
+      setOverwriteMatch(match)
+    } else {
+      startMatch(match)
+    }
+  }
 
   return (
     <PageTemplate>
@@ -68,6 +84,31 @@ export default function HomeScreen({ route, navigation }) {
               )
             })}
           </ScrollView>
+          <Portal>
+            <Dialog visible={overwriteMatch !== null} onDismiss={() => setOverwriteMatch(null)}>
+              <Dialog.Title>
+                {i18n.t('overwrite_warning.title', { match: overwriteMatch?.name })}
+              </Dialog.Title>
+              <Dialog.Content>
+                <Paragraph>
+                  {i18n.t('overwrite_warning.description', { match: overwriteMatch?.name })}
+                </Paragraph>
+              </Dialog.Content>
+              <Dialog.Actions>
+                <Button onPress={() => setOverwriteMatch(null)} color="#333">
+                  {i18n.t('overwrite_warning.cancel')}
+                </Button>
+                <Button
+                  onPress={() => {
+                    startMatch(overwriteMatch)
+                    setOverwriteMatch(null)
+                  }}
+                >
+                  {i18n.t('overwrite_warning.overwrite')}
+                </Button>
+              </Dialog.Actions>
+            </Dialog>
+          </Portal>
         </>
       )}
     </PageTemplate>

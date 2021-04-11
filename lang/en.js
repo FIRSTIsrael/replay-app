@@ -19,6 +19,13 @@ export default {
     helper_android: 'Make sure Auto-rotate is enabled in your device settings.',
     helper_ios: 'Make sure Portrait Orientation Lock is disabled in the Control Center.'
   },
+  overwrite_warning: {
+    title: '%{match} has already been submitted',
+    description:
+      'שימו לב, %{match} שלכם כבר הוגש. במידה ותמשיכו, ההגשה הקודמת תמחק ונשתמש בהגשה זו.',
+    overwrite: 'Resubmission',
+    cancel: 'Cancel'
+  },
   permissions: {
     permission_required: 'Permission Required',
     settings: 'Settings',

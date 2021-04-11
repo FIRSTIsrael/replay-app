@@ -14,6 +14,13 @@ export default {
     start: 'אנחנו מוכנים',
     exit: 'לא כרגע, יציאה'
   },
+  overwrite_warning: {
+    title: '%{match} כבר הוגש',
+    description:
+      'שימו לב, %{match} שלכם כבר הוגש. במידה ותמשיכו, ההגשה הקודמת תמחק ונשתמש בהגשה זו.',
+    overwrite: 'הגשה מחדש',
+    cancel: 'ביטול'
+  },
   rotate_phone: {
     title: 'אנא הפכו את המסך למצב מאוזן',
     helper_android: 'ודאו כי אפשרות הסיבוב האוטומטית מופעלת במכשירכם.',
