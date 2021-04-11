@@ -29,7 +29,7 @@ export default function PageTemplate(props) {
 
   return (
     <>
-      {!props.hideHeader && <Header showMenu={props.showMenu} setLanguage={setLanguage} />}
+      {!props.hideHeader && <Header showMenu={props.showMenu} route={props.route} navigation={props.navigation} setLanguage={setLanguage} />}
 
       <SafeAreaView style={styles.page}>
         {messages.map(({ text, style }, index) => (

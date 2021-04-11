@@ -27,7 +27,7 @@ export default function HelpMenu (props) {
     visible={visible}
     onDismiss={closeMenu}
     anchor={<Appbar.Action icon="menu" color="white" onPress={openMenu} />}>
-      <Menu.Item onPress={logout} icon="logout" title={i18n.t('logout')} />
+      <Menu.Item onPress={() => logout(props.route.params.authToken).then(() => closeMenu()).then(() => props.navigation.replace('LOGIN'))} icon="logout" title={i18n.t('logout')} />
       <Menu.Item onPress={toggleLanguageMenu} icon="translate" title={i18n.t('language')} />
       <Divider />
       {showLanguageMenu && config.langs.map(lang => <Menu.Item key={lang.locale} onPress={() => setLanguage(lang.locale)} title={lang.title}/>).concat([<Divider />])}

@@ -13,7 +13,7 @@ export default function Header(props) {
       <View style={styles.header}>
         <Image style={styles.image} source={FIRSTLogo} />
         <Image style={styles.image} source={TechnionLogo} />
-        {props.showMenu && <HelpMenu setLanguage={props.setLanguage}/>}
+        {props.showMenu && <HelpMenu route={props.route} navigation={props.navigation} setLanguage={props.setLanguage}/>}
       </View>
     </Appbar.Header>
   )

@@ -29,7 +29,7 @@ export default function HomeScreen({ route, navigation }) {
   const handleTeamSelect = item => navigation.navigate('PRE_INST', { item, authToken })
 
   return (
-    <PageTemplate showMenu={true}>
+    <PageTemplate showMenu={true} route={route} navigation={navigation}>
       {!events ? (
         <View style={styles.loading}>
           <ActivityIndicator size="large" />
