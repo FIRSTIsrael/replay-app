@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { View, ScrollView, Dimensions } from 'react-native'
 import { Text, ActivityIndicator, Card } from 'react-native-paper'
 import { RFValue } from 'react-native-responsive-fontsize'
+import { useFocusEffect } from '@react-navigation/native'
 
 import PageTemplate from '../ui/page-template'
 import MatchItem from '../ui/match-item'
@@ -17,7 +18,7 @@ export default function HomeScreen({ route, navigation }) {
   const { authToken, teamAtEventId } = route.params
   const [teamAtEvent, setTeamAtEvent] = useState(null)
 
-  useEffect(() => {
+  useFocusEffect(() => {
     Backend.fetchTeamData(authToken, teamAtEventId).then(teamAtEvent => {
       setTeamAtEvent(teamAtEvent)
     })

@@ -86,7 +86,7 @@ export default function App() {
           <Stack.Screen name="TEAM" component={TeamScreen} />
           <Stack.Screen name="PRE_INST" component={PreInstructorScreen} />
           <Stack.Screen name="INST" component={VideoInstructorScreen} />
-          <Stack.Screen name="TNK_YOU" component={PostMatchScreen} />
+          <Stack.Screen name="POST_MATCH" component={PostMatchScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>

@@ -7,8 +7,10 @@ export default {
   login: 'Login',
   hello_user: 'Hello, %{name}!',
   pre_instructor: {
-    welcome_team: 'קבוצת #%{number}, ברוכים הבאים!',
-    description: 'אנו שמחים מאוד שהצטרפתם אלינו ל%{event}. טקסט הסבר רץ כאן.',
+    title: 'Start %{match_name}',
+    welcome_team: 'Team #%{number}, Welcome!',
+    description:
+      'קבוצת #%{team}, אנו שמחים מאוד שהצטרפתם אלינו ל%{event}, כעת נצלם את ה%{match}. מקמו את הטלפון כך שיהיה בזיוות המתאימה לצילום הזירה ועקבו אחר הנחיות הצילום המלאות המופיעות במפת המשאבים באתר FIRST. התכוננו לתחילת המקצה.',
     start: 'We Are Ready',
     exit: 'Not now, Exit'
   },
@@ -34,8 +36,12 @@ export default {
     text:
       'Please wait while we process the video and upload it to the FIRST Servers. This may take a few minutes, do not close the app.'
   },
+  post_match: {
+    title: '%{match} Submitted Successfully!'
+  },
   start: 'Start',
   next: 'Next',
+  close: 'Close',
 
   shoot_another: 'לחצו כאן לצילום סרטון נוסף',
   exit: 'לא, תודה. סיימנו לעכשיו',

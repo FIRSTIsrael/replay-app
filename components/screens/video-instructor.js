@@ -44,7 +44,7 @@ const VideoInstructorScreen = ({ navigation, route: { params } }) => {
       await processVideo(video, params.match.id, params.teamAtEvent.id, params.authToken)
       setProcessing(false)
       setRecording(false)
-      navigation.navigate('TNK_YOU')
+      navigation.replace('POST_MATCH', params)
     }
   }
 
