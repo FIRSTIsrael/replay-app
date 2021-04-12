@@ -4,16 +4,17 @@ import { Button, Text } from 'react-native-paper'
 import { openSettings } from 'expo-linking'
 import { RFValue } from 'react-native-responsive-fontsize'
 
-import i18n from '../../lib/i18n'
+import { useLocalization } from '../../lib/i18n'
 import FIRST from './FIRST'
 
 const PermissionRequired = ({ androidText, iosText }) => {
+  const { t } = useLocalization()
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{i18n.t('permissions.permission_required')}</Text>
+      <Text style={styles.title}>{t('permissions.permission_required')}</Text>
       <Text style={styles.text}>
         <FIRST italicFont="Roboto_400Regular_Italic">
-          {i18n.t(Platform.OS === 'ios' ? iosText : androidText)}
+          {t(Platform.OS === 'ios' ? iosText : androidText)}
         </FIRST>
       </Text>
       <Button
@@ -22,7 +23,7 @@ const PermissionRequired = ({ androidText, iosText }) => {
         style={styles.button}
         labelStyle={styles.buttonLabel}
       >
-        {i18n.t('permissions.settings')}
+        {t('permissions.settings')}
       </Button>
     </View>
   )

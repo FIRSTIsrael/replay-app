@@ -2,17 +2,15 @@ import React from 'react'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { List } from 'react-native-paper'
 
-const statusName = {
-  UNSUBMITTED: 'לא הוגש',
-  SUBMITTED: 'הוגש'
-}
+import { useLocalization } from '../../lib/i18n'
 
 const MatchItem = ({ match, onPress }) => {
+  const { t } = useLocalization()
   return (
     <TouchableOpacity onPress={onPress}>
       <List.Item
         title={match.name}
-        description={statusName[match.status]}
+        description={t(`match_status.${match.status}`, { defaultValue: match.status })}
         left={props => (
           <List.Icon
             {...props}

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { View, ScrollView, Dimensions } from 'react-native'
-import { Text, Button, List, ActivityIndicator } from 'react-native-paper'
+import { View, ScrollView } from 'react-native'
+import { Text, List, ActivityIndicator } from 'react-native-paper'
 import { RFValue } from 'react-native-responsive-fontsize'
 
 import PageTemplate from '../ui/page-template'
 import TeamItem from '../ui/team-item'
-import i18n from '../../lib/i18n'
+import { useLocalization } from '../../lib/i18n'
 import Backend from '../../lib/backend'
 import { getUserGivenName } from '../../lib/auth'
 import moment from '../../lib/moment'
@@ -14,6 +14,7 @@ import useScreenSize from '../../lib/use-screen-size'
 
 export default function HomeScreen({ route, navigation }) {
   useOrientation('PORTRAIT')
+  const { t } = useLocalization()
   const screenSize = useScreenSize()
   const [teams, setTeams] = useState(null)
   const { authToken } = route.params
@@ -38,11 +39,11 @@ export default function HomeScreen({ route, navigation }) {
         <>
           <View style={styles.header}>
             <Text style={styles.user}>
-              {i18n.t('hello_user', { name: getUserGivenName(authToken) })}
+              {t('hello_user', { name: getUserGivenName(authToken) })}
             </Text>
           </View>
           <ScrollView style={{ width: screenSize.width }}>
-            <List.Subheader>בחרו קבוצה</List.Subheader>
+            <List.Subheader>{t('select_team')}</List.Subheader>
             {teams.map(teamAtEvent => (
               <TeamItem
                 key={teamAtEvent.id}

@@ -14,7 +14,7 @@ import { useFocusEffect } from '@react-navigation/native'
 
 import PageTemplate from '../ui/page-template'
 import MatchItem from '../ui/match-item'
-import i18n from '../../lib/i18n'
+import { useLocalization } from '../../lib/i18n'
 import Backend from '../../lib/backend'
 import moment from '../../lib/moment'
 import useOrientation from '../../lib/use-orientation'
@@ -22,6 +22,7 @@ import useScreenSize from '../../lib/use-screen-size'
 
 export default function HomeScreen({ route, navigation }) {
   useOrientation('PORTRAIT')
+  const { t, locale } = useLocalization()
   const screenSize = useScreenSize()
   const { authToken, teamAtEventId } = route.params
   const [teamAtEvent, setTeamAtEvent] = useState(null)
@@ -52,7 +53,7 @@ export default function HomeScreen({ route, navigation }) {
       ) : (
         <>
           <View style={styles.header}>
-            <Text style={styles.team_number}>{i18n.t('team_name', teamAtEvent.team)}</Text>
+            <Text style={styles.team_number}>{t('team_name', teamAtEvent.team)}</Text>
             <Text style={styles.event_name}>{teamAtEvent.event.name}</Text>
           </View>
           <ScrollView style={{ width: screenSize.width }}>
@@ -68,8 +69,10 @@ export default function HomeScreen({ route, navigation }) {
                   )}
                   {stage.deadline && (
                     <Text style={styles.stage.deadline}>
-                      {i18n.t('deadline', {
-                        date: moment(stage.deadline).format(i18n.t('datetime_formats.short'))
+                      {t('deadline', {
+                        date: moment(stage.deadline)
+                          .locale(locale)
+                          .format(t('datetime_formats.short'))
                       })}
                     </Text>
                   )}
@@ -87,16 +90,16 @@ export default function HomeScreen({ route, navigation }) {
           <Portal>
             <Dialog visible={overwriteMatch !== null} onDismiss={() => setOverwriteMatch(null)}>
               <Dialog.Title>
-                {i18n.t('overwrite_warning.title', { match: overwriteMatch?.name })}
+                {t('overwrite_warning.title', { match: overwriteMatch?.name })}
               </Dialog.Title>
               <Dialog.Content>
                 <Paragraph>
-                  {i18n.t('overwrite_warning.description', { match: overwriteMatch?.name })}
+                  {t('overwrite_warning.description', { match: overwriteMatch?.name })}
                 </Paragraph>
               </Dialog.Content>
               <Dialog.Actions>
                 <Button onPress={() => setOverwriteMatch(null)} color="#333">
-                  {i18n.t('overwrite_warning.cancel')}
+                  {t('overwrite_warning.cancel')}
                 </Button>
                 <Button
                   onPress={() => {
@@ -104,7 +107,7 @@ export default function HomeScreen({ route, navigation }) {
                     setOverwriteMatch(null)
                   }}
                 >
-                  {i18n.t('overwrite_warning.overwrite')}
+                  {t('overwrite_warning.overwrite')}
                 </Button>
               </Dialog.Actions>
             </Dialog>

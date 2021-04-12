@@ -3,14 +3,15 @@ import { View } from 'react-native'
 import { Button, Text } from 'react-native-paper'
 import { RFValue } from 'react-native-responsive-fontsize'
 
+import { useLocalization } from '../../lib/i18n'
 import PageTemplate from '../ui/page-template'
 import FIRST from '../ui/FIRST'
-import i18n from '../../lib/i18n'
 import { login } from '../../lib/auth'
 import useOrientation from '../../lib/use-orientation'
 
 export default function LoginScreen({ navigation }) {
   useOrientation('PORTRAIT')
+  const { t, locale } = useLocalization()
 
   const handleLoginClick = () => {
     login().then(authToken => {
@@ -23,20 +24,20 @@ export default function LoginScreen({ navigation }) {
       <View style={styles.container}>
         <Text
           style={{
-            fontFamily: i18n.locale === 'en' ? 'Roboto_900Black' : 'Heebo_900Black',
+            fontFamily: locale === 'en' ? 'Roboto_900Black' : 'Heebo_900Black',
             ...styles.headline
           }}
         >
-          <FIRST italicFont="Roboto_900Black_Italic">{i18n.t('welcome.headline')}</FIRST>
+          <FIRST italicFont="Roboto_900Black_Italic">{t('welcome.headline')}</FIRST>
         </Text>
-        <Text style={styles.intro}>{i18n.t('welcome.intro')}</Text>
+        <Text style={styles.intro}>{t('welcome.intro')}</Text>
         <Button
           mode="contained"
           style={{ marginTop: RFValue(60), padding: 4 }}
           onPress={handleLoginClick}
         >
           <Text style={{ fontSize: RFValue(14), color: '#fff', fontFamily: 'Heebo_700Bold' }}>
-            {i18n.t('login')}
+            {t('login')}
           </Text>
         </Button>
       </View>

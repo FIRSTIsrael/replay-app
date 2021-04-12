@@ -6,6 +6,11 @@ export default {
   },
   login: 'Login',
   hello_user: 'Hello, %{name}!',
+  select_team: 'Teams',
+  match_status: {
+    UNSUBMITTED: 'Unsubmitted',
+    SUBMITTED: 'Submitted'
+  },
   pre_instructor: {
     title: 'Start %{match_name}',
     welcome_team: 'Team #%{number}, Welcome!',
@@ -22,8 +27,8 @@ export default {
   overwrite_warning: {
     title: '%{match} has already been submitted',
     description:
-      'שימו לב, %{match} שלכם כבר הוגש. במידה ותמשיכו, ההגשה הקודמת תמחק ונשתמש בהגשה זו.',
-    overwrite: 'Resubmission',
+      'You are about to delete the existing match and upload this new match instead. Are you sure you want to continue?',
+    overwrite: 'Resubmit',
     cancel: 'Cancel'
   },
   permissions: {
@@ -58,12 +63,13 @@ export default {
   team_name_long: 'Team #%{number} - %{affiliation}',
   deadline: 'Submission Deadline: %{date}',
   datetime_formats: {
-    short: 'D בMMM בשעה HH:mm',
-    long: 'יום dd׳, D בMMMM, בשעה HH:mm עד %{endTime}',
-    datespan: '%{date1} עד ה־%{date2}'
+    short: 'MMM D, HH:mm',
+    long: 'dddd, MMM D, HH:mm to %{endTime}',
+    datespan: '%{date1} to %{date2}'
   },
-  logout: 'logout',
-  language: 'language',
-  help: 'help',
-  about: 'about'
+  logout: 'Logout',
+  language: 'Language',
+  select_language: 'Select Language',
+  help: 'Help',
+  about: 'About'
 }

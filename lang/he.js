@@ -6,6 +6,11 @@ export default {
   },
   login: 'התחברות',
   hello_user: 'שלום, %{name}!',
+  select_team: 'בחרו קבוצה',
+  match_status: {
+    UNSUBMITTED: 'לא הוגש',
+    SUBMITTED: 'הוגש'
+  },
   pre_instructor: {
     title: 'צילום %{match_name}',
     welcome_team: 'קבוצת #%{number}, ברוכים הבאים!',
@@ -17,7 +22,7 @@ export default {
   overwrite_warning: {
     title: '%{match} כבר הוגש',
     description:
-      'שימו לב, %{match} שלכם כבר הוגש. במידה ותמשיכו, ההגשה הקודמת תמחק ונשתמש בהגשה זו.',
+      'אתם עומדים למחוק את המקצה הקיים במערכת ולהעלות מקצה זה במקום. אתם בטוחים שאתם רוצים להמשיך?',
     overwrite: 'הגשה מחדש',
     cancel: 'ביטול'
   },
@@ -64,6 +69,7 @@ export default {
   },
   logout: 'יציאה',
   language: 'שפה',
+  select_language: 'בחרו שפה',
   help: 'עזרה',
   about: 'על האפליקציה'
 }

@@ -14,11 +14,11 @@ export default function PageTemplate(props) {
   const buttons = props.buttons || (props.button ? [props.button] : [])
   const notices = props.notices || (props.notice ? [props.notice] : [])
 
-  const [language, setLanguage] = useState(i18n.locale)
-
   return (
     <>
-      {!props.hideHeader && <Header showMenu={props.showMenu} route={props.route} navigation={props.navigation} setLanguage={setLanguage} />}
+      {!props.hideHeader && (
+        <Header showMenu={props.showMenu} route={props.route} navigation={props.navigation} />
+      )}
 
       <SafeAreaView style={styles.page}>
         {messages.map(({ text, style }, index) => (

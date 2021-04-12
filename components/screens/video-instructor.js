@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState, useRef } from 'react'
-import { Dimensions, Image, SafeAreaView, View } from 'react-native'
+import React, { useEffect, useState, useRef } from 'react'
+import { Image, SafeAreaView, View } from 'react-native'
 import { Button, Text } from 'react-native-paper'
 import * as Permissions from 'expo-permissions'
 import { Camera } from 'expo-camera'
@@ -9,7 +9,7 @@ import config from '../../config'
 import Timer from '../ui/timer'
 import { processVideo } from '../../lib/video-processing'
 import { playSound } from '../../lib/sounds'
-import i18n from '../../lib/i18n'
+import { useLocalization } from '../../lib/i18n'
 import PermissionRequired from '../ui/permission-required'
 import UploadingIllustration from '../../assets/images/uploading-illustration.png'
 import FIRST from '../ui/FIRST'
@@ -18,6 +18,7 @@ import useOrientation from '../../lib/use-orientation'
 
 const VideoInstructorScreen = ({ navigation, route: { params } }) => {
   const isOrientated = useOrientation('LANDSCAPE')
+  const { t } = useLocalization()
   const [cameraPermission] = Permissions.usePermissions(Permissions.CAMERA, { ask: true })
   const [micPermission] = Permissions.usePermissions(Permissions.AUDIO_RECORDING, { ask: true })
   const cameraRef = useRef()
@@ -87,9 +88,9 @@ const VideoInstructorScreen = ({ navigation, route: { params } }) => {
         <View style={styles.processing.container}>
           <Image source={UploadingIllustration} style={styles.processing.illustration} />
           <View style={{ maxWidth: '45%' }}>
-            <Text style={styles.processing.title}>{i18n.t('processing.title')}</Text>
+            <Text style={styles.processing.title}>{t('processing.title')}</Text>
             <Text style={styles.processing.text}>
-              <FIRST>{i18n.t('processing.text')}</FIRST>
+              <FIRST>{t('processing.text')}</FIRST>
             </Text>
           </View>
         </View>
@@ -101,7 +102,7 @@ const VideoInstructorScreen = ({ navigation, route: { params } }) => {
         {(instruction.end === 'start' || instruction.end === 'button') && (
           <Button style={styles.button} mode="contained" onPress={handleNext} color="#fff">
             <Text style={{ fontSize: 24, color: '#000', fontFamily: 'Heebo_700Bold' }}>
-              {instruction.buttonText || i18n.t('next')}
+              {instruction.buttonText || t('next')}
             </Text>
           </Button>
         )}

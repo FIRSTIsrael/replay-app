@@ -3,16 +3,17 @@ import { Image, View } from 'react-native'
 import { Text } from 'react-native-paper'
 import { RFValue } from 'react-native-responsive-fontsize'
 
-import i18n from '../../lib/i18n'
+import { useLocalization } from '../../lib/i18n'
 import RotateIcon from '../../assets/images/rotate.png'
 
 export default function RotateDevice() {
+  const { t } = useLocalization()
   return (
     <View style={styles.container}>
       <Image style={styles.icon} source={RotateIcon} />
-      <Text style={styles.title}>{i18n.t('rotate_phone.title')}</Text>
+      <Text style={styles.title}>{t('rotate_phone.title')}</Text>
       <Text style={styles.helper}>
-        {i18n.t(Platform.OS === 'ios' ? 'rotate_phone.helper_ios' : 'rotate_phone.helper_android')}
+        {t(Platform.OS === 'ios' ? 'rotate_phone.helper_ios' : 'rotate_phone.helper_android')}
       </Text>
     </View>
   )

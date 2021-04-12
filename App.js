@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import { View } from 'react-native'
 import 'react-native-gesture-handler'
 import { NavigationContainer } from '@react-navigation/native'
@@ -18,6 +18,9 @@ import {
   Roboto_900Black,
   Roboto_900Black_Italic
 } from '@expo-google-fonts/roboto'
+import * as Localization from 'expo-localization'
+import i18n from 'i18n-js'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import LoginScreen from './components/screens/login'
 import HomeScreen from './components/screens/home'
@@ -25,6 +28,7 @@ import TeamScreen from './components/screens/team'
 import PreInstructorScreen from './components/screens/pre-instructor'
 import VideoInstructorScreen from './components/screens/video-instructor'
 import PostMatchScreen from './components/screens/post-match'
+import { handleLocaleChange, LocalizationContext } from './lib/i18n'
 
 const prefix = Linking.makeUrl('/')
 const Stack = createStackNavigator()
@@ -63,6 +67,18 @@ const theme = {
 }
 
 export default function App() {
+  const [locale, setLocale] = useState(null)
+  const localizationContext = useMemo(
+    () => ({
+      t: (scope, options) => i18n.t(scope, { locale, ...options }),
+      locale,
+      setLocale: locale => {
+        setLocale(locale)
+        handleLocaleChange(locale)
+      }
+    }),
+    [locale]
+  )
   const [fontsLoaded] = useFonts({
     Heebo_300Light,
     Heebo_400Regular,
@@ -74,20 +90,33 @@ export default function App() {
     Roboto_900Black_Italic
   })
 
-  if (!fontsLoaded) return <View />
+  useEffect(() => {
+    if (locale) {
+      AsyncStorage.setItem('fi-locale', locale)
+    } else {
+      AsyncStorage.getItem('fi-locale').then(locale =>
+        localizationContext.setLocale(locale || Localization.locale.substr(0, 2) || 'he')
+      )
+    }
+  }, [locale, setLocale])
+
+  if (!fontsLoaded || !locale) return <View />
 
   const linking = { prefixes: [prefix] }
+
   return (
     <PaperProvider theme={theme}>
       <NavigationContainer linking={linking}>
-        <Stack.Navigator initialRouteName="LOGIN" headerMode={false}>
-          <Stack.Screen name="LOGIN" component={LoginScreen} />
-          <Stack.Screen name="HOME" component={HomeScreen} />
-          <Stack.Screen name="TEAM" component={TeamScreen} />
-          <Stack.Screen name="PRE_INST" component={PreInstructorScreen} />
-          <Stack.Screen name="INST" component={VideoInstructorScreen} />
-          <Stack.Screen name="POST_MATCH" component={PostMatchScreen} />
-        </Stack.Navigator>
+        <LocalizationContext.Provider value={localizationContext}>
+          <Stack.Navigator initialRouteName="LOGIN" headerMode={false}>
+            <Stack.Screen name="LOGIN" component={LoginScreen} />
+            <Stack.Screen name="HOME" component={HomeScreen} />
+            <Stack.Screen name="TEAM" component={TeamScreen} />
+            <Stack.Screen name="PRE_INST" component={PreInstructorScreen} />
+            <Stack.Screen name="INST" component={VideoInstructorScreen} />
+            <Stack.Screen name="POST_MATCH" component={PostMatchScreen} />
+          </Stack.Navigator>
+        </LocalizationContext.Provider>
       </NavigationContainer>
     </PaperProvider>
   )

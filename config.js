@@ -50,7 +50,7 @@ const config = {
     infoURL: 'https://firstisrael.org.il/fll/challenge'
   },
   langs: [
-    { locale: 'en', title: 'english' },
+    { locale: 'en', title: 'English' },
     { locale: 'he', title: 'עברית' },
     { locale: 'ar', title: 'عربى' }
   ]

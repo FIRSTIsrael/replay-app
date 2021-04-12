@@ -13,7 +13,9 @@ export default function Header(props) {
       <View style={styles.header}>
         <Image style={styles.image} source={FIRSTLogo} />
         <Image style={styles.image} source={TechnionLogo} />
-        {props.showMenu && <HelpMenu route={props.route} navigation={props.navigation} setLanguage={props.setLanguage}/>}
+        <View style={{ flex: 1, alignItems: 'flex-end' }}>
+          {props.showMenu && <HelpMenu route={props.route} navigation={props.navigation} />}
+        </View>
       </View>
     </Appbar.Header>
   )
@@ -24,7 +26,7 @@ const styles = {
     width: '100%',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     paddingRight: 16,
     paddingLeft: 16
