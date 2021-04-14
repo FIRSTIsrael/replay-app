@@ -23,7 +23,7 @@ export default function PostMatchScreen({ navigation, route: { params } }) {
           style={{ marginTop: RFValue(36), paddingHorizontal: RFValue(18) }}
           onPress={() => navigation.pop()}
         >
-          <Text style={{ fontSize: RFValue(14), color: '#fff', fontFamily: 'Heebo_700Bold' }}>
+          <Text style={{ fontSize: RFValue(14), color: '#fff', fontFamily: 'Heebo_500Medium' }}>
             {t('close')}
           </Text>
         </Button>
@@ -48,6 +48,7 @@ const styles = {
     marginBottom: RFValue(54)
   },
   headline: {
+    fontFamily: 'Heebo_700Bold',
     fontSize: RFValue(24),
     lineHeight: RFValue(32),
     textAlign: 'center'

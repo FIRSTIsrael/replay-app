@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useCallback, useEffect, useState, useRef } from 'react'
 import { Image, SafeAreaView, View } from 'react-native'
 import { Button, Text } from 'react-native-paper'
 import * as Permissions from 'expo-permissions'
@@ -13,8 +13,10 @@ import { useLocalization } from '../../lib/i18n'
 import PermissionRequired from '../ui/permission-required'
 import UploadingIllustration from '../../assets/images/uploading-illustration.png'
 import FIRST from '../ui/FIRST'
+import Error from '../ui/error'
 import RotateDevice from '../ui/rotate-device'
 import useOrientation from '../../lib/use-orientation'
+import Backend from '../../lib/backend'
 
 const VideoInstructorScreen = ({ navigation, route: { params } }) => {
   const isOrientated = useOrientation('LANDSCAPE')
@@ -22,9 +24,11 @@ const VideoInstructorScreen = ({ navigation, route: { params } }) => {
   const [cameraPermission] = Permissions.usePermissions(Permissions.CAMERA, { ask: true })
   const [micPermission] = Permissions.usePermissions(Permissions.AUDIO_RECORDING, { ask: true })
   const cameraRef = useRef()
+  const videoRef = useRef()
   const [instructionIndex, setInstructionIndex] = useState(0)
   const [isRecording, setRecording] = useState(false)
   const [isProcessing, setProcessing] = useState(false)
+  const [error, setError] = useState(null)
   const instructions = config.INSTRUCTIONS[params.teamAtEvent.team.program]
   const instruction = instructions[instructionIndex]
 
@@ -36,20 +40,51 @@ const VideoInstructorScreen = ({ navigation, route: { params } }) => {
     }
   }, [])
 
-  const handleStart = async () => {
+  const uploadVideo = useCallback(() => {
+    return Backend.postMatch(
+      params.authToken,
+      params.match.id,
+      params.teamAtEvent.id,
+      videoRef.current
+    )
+      .then(console.log)
+      .then(() => {
+        setProcessing(false)
+        setRecording(false)
+        navigation.replace('POST_MATCH', params)
+      })
+      .catch(err =>
+        setError({
+          description:
+            'נתקלנו בשגיאה לא צפויה במהלך העלאת הסרטון לשרתי FIRST, אנא בדקו את חיבור האינטרנט שלכם.',
+          code: err?.description || err,
+          retry: true
+        })
+      )
+  }, [setError])
+
+  const handleStart = useCallback(async () => {
     if (cameraRef.current && !isRecording) {
       setRecording(true)
       const video = await cameraRef.current.recordAsync({
         quality: Camera.Constants.VideoQuality['720p'] || Camera.Constants.VideoQuality['480p']
       })
-      await processVideo(video, params.match.id, params.teamAtEvent.id, params.authToken)
-      setProcessing(false)
-      setRecording(false)
-      navigation.replace('POST_MATCH', params)
-    }
-  }
 
-  const handleNext = () => {
+      try {
+        videoRef.current = { ...video }
+        videoRef.current.uri = await processVideo(video.uri, params.match.id, params.teamAtEvent.id)
+      } catch (err) {
+        return setError({
+          description: 'נתקלנו בשגיאה לא צפויה במהלך עיבוד הסרטון',
+          code: err?.description || err
+        })
+      }
+
+      await uploadVideo()
+    }
+  })
+
+  const handleNext = useCallback(() => {
     if (instruction.end === 'start') {
       handleStart()
     }
@@ -61,10 +96,20 @@ const VideoInstructorScreen = ({ navigation, route: { params } }) => {
     } else {
       setInstructionIndex(current => current + 1)
     }
-  }
+  })
 
   if (!isOrientated) {
     return <RotateDevice />
+  } else if (error) {
+    return (
+      <Error
+        usePageTemplate={false}
+        errorCode={error.code}
+        errorDescription={error.description}
+        onRetry={error.retry ? uploadVideo : null}
+        onClose={() => navigation.pop()}
+      />
+    )
   } else if (!cameraPermission?.granted) {
     return (
       <PermissionRequired

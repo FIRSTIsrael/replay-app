@@ -71,5 +71,11 @@ export default {
   language: 'שפה',
   select_language: 'בחרו שפה',
   help: 'עזרה',
-  about: 'על האפליקציה'
+  about: 'על האפליקציה',
+  errors: {
+    title: 'משהו לא מסתדר לנו',
+    failed_connect: 'החיבור לשרתי FIRST נכשל',
+    retry: 'נסו שנית',
+    close: 'סגירה'
+  }
 }

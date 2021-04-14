@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { View, ScrollView, Dimensions } from 'react-native'
 import {
   Text,
@@ -19,22 +19,25 @@ import Backend from '../../lib/backend'
 import moment from '../../lib/moment'
 import useOrientation from '../../lib/use-orientation'
 import useScreenSize from '../../lib/use-screen-size'
+import { useAsync } from '../../lib/use-async'
+import Error from '../ui/error'
 
 export default function HomeScreen({ route, navigation }) {
   useOrientation('PORTRAIT')
   const { t, locale } = useLocalization()
   const screenSize = useScreenSize()
   const { authToken, teamAtEventId } = route.params
-  const [teamAtEvent, setTeamAtEvent] = useState(null)
   const [overwriteMatch, setOverwriteMatch] = useState(null)
+  const teamAtEvent = useAsync(() => Backend.fetchTeamData(authToken, teamAtEventId))
 
-  useFocusEffect(() => {
-    Backend.fetchTeamData(authToken, teamAtEventId).then(teamAtEvent => {
-      setTeamAtEvent(teamAtEvent)
-    })
-  }, [])
+  useFocusEffect(
+    useCallback(() => {
+      teamAtEvent.reload()
+    }, [])
+  )
 
-  const startMatch = match => navigation.navigate('PRE_INST', { teamAtEvent, match, authToken })
+  const startMatch = match =>
+    navigation.navigate('PRE_INST', { teamAtEvent: teamAtEvent.data, match, authToken })
 
   const handleMatchSelect = match => {
     if (match.status === 'SUBMITTED') {
@@ -46,19 +49,21 @@ export default function HomeScreen({ route, navigation }) {
 
   return (
     <PageTemplate>
-      {!teamAtEvent ? (
+      {teamAtEvent.isLoading ? (
         <View style={styles.loading}>
           <ActivityIndicator size="large" />
         </View>
+      ) : teamAtEvent.error ? (
+        <Error errorCode={teamAtEvent.error} onRetry={teamAtEvent.reload} usePageTemplate={false} />
       ) : (
         <>
           <View style={styles.header}>
-            <Text style={styles.team_number}>{t('team_name', teamAtEvent.team)}</Text>
-            <Text style={styles.event_name}>{teamAtEvent.event.name}</Text>
+            <Text style={styles.team_number}>{t('team_name', teamAtEvent.data.team)}</Text>
+            <Text style={styles.event_name}>{teamAtEvent.data.event.name}</Text>
           </View>
           <ScrollView style={{ width: screenSize.width }}>
-            {teamAtEvent.config.stages.map(stage => {
-              const matches = teamAtEvent.matches.filter(m => m.stage === stage.id)
+            {teamAtEvent.data.config.stages.map(stage => {
+              const matches = teamAtEvent.data.matches.filter(m => m.stage === stage.id)
               if (matches.length === 0) return <View key={stage.id} />
 
               return (

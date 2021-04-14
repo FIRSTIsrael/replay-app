@@ -1,58 +1,16 @@
-import React, { useState, useEffect } from 'react'
-import { View, Text, Dimensions, SafeAreaView } from 'react-native'
+import React from 'react'
+import { SafeAreaView } from 'react-native'
 import { RFValue } from 'react-native-responsive-fontsize'
-import * as ScreenOrientation from 'expo-screen-orientation'
-import { Button } from 'react-native-paper'
 
-import i18n from '../../lib/i18n'
 import Header from './header'
 
-export default function PageTemplate(props) {
-  const messages = (props.messages || (props.message ? [props.message] : [])).map(message =>
-    message.text && message.style ? message : { text: message, style: {} }
-  )
-  const buttons = props.buttons || (props.button ? [props.button] : [])
-  const notices = props.notices || (props.notice ? [props.notice] : [])
-
+export default function PageTemplate({ children, hideHeader, showMenu, route, navigation }) {
   return (
     <>
-      {!props.hideHeader && (
-        <Header showMenu={props.showMenu} route={props.route} navigation={props.navigation} />
-      )}
-
-      <SafeAreaView style={styles.page}>
-        {messages.map(({ text, style }, index) => (
-          <Text key={index} style={Object.assign({}, styles.message, style)}>
-            {text}
-          </Text>
-        ))}
-        {props.children}
-        {buttons.map(({ text, style, onPress, disabled, color }, index) => (
-          <View key={index} style={Object.assign({}, styles.button, style || {})}>
-            <Button
-              mode="contained"
-              compact={true}
-              onPress={onPress}
-              disabled={disabled || false}
-              color={COLORS[color || 'primary']}
-            >
-              {text}
-            </Button>
-          </View>
-        ))}
-        {notices.map((notice, index) => (
-          <Text key={index} style={styles.notice}>
-            {notice}
-          </Text>
-        ))}
-      </SafeAreaView>
+      {!hideHeader && <Header showMenu={showMenu} route={route} navigation={navigation} />}
+      <SafeAreaView style={styles.page}>{children}</SafeAreaView>
     </>
   )
-}
-
-const COLORS = {
-  black: '#000000',
-  primary: '#0b487c'
 }
 
 const styles = {
@@ -64,25 +22,5 @@ const styles = {
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center'
-  },
-  message: {
-    fontWeight: 'bold',
-    fontSize: RFValue(24),
-    textAlign: 'center',
-    marginTop: 24
-  },
-  button: {
-    width: '80%',
-    fontWeight: 'bold',
-    fontSize: RFValue(24),
-    textAlign: 'center',
-    marginTop: 24
-  },
-  notice: {
-    fontWeight: 'bold',
-    fontSize: RFValue(20),
-    textAlign: 'center',
-    marginTop: 24,
-    color: '#881111'
   }
 }

@@ -11,30 +11,32 @@ import { getUserGivenName } from '../../lib/auth'
 import moment from '../../lib/moment'
 import useOrientation from '../../lib/use-orientation'
 import useScreenSize from '../../lib/use-screen-size'
+import Error from '../ui/error'
+import { useAsync } from '../../lib/use-async'
 
 export default function HomeScreen({ route, navigation }) {
   useOrientation('PORTRAIT')
   const { t } = useLocalization()
   const screenSize = useScreenSize()
-  const [teams, setTeams] = useState(null)
   const { authToken } = route.params
-
-  useEffect(() => {
-    Backend.fetchTeams(authToken).then(teams => {
-      teams.sort((a, b) => moment(a.event.start_date).unix - moment(b.event.start_date).unix)
-      setTeams(teams)
+  const teams = useAsync(() =>
+    Backend.fetchTeams(authToken).then(list => {
+      list.sort((a, b) => moment(a.event.start_date).unix - moment(b.event.start_date).unix)
+      return list
     })
-  }, [])
+  )
 
   const handleTeamSelect = teamAtEvent =>
     navigation.navigate('TEAM', { teamAtEventId: teamAtEvent.id, authToken })
 
   return (
     <PageTemplate showMenu={true} route={route} navigation={navigation}>
-      {!teams ? (
+      {teams.isLoading ? (
         <View style={styles.loading}>
           <ActivityIndicator size="large" />
         </View>
+      ) : teams.error ? (
+        <Error errorCode={teams.error} onRetry={teams.reload} usePageTemplate={false} />
       ) : (
         <>
           <View style={styles.header}>
@@ -44,7 +46,7 @@ export default function HomeScreen({ route, navigation }) {
           </View>
           <ScrollView style={{ width: screenSize.width }}>
             <List.Subheader>{t('select_team')}</List.Subheader>
-            {teams.map(teamAtEvent => (
+            {teams.data.map(teamAtEvent => (
               <TeamItem
                 key={teamAtEvent.id}
                 teamAtEvent={teamAtEvent}

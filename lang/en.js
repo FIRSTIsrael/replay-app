@@ -71,5 +71,11 @@ export default {
   language: 'Language',
   select_language: 'Select Language',
   help: 'Help',
-  about: 'About'
+  about: 'About',
+  errors: {
+    title: 'Oops, looks like something went wrong',
+    failed_connect: 'Failed to connect to FIRST Servers',
+    retry: 'Retry',
+    close: 'Close'
+  }
 }
