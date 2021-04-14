@@ -74,6 +74,7 @@ const VideoInstructorScreen = ({ navigation, route: { params } }) => {
         videoRef.current = { ...video }
         videoRef.current.uri = await processVideo(video.uri, params.match.id, params.teamAtEvent.id)
       } catch (err) {
+        console.error(err)
         return setError({
           description: 'נתקלנו בשגיאה לא צפויה במהלך עיבוד הסרטון',
           code: err?.description || err

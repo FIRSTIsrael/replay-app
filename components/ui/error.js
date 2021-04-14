@@ -71,7 +71,8 @@ const styles = {
   error_code: {
     fontFamily: 'Heebo_300Light',
     fontSize: RFValue(12),
-    marginTop: RFValue(6)
+    marginTop: RFValue(6),
+    textAlign: 'center'
   },
   button: {
     wrapper: {
