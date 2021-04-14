@@ -18,7 +18,7 @@ const config = {
       {
         text: 'המקצה רץ. צלמו באופן יציב.',
         end: 'timer',
-        time: 10,
+        time: 150,
         sounds: {
           start: 'start',
           end: 'end',
