@@ -21,6 +21,7 @@
     "axios": "^0.21.1",
     "babel-plugin-inline-import": "^3.0.0",
     "expo": "~40.0.0",
+    "expo-app-loading": "^1.0.3",
     "expo-application": "~2.4.1",
     "expo-av": "^8.7.0",
     "expo-barcode-scanner": "~9.1.0",

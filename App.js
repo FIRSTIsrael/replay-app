@@ -21,6 +21,7 @@ import {
 import * as Localization from 'expo-localization'
 import i18n from 'i18n-js'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import AppLoading from 'expo-app-loading'
 
 import LoginScreen from './components/screens/login'
 import HomeScreen from './components/screens/home'
@@ -100,7 +101,7 @@ export default function App() {
     }
   }, [locale, setLocale])
 
-  if (!fontsLoaded || !locale) return <View />
+  if (!fontsLoaded || !locale) return <AppLoading />
 
   const linking = { prefixes: [prefix] }
 
