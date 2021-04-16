@@ -21,6 +21,7 @@ import useOrientation from '../../lib/use-orientation'
 import useScreenSize from '../../lib/use-screen-size'
 import { useAsync } from '../../lib/use-async'
 import Error from '../ui/error'
+import config from '../../config'
 
 export default function HomeScreen({ route, navigation }) {
   useOrientation('PORTRAIT')
@@ -28,19 +29,27 @@ export default function HomeScreen({ route, navigation }) {
   const screenSize = useScreenSize()
   const { authToken, teamAtEventId } = route.params
   const [overwriteMatch, setOverwriteMatch] = useState(null)
+  const [stageDeadlineError, setStageDeadlineError] = useState(null)
   const teamAtEvent = useAsync(() => Backend.fetchTeamData(authToken, teamAtEventId))
 
   useFocusEffect(
     useCallback(() => {
-      teamAtEvent.reload()
+      if (!teamAtEvent.isLoading) {
+        teamAtEvent.reload()
+      }
     }, [])
   )
 
   const startMatch = match =>
     navigation.navigate('PRE_INST', { teamAtEvent: teamAtEvent.data, match, authToken })
 
-  const handleMatchSelect = match => {
-    if (match.status === 'SUBMITTED') {
+  const handleMatchSelect = (match, stage) => {
+    if (
+      stage?.deadline &&
+      moment().tz(config.timezone).isAfter(moment(stage.deadline).tz(config.timezone))
+    ) {
+      setStageDeadlineError(stage)
+    } else if (match.status === 'SUBMITTED') {
       setOverwriteMatch(match)
     } else {
       startMatch(match)
@@ -74,8 +83,9 @@ export default function HomeScreen({ route, navigation }) {
                   )}
                   {stage.deadline && (
                     <Text style={styles.stage.deadline}>
-                      {t('deadline', {
+                      {t('deadline.date', {
                         date: moment(stage.deadline)
+                          .tz(config.timezone)
                           .locale(locale)
                           .format(t('datetime_formats.short'))
                       })}
@@ -85,7 +95,7 @@ export default function HomeScreen({ route, navigation }) {
                     <MatchItem
                       key={match.id}
                       match={match}
-                      onPress={() => handleMatchSelect(match)}
+                      onPress={() => handleMatchSelect(match, stage)}
                     />
                   ))}
                 </Card>
@@ -114,6 +124,22 @@ export default function HomeScreen({ route, navigation }) {
                 >
                   {t('overwrite_warning.overwrite')}
                 </Button>
+              </Dialog.Actions>
+            </Dialog>
+          </Portal>
+          <Portal>
+            <Dialog
+              visible={stageDeadlineError !== null}
+              onDismiss={() => setStageDeadlineError(null)}
+            >
+              <Dialog.Title>{t('deadline.title')}</Dialog.Title>
+              <Dialog.Content>
+                <Paragraph>
+                  {t('deadline.description', { stage: stageDeadlineError?.title })}
+                </Paragraph>
+              </Dialog.Content>
+              <Dialog.Actions>
+                <Button onPress={() => setStageDeadlineError(null)}>{t('deadline.close')}</Button>
               </Dialog.Actions>
             </Dialog>
           </Portal>

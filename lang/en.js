@@ -31,6 +31,12 @@ export default {
     overwrite: 'Resubmit',
     cancel: 'Cancel'
   },
+  deadline: {
+    date: 'Submission Deadline: %{date}',
+    title: 'Submission window has closed',
+    description: 'Sorry, the deadline for submitting %{stage} has passed.',
+    close: 'Close'
+  },
   permissions: {
     permission_required: 'Permission Required',
     settings: 'Settings',
@@ -61,7 +67,6 @@ export default {
 
   team_name: 'Team #%{number}',
   team_name_long: 'Team #%{number} - %{affiliation}',
-  deadline: 'Submission Deadline: %{date}',
   datetime_formats: {
     short: 'MMM D, HH:mm',
     long: 'dddd, MMM D, HH:mm to %{endTime}',

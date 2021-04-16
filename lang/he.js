@@ -26,6 +26,12 @@ export default {
     overwrite: 'הגשה מחדש',
     cancel: 'ביטול'
   },
+  deadline: {
+    date: 'מועד אחרון להגשה: %{date}',
+    title: 'חלון ההגשה נסגר',
+    description: 'מצטערים, המועד האחרון להגשת %{stage} עבר.',
+    close: 'סגירה'
+  },
   rotate_phone: {
     title: 'אנא הפכו את המסך למצב מאוזן',
     helper_android: 'ודאו כי אפשרות הסיבוב האוטומטית מופעלת במכשירכם.',
@@ -61,7 +67,6 @@ export default {
 
   team_name: 'קבוצת #%{number}',
   team_name_long: 'קבוצת #%{number} - %{affiliation}',
-  deadline: 'מועד אחרון להגשה: %{date}',
   datetime_formats: {
     short: 'D בMMM בשעה HH:mm',
     long: 'יום dd׳, D בMMMM, בשעה HH:mm עד %{endTime}',

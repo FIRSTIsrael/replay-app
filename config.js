@@ -53,7 +53,8 @@ const config = {
     { locale: 'en', title: 'English' },
     { locale: 'he', title: 'עברית' },
     { locale: 'ar', title: 'عربى' }
-  ]
+  ],
+  timezone: 'Asia/Jerusalem'
 }
 
 export default config
