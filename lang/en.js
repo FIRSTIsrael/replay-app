@@ -11,7 +11,7 @@ export default {
     UNSUBMITTED: 'Unsubmitted',
     SUBMITTED: 'Submitted'
   },
-  pre_instructor: {
+  pre_match: {
     title: 'Start %{match_name}',
     welcome_team: 'Team #%{number}, Welcome!',
     description:
@@ -82,5 +82,11 @@ export default {
     failed_connect: 'Failed to connect to FIRST Servers',
     retry: 'Retry',
     close: 'Close'
+  },
+  no_data: {
+    title: 'Oops, No Data Found',
+    teams: 'No teams found in your account',
+    matches:
+      'No matches found for the team at this event, please contact support for more information'
   }
 }

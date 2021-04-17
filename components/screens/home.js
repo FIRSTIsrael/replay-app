@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { View, ScrollView } from 'react-native'
+import React from 'react'
+import { Image, View, ScrollView } from 'react-native'
 import { Text, List, ActivityIndicator } from 'react-native-paper'
 import { RFValue } from 'react-native-responsive-fontsize'
 
@@ -12,6 +12,7 @@ import moment from '../../lib/moment'
 import useOrientation from '../../lib/use-orientation'
 import useScreenSize from '../../lib/use-screen-size'
 import Error from '../ui/error'
+import NoData from '../ui/no-data'
 import { useAsync } from '../../lib/use-async'
 
 export default function HomeScreen({ route, navigation }) {
@@ -44,16 +45,21 @@ export default function HomeScreen({ route, navigation }) {
               {t('hello_user', { name: getUserGivenName(authToken) })}
             </Text>
           </View>
-          <ScrollView style={{ width: screenSize.width }}>
-            <List.Subheader>{t('select_team')}</List.Subheader>
-            {teams.data.map(teamAtEvent => (
-              <TeamItem
-                key={teamAtEvent.id}
-                teamAtEvent={teamAtEvent}
-                onPress={() => handleTeamSelect(teamAtEvent)}
-              />
-            ))}
-          </ScrollView>
+
+          {teams.data.length > 0 ? (
+            <ScrollView style={{ width: screenSize.width }}>
+              <List.Subheader>{t('select_team')}</List.Subheader>
+              {teams.data.map(teamAtEvent => (
+                <TeamItem
+                  key={teamAtEvent.id}
+                  teamAtEvent={teamAtEvent}
+                  onPress={() => handleTeamSelect(teamAtEvent)}
+                />
+              ))}
+            </ScrollView>
+          ) : (
+            <NoData text={t('no_data.teams')} />
+          )}
         </>
       )}
     </PageTemplate>

@@ -51,8 +51,8 @@ const config = {
   },
   langs: [
     { locale: 'en', title: 'English' },
-    { locale: 'he', title: 'עברית' },
-    { locale: 'ar', title: 'عربى' }
+    { locale: 'he', title: 'עברית' }
+    // { locale: 'ar', title: 'عربى' }
   ],
   timezone: 'Asia/Jerusalem'
 }

@@ -26,8 +26,8 @@ import AppLoading from 'expo-app-loading'
 import LoginScreen from './components/screens/login'
 import HomeScreen from './components/screens/home'
 import TeamScreen from './components/screens/team'
-import PreInstructorScreen from './components/screens/pre-instructor'
-import VideoInstructorScreen from './components/screens/video-instructor'
+import PreMatchScreen from './components/screens/pre-match'
+import MatchScreen from './components/screens/match'
 import PostMatchScreen from './components/screens/post-match'
 import { handleLocaleChange, LocalizationContext } from './lib/i18n'
 
@@ -113,8 +113,8 @@ export default function App() {
             <Stack.Screen name="LOGIN" component={LoginScreen} />
             <Stack.Screen name="HOME" component={HomeScreen} />
             <Stack.Screen name="TEAM" component={TeamScreen} />
-            <Stack.Screen name="PRE_INST" component={PreInstructorScreen} />
-            <Stack.Screen name="INST" component={VideoInstructorScreen} />
+            <Stack.Screen name="PRE_MATCH" component={PreMatchScreen} />
+            <Stack.Screen name="MATCH" component={MatchScreen} />
             <Stack.Screen name="POST_MATCH" component={PostMatchScreen} />
           </Stack.Navigator>
         </LocalizationContext.Provider>

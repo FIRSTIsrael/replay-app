@@ -2,6 +2,7 @@ import React from 'react'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { List } from 'react-native-paper'
 
+import FIRST from './FIRST'
 import config from '../../config'
 import { useLocalization } from '../../lib/i18n'
 
@@ -11,7 +12,7 @@ const TeamItem = ({ teamAtEvent, onPress }) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <List.Item
-        title={t('team_name_long', team)}
+        title={<FIRST>{t('team_name_long', team)}</FIRST>}
         description={event.name}
         left={props => (
           <List.Icon

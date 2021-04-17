@@ -18,7 +18,7 @@ import RotateDevice from '../ui/rotate-device'
 import useOrientation from '../../lib/use-orientation'
 import Backend from '../../lib/backend'
 
-const VideoInstructorScreen = ({ navigation, route: { params } }) => {
+const MatchScreen = ({ navigation, route: { params } }) => {
   const isOrientated = useOrientation('LANDSCAPE')
   const { t } = useLocalization()
   const [cameraPermission] = Permissions.usePermissions(Permissions.CAMERA, { ask: true })
@@ -130,6 +130,7 @@ const VideoInstructorScreen = ({ navigation, route: { params } }) => {
   return (
     <View style={styles.container}>
       <Camera ref={cameraRef} style={styles.camera} type={Camera.Constants.Type.back} />
+
       {isProcessing && (
         <View style={styles.processing.container}>
           <Image source={UploadingIllustration} style={styles.processing.illustration} />
@@ -230,7 +231,7 @@ const styles = {
     alignItems: 'center'
   },
   instruction: {
-    backgroundColor: 'rgba(255, 255, 255, 0.6)',
+    backgroundColor: 'rgba(255, 255, 255, 0.75)',
     borderRadius: RFValue(10),
     overflow: 'hidden',
     paddingHorizontal: RFValue(16),
@@ -249,4 +250,4 @@ const styles = {
   }
 }
 
-export default VideoInstructorScreen
+export default MatchScreen

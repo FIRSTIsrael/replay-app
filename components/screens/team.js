@@ -22,6 +22,7 @@ import useScreenSize from '../../lib/use-screen-size'
 import { useAsync } from '../../lib/use-async'
 import Error from '../ui/error'
 import config from '../../config'
+import NoData from '../ui/no-data'
 
 export default function HomeScreen({ route, navigation }) {
   useOrientation('PORTRAIT')
@@ -41,7 +42,7 @@ export default function HomeScreen({ route, navigation }) {
   )
 
   const startMatch = match =>
-    navigation.navigate('PRE_INST', { teamAtEvent: teamAtEvent.data, match, authToken })
+    navigation.navigate('PRE_MATCH', { teamAtEvent: teamAtEvent.data, match, authToken })
 
   const handleMatchSelect = (match, stage) => {
     if (
@@ -70,46 +71,50 @@ export default function HomeScreen({ route, navigation }) {
             <Text style={styles.team_number}>{t('team_name', teamAtEvent.data.team)}</Text>
             <Text style={styles.event_name}>{teamAtEvent.data.event.name}</Text>
           </View>
-          <ScrollView style={{ width: screenSize.width }}>
-            {teamAtEvent.data.config.stages.map(stage => {
-              const matches = teamAtEvent.data.matches.filter(m => m.stage === stage.id)
-              if (matches.length === 0) return <View key={stage.id} />
+          {teamAtEvent.data.matches.length > 0 ? (
+            <ScrollView style={{ width: screenSize.width }}>
+              {teamAtEvent.data.config.stages.map(stage => {
+                const matches = teamAtEvent.data.matches.filter(m => m.stage === stage.id)
+                if (matches.length === 0) return <View key={stage.id} />
 
-              return (
-                <Card key={stage.id} style={styles.stage.card}>
-                  <Text style={styles.stage.title}>{stage.title}</Text>
-                  {stage.description && (
-                    <Text style={styles.stage.description}>{stage.description}</Text>
-                  )}
-                  {stage.deadline && (
-                    <Text style={styles.stage.deadline}>
-                      {t('deadline.date', {
-                        date: moment(stage.deadline)
-                          .tz(config.timezone)
-                          .locale(locale)
-                          .format(t('datetime_formats.short'))
-                      })}
-                    </Text>
-                  )}
-                  {matches.map(match => (
-                    <MatchItem
-                      key={match.id}
-                      match={match}
-                      onPress={() => handleMatchSelect(match, stage)}
-                    />
-                  ))}
-                </Card>
-              )
-            })}
-          </ScrollView>
+                return (
+                  <Card key={stage.id} style={styles.stage.card}>
+                    <Text style={styles.stage.title}>{stage.title}</Text>
+                    {stage.description && (
+                      <Text style={styles.stage.description}>{stage.description}</Text>
+                    )}
+                    {stage.deadline && (
+                      <Text style={styles.stage.deadline}>
+                        {t('deadline.date', {
+                          date: moment(stage.deadline)
+                            .tz(config.timezone)
+                            .locale(locale)
+                            .format(t('datetime_formats.short'))
+                        })}
+                      </Text>
+                    )}
+                    {matches.map(match => (
+                      <MatchItem
+                        key={match.id}
+                        match={match}
+                        onPress={() => handleMatchSelect(match, stage)}
+                      />
+                    ))}
+                  </Card>
+                )
+              })}
+            </ScrollView>
+          ) : (
+            <NoData text={t('no_data.matches')} />
+          )}
           <Portal>
             <Dialog visible={overwriteMatch !== null} onDismiss={() => setOverwriteMatch(null)}>
               <Dialog.Title>
-                {t('overwrite_warning.title', { match: overwriteMatch?.name })}
+                {t('overwrite_warning.title', { match: overwriteMatch?.name || '' })}
               </Dialog.Title>
               <Dialog.Content>
                 <Paragraph>
-                  {t('overwrite_warning.description', { match: overwriteMatch?.name })}
+                  {t('overwrite_warning.description', { match: overwriteMatch?.name || '' })}
                 </Paragraph>
               </Dialog.Content>
               <Dialog.Actions>
@@ -135,7 +140,7 @@ export default function HomeScreen({ route, navigation }) {
               <Dialog.Title>{t('deadline.title')}</Dialog.Title>
               <Dialog.Content>
                 <Paragraph>
-                  {t('deadline.description', { stage: stageDeadlineError?.title })}
+                  {t('deadline.description', { stage: stageDeadlineError?.title || '' })}
                 </Paragraph>
               </Dialog.Content>
               <Dialog.Actions>

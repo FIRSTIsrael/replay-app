@@ -11,7 +11,7 @@ export default {
     UNSUBMITTED: 'לא הוגש',
     SUBMITTED: 'הוגש'
   },
-  pre_instructor: {
+  pre_match: {
     title: 'צילום %{match_name}',
     welcome_team: 'קבוצת #%{number}, ברוכים הבאים!',
     description:
@@ -82,5 +82,10 @@ export default {
     failed_connect: 'החיבור לשרתי FIRST נכשל',
     retry: 'נסו שנית',
     close: 'סגירה'
+  },
+  no_data: {
+    title: 'אופס, אין נתונים',
+    teams: 'לא נמצאו קבוצות בחשבונך',
+    matches: 'לא נמצאו מקצים עבור הקבוצה באירוע זה, פנו לתמיכה למידע נוסף'
   }
 }

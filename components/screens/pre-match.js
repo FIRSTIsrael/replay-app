@@ -8,13 +8,13 @@ import RotateDevice from '../ui/rotate-device'
 import { useLocalization } from '../../lib/i18n'
 import useOrientation from '../../lib/use-orientation'
 
-export default function PreInstructorScreen({ navigation, route }) {
+export default function PreMatchScreen({ navigation, route }) {
   const isOrientated = useOrientation('LANDSCAPE')
   const { t } = useLocalization()
   const { teamAtEvent, match } = route.params
   const { team, event } = route.params.teamAtEvent
 
-  const handleStart = () => navigation.replace('INST', route.params)
+  const handleStart = () => navigation.replace('MATCH', route.params)
   const handleExit = () => navigation.pop()
 
   if (!isOrientated) {
@@ -28,9 +28,9 @@ export default function PreInstructorScreen({ navigation, route }) {
   return (
     <PageTemplate hideHeader>
       <View style={styles.container}>
-        <Text style={styles.title}>{t('pre_instructor.title', { match_name: match.name })}</Text>
+        <Text style={styles.title}>{t('pre_match.title', { match_name: match.name })}</Text>
         <Text style={styles.description}>
-          {t('pre_instructor.description', {
+          {t('pre_match.description', {
             team: team.number,
             event: event.name,
             match: match.name
@@ -39,7 +39,7 @@ export default function PreInstructorScreen({ navigation, route }) {
         <View style={{ flex: 1, justifyContent: 'center' }}>
           <Button mode="contained" style={styles.actionButton} onPress={handleStart}>
             <Text style={{ fontSize: RFValue(16), color: '#fff', fontFamily: 'Heebo_700Bold' }}>
-              {t('pre_instructor.start')}
+              {t('pre_match.start')}
             </Text>
           </Button>
           <Button
@@ -48,7 +48,7 @@ export default function PreInstructorScreen({ navigation, route }) {
             onPress={handleExit}
           >
             <Text style={{ fontSize: RFValue(12), fontFamily: 'Heebo_500Medium' }}>
-              {t('pre_instructor.exit')}
+              {t('pre_match.exit')}
             </Text>
           </Button>
         </View>
