@@ -18,10 +18,10 @@
     "ios": {
       "requireFullScreen": true,
       "supportsTablet": true,
-      "bundleIdentifier": "first.israel.remotematch"
+      "bundleIdentifier": "org.firstisrael.remotematches"
     },
     "android": {
-      "package": "first.israel.remotematch",
+      "package": "org.firstisrael.remotematches",
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#FFFFFF"
