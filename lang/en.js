@@ -72,11 +72,12 @@ export default {
     long: 'dddd, MMM D, HH:mm to %{endTime}',
     datespan: '%{date1} to %{date2}'
   },
-  logout: 'Logout',
-  language: 'Language',
-  select_language: 'Select Language',
-  help: 'Help',
-  about: 'About',
+  menu: {
+    logout: 'Logout',
+    language: 'Language',
+    select_language: 'Select Language',
+    info: 'Info and Support'
+  },
   errors: {
     title: 'Oops, looks like something went wrong',
     failed_connect: 'Failed to connect to FIRST Servers',
@@ -88,5 +89,20 @@ export default {
     teams: 'No teams found in your account',
     matches:
       'No matches found for the team at this event, please contact support for more information'
+  },
+  app_info: {
+    app_version: 'Version %{version}',
+    contact: {
+      title: 'General Questions',
+      description: 'Contact FIRST'
+    },
+    support: {
+      title: 'Support',
+      description: 'Contact the FIRST Support Team'
+    },
+    flltech: {
+      title: 'Contact FIRST LEGO League Tech Team',
+      description: 'Questions about the rulebook and robot game video recording'
+    }
   }
 }

@@ -72,11 +72,12 @@ export default {
     long: 'יום dd׳, D בMMMM, בשעה HH:mm עד %{endTime}',
     datespan: '%{date1} עד ה־%{date2}'
   },
-  logout: 'יציאה',
-  language: 'שפה',
-  select_language: 'בחרו שפה',
-  help: 'עזרה',
-  about: 'על האפליקציה',
+  menu: {
+    logout: 'יציאה',
+    language: 'שפה',
+    select_language: 'בחרו שפה',
+    info: 'מידע ותמיכה'
+  },
   errors: {
     title: 'משהו לא מסתדר לנו',
     failed_connect: 'החיבור לשרתי FIRST נכשל',
@@ -87,5 +88,20 @@ export default {
     title: 'אופס, אין נתונים',
     teams: 'לא נמצאו קבוצות בחשבונך',
     matches: 'לא נמצאו מקצים עבור הקבוצה באירוע זה, פנו לתמיכה למידע נוסף'
+  },
+  app_info: {
+    app_version: 'גרסה %{version}',
+    contact: {
+      title: 'שאלות כלליות',
+      description: 'פנייה לצוות FIRST'
+    },
+    support: {
+      title: 'תמיכה טכנית',
+      description: 'פנייה לצוות התמיכה של FIRST'
+    },
+    flltech: {
+      title: 'פנייה לצוות הטכני של FIRST LEGO League',
+      description: 'שאלות לגבי החוקים וצילום המקצים'
+    }
   }
 }

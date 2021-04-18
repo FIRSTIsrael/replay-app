@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { View, ScrollView } from 'react-native'
 import { Appbar, Menu, Divider, Portal, Dialog, RadioButton } from 'react-native-paper'
-import * as WebBrowser from 'expo-web-browser'
 
 import { useLocalization } from '../../lib/i18n'
 import config from '../../config'
@@ -22,30 +21,31 @@ export default function HelpMenu(props) {
         anchor={<Appbar.Action icon="cog-outline" color="white" onPress={openMenu} />}
       >
         <Menu.Item
-          onPress={() =>
+          onPress={() => {
+            closeMenu()
             logout(props.route.params.authToken)
-              .then(() => closeMenu())
               .then(() => props.navigation.replace('LOGIN'))
               .catch(() => {})
-          }
+          }}
           icon="logout"
-          title={t('logout')}
+          title={t('menu.logout')}
         />
         <Menu.Item
-          onPress={() => setShowLanguageDialog(true)}
+          onPress={() => {
+            closeMenu()
+            setShowLanguageDialog(true)
+          }}
           icon="translate"
-          title={t('language')}
+          title={t('menu.language')}
         />
         <Divider />
         <Menu.Item
-          onPress={async () => await WebBrowser.openBrowserAsync(config.menu.helpMailUri)}
-          icon="help-circle-outline"
-          title={t('help')}
-        />
-        <Menu.Item
-          onPress={async () => await WebBrowser.openBrowserAsync(config.menu.infoUri)}
+          onPress={() => {
+            closeMenu()
+            props.navigation.navigate('INFO')
+          }}
           icon="information-outline"
-          title={t('about')}
+          title={t('menu.info')}
         />
       </Menu>
       <Portal>

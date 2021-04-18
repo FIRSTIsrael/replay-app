@@ -115,6 +115,7 @@ export default function App() {
           <Stack.Navigator initialRouteName="LOGIN" headerMode={false}>
             <Stack.Screen name="LOGIN" component={LoginScreen} />
             <Stack.Screen name="HOME" component={HomeScreen} />
+            <Stack.Screen name="INFO" component={InfoScreen} />
             <Stack.Screen name="TEAM" component={TeamScreen} />
             <Stack.Screen name="PRE_MATCH" component={PreMatchScreen} />
             <Stack.Screen name="MATCH" component={MatchScreen} />
