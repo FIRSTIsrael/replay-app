@@ -60,6 +60,7 @@ export default {
   start: 'התחלה',
   next: 'לשלב הבא',
   close: 'סגירה',
+  cancel: 'ביטול',
 
   team_name: 'קבוצת #%{number}',
   team_name_long: 'קבוצת #%{number} - %{affiliation}',

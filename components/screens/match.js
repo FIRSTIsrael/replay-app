@@ -11,7 +11,7 @@ import { processVideo } from '../../lib/video-processing'
 import { playSound } from '../../lib/sounds'
 import { useLocalization } from '../../lib/i18n'
 import PermissionRequired from '../ui/permission-required'
-import UploadingIllustration from '../../assets/images/uploading-illustration.png'
+import uploadingIllustration from '../../assets/images/uploading-illustration.png'
 import FIRST from '../ui/FIRST'
 import Error from '../ui/error'
 import RotateDevice from '../ui/rotate-device'
@@ -28,6 +28,7 @@ const MatchScreen = ({ navigation, route: { params } }) => {
   const [instructionIndex, setInstructionIndex] = useState(0)
   const [isRecording, setRecording] = useState(false)
   const [isProcessing, setProcessing] = useState(false)
+  const [isAborted, setAborted] = useState(false)
   const [error, setError] = useState(null)
   const instructions = config.INSTRUCTIONS[params.teamAtEvent.team.program]
   const instruction = instructions[instructionIndex]
@@ -39,6 +40,12 @@ const MatchScreen = ({ navigation, route: { params } }) => {
       }
     }
   }, [])
+
+  useEffect(() => {
+    if (isAborted) {
+      navigation.pop()
+    }
+  }, [isAborted])
 
   const uploadVideo = useCallback(() => {
     return Backend.postMatch(
@@ -69,6 +76,7 @@ const MatchScreen = ({ navigation, route: { params } }) => {
       const video = await cameraRef.current.recordAsync({
         quality: Camera.Constants.VideoQuality['720p'] || Camera.Constants.VideoQuality['480p']
       })
+      if (isAborted) return
 
       try {
         videoRef.current = { ...video }
@@ -83,7 +91,7 @@ const MatchScreen = ({ navigation, route: { params } }) => {
 
       await uploadVideo()
     }
-  })
+  }, [setError, setRecording, isAborted, processVideo, uploadVideo])
 
   const handleNext = useCallback(() => {
     if (instruction.end === 'start') {
@@ -133,7 +141,7 @@ const MatchScreen = ({ navigation, route: { params } }) => {
 
       {isProcessing && (
         <View style={styles.processing.container}>
-          <Image source={UploadingIllustration} style={styles.processing.illustration} />
+          <Image source={uploadingIllustration} style={styles.processing.illustration} />
           <View style={{ maxWidth: '45%' }}>
             <Text style={styles.processing.title}>{t('processing.title')}</Text>
             <Text style={styles.processing.text}>
@@ -146,6 +154,18 @@ const MatchScreen = ({ navigation, route: { params } }) => {
         <View style={styles.instructionsContainer}>
           <Text style={styles.instruction}>{instruction.text}</Text>
         </View>
+        <Button
+          icon="stop"
+          style={styles.abort_button}
+          mode="contained"
+          onPress={() => {
+            setAborted(true)
+          }}
+          compact
+        >
+          {t('cancel')}
+        </Button>
+
         {(instruction.end === 'start' || instruction.end === 'button') && (
           <Button style={styles.button} mode="contained" onPress={handleNext} color="#fff">
             <Text style={{ fontSize: 24, color: '#000', fontFamily: 'Heebo_700Bold' }}>
@@ -247,6 +267,17 @@ const styles = {
     bottom: '6%',
     borderRadius: RFValue(6),
     paddingHorizontal: RFValue(4)
+  },
+  abort_button: {
+    position: 'absolute',
+    top: '6%',
+    right: '6%',
+    borderRadius: RFValue(6),
+    paddingHorizontal: RFValue(4),
+    backgroundColor: '#E00'
+    // color: '#E00'
+    // borderColor: '#C50000',
+    // borderWidth: 2
   }
 }
 

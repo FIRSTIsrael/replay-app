@@ -60,6 +60,7 @@ export default {
   start: 'Start',
   next: 'Next',
   close: 'Close',
+  cancel: 'Cancel',
 
   team_name: 'Team #%{number}',
   team_name_long: 'Team #%{number} - %{affiliation}',
