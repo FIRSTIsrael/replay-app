@@ -80,7 +80,7 @@ export default function InfoScreen({ route, navigation }) {
               <Text style={styles.copyright.text}>
                 <FIRST>Copyright © 2021 FIRST Israel. All rights reserved.</FIRST>
               </Text>
-              <Text style={styles.copyright.text}>All © &amp; ™ 2020 Lucasfilm Ltd.</Text>
+              <Text style={styles.copyright.text}>© &amp; ™ 2020 Lucasfilm Ltd.</Text>
             </Card>
           </View>
         </View>
@@ -128,8 +128,8 @@ const styles = {
     },
     text: {
       color: '#555',
+      direction: 'ltr',
       fontSize: RFValue(10),
-      textAlign: 'right',
       paddingTop: RFValue(4),
       paddingBottom: RFValue(4)
     }
