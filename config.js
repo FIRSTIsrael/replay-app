@@ -46,8 +46,8 @@ const config = {
     'FIRST Robotics Competition': '#009CD7'
   },
   langs: [
-    { locale: 'en', title: 'English' },
     { locale: 'he', title: 'עברית' }
+    // { locale: 'en', title: 'English' },
     // { locale: 'ar', title: 'عربى' }
   ],
   timezone: 'Asia/Jerusalem'

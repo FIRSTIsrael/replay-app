@@ -31,6 +31,7 @@ import PreMatchScreen from './components/screens/pre-match'
 import MatchScreen from './components/screens/match'
 import PostMatchScreen from './components/screens/post-match'
 import { handleLocaleChange, LocalizationContext } from './lib/i18n'
+import config from './config'
 
 const prefix = Linking.makeUrl('/')
 const Stack = createStackNavigator()
@@ -97,9 +98,13 @@ export default function App() {
     if (locale) {
       AsyncStorage.setItem('fi-locale', locale)
     } else {
-      AsyncStorage.getItem('fi-locale').then(locale =>
-        localizationContext.setLocale(locale || Localization.locale.substr(0, 2) || 'he')
-      )
+      AsyncStorage.getItem('fi-locale').then(storageLocale => {
+        const defaultLocale = config.langs[0].locale
+        const systemLocale = Localization.locale.substr(0, 2)
+        const locale = storageLocale || systemLocale
+        const isExist = config.langs.find(l => l.locale === locale) !== null
+        localizationContext.setLocale(isExist ? locale : defaultLocale)
+      })
     }
   }, [locale, setLocale])
 

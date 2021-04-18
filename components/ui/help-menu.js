@@ -30,15 +30,19 @@ export default function HelpMenu(props) {
           icon="logout"
           title={t('menu.logout')}
         />
-        <Menu.Item
-          onPress={() => {
-            closeMenu()
-            setShowLanguageDialog(true)
-          }}
-          icon="translate"
-          title={t('menu.language')}
-        />
-        <Divider />
+        {config.langs.length > 1 && (
+          <>
+            <Menu.Item
+              onPress={() => {
+                closeMenu()
+                setShowLanguageDialog(true)
+              }}
+              icon="translate"
+              title={t('menu.language')}
+            />
+            <Divider />
+          </>
+        )}
         <Menu.Item
           onPress={() => {
             closeMenu()
