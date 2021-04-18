@@ -15,6 +15,7 @@ import {
 } from '@expo-google-fonts/heebo'
 import {
   Roboto_400Regular_Italic,
+  Roboto_700Bold_Italic,
   Roboto_900Black,
   Roboto_900Black_Italic
 } from '@expo-google-fonts/roboto'
@@ -25,6 +26,7 @@ import AppLoading from 'expo-app-loading'
 
 import LoginScreen from './components/screens/login'
 import HomeScreen from './components/screens/home'
+import InfoScreen from './components/screens/info'
 import TeamScreen from './components/screens/team'
 import PreMatchScreen from './components/screens/pre-match'
 import MatchScreen from './components/screens/match'
@@ -87,6 +89,7 @@ export default function App() {
     Heebo_700Bold,
     Heebo_900Black,
     Roboto_400Regular_Italic,
+    Roboto_700Bold_Italic,
     Roboto_900Black,
     Roboto_900Black_Italic
   })
