@@ -45,10 +45,6 @@ const config = {
     'FIRST Tech Challenge': '#F57E25',
     'FIRST Robotics Competition': '#009CD7'
   },
-  menu: {
-    helpMailURL: 'mailto:flltech@firstisrael.org.il',
-    infoURL: 'https://firstisrael.org.il/fll/challenge'
-  },
   langs: [
     { locale: 'en', title: 'English' },
     { locale: 'he', title: 'עברית' }
