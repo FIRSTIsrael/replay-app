@@ -13,14 +13,17 @@
       "backgroundColor": "#ffffff"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "enabled": false
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "requireFullScreen": true,
       "supportsTablet": false,
       "bundleIdentifier": "org.firstisrael.remotematches",
-      "icon": "./assets/icons/icon-square.png"
+      "icon": "./assets/icons/icon-square.png",
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "FIRST requires access to your library to allow you to save match videos."
+      }
     },
     "android": {
       "package": "org.firstisrael.remotematches",
@@ -28,7 +31,15 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/icons/icon-foreground.png",
         "backgroundImage": "./assets/icons/icon-background.png"
-      }
+      },
+      "permissions": [
+        "CAMERA",
+        "RECORD_AUDIO",
+        "MODIFY_AUDIO_SETTINGS", 
+        "READ_EXTERNAL_STORAGE",
+        "READ_INTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+     ]
     }
   }
 }
