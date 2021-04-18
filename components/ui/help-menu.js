@@ -50,7 +50,7 @@ export default function HelpMenu(props) {
       </Menu>
       <Portal>
         <Dialog visible={showLanguageDialog} onDismiss={() => setShowLanguageDialog(false)}>
-          <Dialog.Title>{t('select_language')}</Dialog.Title>
+          <Dialog.Title>{t('menu.select_language')}</Dialog.Title>
           <Dialog.ScrollArea style={{ maxHeight: 170, paddingHorizontal: 0 }}>
             <ScrollView>
               <View>

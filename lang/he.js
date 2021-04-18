@@ -61,10 +61,6 @@ export default {
   next: 'לשלב הבא',
   close: 'סגירה',
 
-  shoot_another: 'לחצו כאן לצילום סרטון נוסף',
-  exit: 'לא, תודה. סיימנו לעכשיו',
-  thank_you: 'תודה לכם על השתתפות בתחרות FLL Replay!',
-
   team_name: 'קבוצת #%{number}',
   team_name_long: 'קבוצת #%{number} - %{affiliation}',
   datetime_formats: {

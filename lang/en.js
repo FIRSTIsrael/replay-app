@@ -15,7 +15,7 @@ export default {
     title: 'Start %{match_name}',
     welcome_team: 'Team #%{number}, Welcome!',
     description:
-      'קבוצת #%{team}, אנו שמחים מאוד שהצטרפתם אלינו ל%{event}, כעת נצלם את ה%{match}. מקמו את הטלפון כך שיהיה בזיוות המתאימה לצילום הזירה ועקבו אחר הנחיות הצילום המלאות המופיעות במפת המשאבים באתר FIRST. התכוננו לתחילת המקצה.',
+      "Team #%{team}, we are glad you joined us for %{event}, we'll now record the %{match}. Choose your camera position and follow the full Robot Game Video Recording document on the resource library on FIRST website. Get ready for the starting of the match.",
     start: 'We Are Ready',
     exit: 'Not now, Exit'
   },
@@ -60,10 +60,6 @@ export default {
   start: 'Start',
   next: 'Next',
   close: 'Close',
-
-  shoot_another: 'לחצו כאן לצילום סרטון נוסף',
-  exit: 'לא, תודה. סיימנו לעכשיו',
-  thank_you: 'תודה לכם על השתתפות בתחרות FLL Replay!',
 
   team_name: 'Team #%{number}',
   team_name_long: 'Team #%{number} - %{affiliation}',
