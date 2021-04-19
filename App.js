@@ -103,7 +103,7 @@ export default function App() {
         const defaultLocale = config.langs[0].locale
         const systemLocale = Localization.locale.substr(0, 2)
         const locale = storageLocale || systemLocale
-        const isExist = config.langs.find(l => l.locale === locale) !== null
+        const isExist = Boolean(config.langs.find(l => l.locale === locale))
         localizationContext.setLocale(isExist ? locale : defaultLocale)
       })
     }
