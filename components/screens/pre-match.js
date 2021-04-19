@@ -19,7 +19,7 @@ export default function PreMatchScreen({ navigation, route }) {
 
   if (!isOrientated) {
     return (
-      <PageTemplate>
+      <PageTemplate onBack={() => navigation.pop()}>
         <RotateDevice />
       </PageTemplate>
     )

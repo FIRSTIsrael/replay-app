@@ -58,7 +58,7 @@ export default function HomeScreen({ route, navigation }) {
   }
 
   return (
-    <PageTemplate>
+    <PageTemplate onBack={() => navigation.pop()}>
       {teamAtEvent.isLoading ? (
         <View style={styles.loading}>
           <ActivityIndicator size="large" />

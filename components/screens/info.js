@@ -29,7 +29,7 @@ export default function InfoScreen({ route, navigation }) {
   const platform = `${platformName[Platform.OS] || Platform.os} ${Platform.Version}`
 
   return (
-    <PageTemplate>
+    <PageTemplate onBack={() => navigation.pop()}>
       <ScrollView>
         <View style={{ ...styles.container, width: screenSize.width }}>
           <Image style={styles.app_icon} source={AppIcon} resizeMode="contain" />

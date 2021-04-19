@@ -14,7 +14,7 @@ export default function PostMatchScreen({ navigation, route: { params } }) {
   const { teamAtEvent, match } = params
 
   return (
-    <PageTemplate>
+    <PageTemplate onBack={() => navigation.pop()}>
       <View style={styles.container}>
         <Image style={styles.icon} source={ConfettiIcon} />
         <Text style={styles.headline}>{t('post_match.title', { match: match.name })}</Text>
