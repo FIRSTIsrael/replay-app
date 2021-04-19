@@ -7,6 +7,7 @@ import PageTemplate from '../ui/page-template'
 import RotateDevice from '../ui/rotate-device'
 import { useLocalization } from '../../lib/i18n'
 import useOrientation from '../../lib/use-orientation'
+import FIRST from '../ui/FIRST'
 
 export default function PreMatchScreen({ navigation, route }) {
   const isOrientated = useOrientation('LANDSCAPE')
@@ -28,13 +29,17 @@ export default function PreMatchScreen({ navigation, route }) {
   return (
     <PageTemplate hideHeader>
       <View style={styles.container}>
-        <Text style={styles.title}>{t('pre_match.title', { match_name: match.name })}</Text>
+        <Text style={styles.title}>
+          <FIRST>{t('pre_match.title', { match_name: match.name })}</FIRST>
+        </Text>
         <Text style={styles.description}>
-          {t('pre_match.description', {
-            team: team.number,
-            event: event.name,
-            match: match.name
-          })}
+          <FIRST>
+            {t('pre_match.description', {
+              team: team.number,
+              event: event.name,
+              match: match.name
+            })}
+          </FIRST>
         </Text>
         <View style={{ flex: 1, justifyContent: 'center' }}>
           <Button mode="contained" style={styles.actionButton} onPress={handleStart}>
