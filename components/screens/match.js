@@ -22,30 +22,31 @@ const MatchScreen = ({ navigation, route: { params } }) => {
   const isOrientated = useOrientation('LANDSCAPE')
   const { t } = useLocalization()
   const [cameraPermission] = Permissions.usePermissions(Permissions.CAMERA, { ask: true })
-  const [micPermission] = Permissions.usePermissions(Permissions.AUDIO_RECORDING, { ask: true })
+  const [microphonePermission] = Permissions.usePermissions(Permissions.AUDIO_RECORDING, {
+    ask: true
+  })
+  const [storagePermission] = Permissions.usePermissions(Permissions.MEDIA_LIBRARY_WRITE_ONLY, {
+    ask: true
+  })
   const cameraRef = useRef()
   const videoRef = useRef()
   const [instructionIndex, setInstructionIndex] = useState(0)
   const [isRecording, setRecording] = useState(false)
   const [isProcessing, setProcessing] = useState(false)
-  const [isAborted, setAborted] = useState(false)
+  const isAborted = useRef(false)
   const [error, setError] = useState(null)
-  const instructions = config.INSTRUCTIONS[params.teamAtEvent.team.program]
+  const instructions = config.INSTRUCTIONS[params.teamAtEvent.team.program] || []
   const instruction = instructions[instructionIndex]
 
   useEffect(() => {
     return () => {
       if (isRecording && cameraRef.current) {
         cameraRef.current.stopRecording()
+        isAborted.current = true
+        navigation.pop()
       }
     }
   }, [])
-
-  useEffect(() => {
-    if (isAborted) {
-      navigation.pop()
-    }
-  }, [isAborted])
 
   const uploadVideo = useCallback(() => {
     return Backend.postMatch(
@@ -57,7 +58,6 @@ const MatchScreen = ({ navigation, route: { params } }) => {
       .then(console.log)
       .then(() => {
         setProcessing(false)
-        setRecording(false)
         navigation.replace('POST_MATCH', params)
       })
       .catch(err =>
@@ -76,7 +76,8 @@ const MatchScreen = ({ navigation, route: { params } }) => {
       const video = await cameraRef.current.recordAsync({
         quality: Camera.Constants.VideoQuality['720p'] || Camera.Constants.VideoQuality['480p']
       })
-      if (isAborted) return
+      if (isAborted.current) return
+      setRecording(false)
 
       try {
         videoRef.current = { ...video }
@@ -89,9 +90,14 @@ const MatchScreen = ({ navigation, route: { params } }) => {
         })
       }
 
-      await uploadVideo()
+      if (params.teamAtEvent.config.upload_videos) {
+        await uploadVideo()
+      } else {
+        setProcessing(false)
+        navigation.replace('POST_MATCH', params)
+      }
     }
-  }, [setError, setRecording, isAborted, processVideo, uploadVideo])
+  }, [setError, setRecording, processVideo, uploadVideo])
 
   const handleNext = useCallback(() => {
     if (instruction.end === 'start') {
@@ -109,6 +115,15 @@ const MatchScreen = ({ navigation, route: { params } }) => {
 
   if (!isOrientated) {
     return <RotateDevice />
+  } else if (!instructions || instructions.length === 0) {
+    return (
+      <Error
+        usePageTemplate={false}
+        errorCode="NO_INSTRUCTIONS"
+        errorDescription="זיהוי הקבוצה נכשל"
+        onClose={() => navigation.pop()}
+      />
+    )
   } else if (error) {
     return (
       <Error
@@ -122,15 +137,22 @@ const MatchScreen = ({ navigation, route: { params } }) => {
   } else if (!cameraPermission?.granted) {
     return (
       <PermissionRequired
-        androidText="permissions.cam_access_andorid"
+        androidText="permissions.cam_access_android"
         iosText="permissions.cam_access_ios"
       />
     )
-  } else if (!micPermission?.granted) {
+  } else if (!microphonePermission?.granted) {
     return (
       <PermissionRequired
         androidText="permissions.mic_access_andorid"
         iosText="permissions.mic_access_ios"
+      />
+    )
+  } else if (!storagePermission?.granted) {
+    return (
+      <PermissionRequired
+        androidText="permissions.storage_access_android"
+        iosText="permissions.storage_access_ios"
       />
     )
   }
@@ -139,7 +161,7 @@ const MatchScreen = ({ navigation, route: { params } }) => {
     <View style={styles.container}>
       <Camera ref={cameraRef} style={styles.camera} type={Camera.Constants.Type.back} />
 
-      {isProcessing && (
+      {isProcessing ? (
         <View style={styles.processing.container}>
           <Image source={uploadingIllustration} style={styles.processing.illustration} />
           <View style={{ maxWidth: '45%' }}>
@@ -149,51 +171,53 @@ const MatchScreen = ({ navigation, route: { params } }) => {
             </Text>
           </View>
         </View>
-      )}
-      <SafeAreaView style={{ flex: 1 }}>
-        <View style={styles.instructionsContainer}>
-          <Text style={styles.instruction}>{instruction.text}</Text>
-        </View>
-        <Button
-          icon="stop"
-          style={styles.abort_button}
-          mode="contained"
-          onPress={() => {
-            setAborted(true)
-          }}
-          compact
-        >
-          {t('cancel')}
-        </Button>
-
-        {(instruction.end === 'start' || instruction.end === 'button') && (
-          <Button style={styles.button} mode="contained" onPress={handleNext} color="#fff">
-            <Text style={{ fontSize: 24, color: '#000', fontFamily: 'Heebo_700Bold' }}>
-              {instruction.buttonText || t('next')}
-            </Text>
+      ) : (
+        <SafeAreaView style={{ flex: 1 }}>
+          <View style={styles.instructionsContainer}>
+            <Text style={styles.instruction}>{instruction.text}</Text>
+          </View>
+          <Button
+            icon="stop"
+            style={styles.abort_button}
+            mode="contained"
+            onPress={() => {
+              isAborted.current = true
+              navigation.pop()
+            }}
+            compact
+          >
+            {t('cancel')}
           </Button>
-        )}
-        {instruction.end === 'timer' && (
-          <Timer
-            duration={instruction.time}
-            everySecond={time => {
-              if (instruction.sounds && instruction.sounds[`${time}secs`]) {
-                playSound(instruction.sounds[`${time}secs`])
-              }
-            }}
-            onFinished={() => {
-              if (instruction.sounds && instruction.sounds.end) {
-                playSound(instruction.sounds.end)
-              }
-              const nextInstruction = instructions[instructionIndex + 1]
-              if (nextInstruction && nextInstruction.sounds && nextInstruction.sounds.start) {
-                playSound(nextInstruction.sounds.start)
-              }
-              handleNext()
-            }}
-          />
-        )}
-      </SafeAreaView>
+
+          {(instruction.end === 'start' || instruction.end === 'button') && (
+            <Button style={styles.button} mode="contained" onPress={handleNext} color="#fff">
+              <Text style={{ fontSize: 24, color: '#000', fontFamily: 'Heebo_700Bold' }}>
+                {instruction.buttonText || t('next')}
+              </Text>
+            </Button>
+          )}
+          {instruction.end === 'timer' && (
+            <Timer
+              duration={instruction.time}
+              everySecond={time => {
+                if (instruction.sounds && instruction.sounds[`${time}secs`]) {
+                  playSound(instruction.sounds[`${time}secs`])
+                }
+              }}
+              onFinished={() => {
+                if (instruction.sounds && instruction.sounds.end) {
+                  playSound(instruction.sounds.end)
+                }
+                const nextInstruction = instructions[instructionIndex + 1]
+                if (nextInstruction && nextInstruction.sounds && nextInstruction.sounds.start) {
+                  playSound(nextInstruction.sounds.start)
+                }
+                handleNext()
+              }}
+            />
+          )}
+        </SafeAreaView>
+      )}
     </View>
   )
 }
@@ -246,8 +270,12 @@ const styles = {
     width: '100%'
   },
   instructionsContainer: {
+    position: 'absolute',
+    zIndex: 10,
     top: '4%',
-    paddingHorizontal: RFValue(20),
+    left: '0%',
+    right: '0%',
+    paddingHorizontal: RFValue(36),
     alignItems: 'center'
   },
   instruction: {
@@ -270,8 +298,8 @@ const styles = {
   },
   abort_button: {
     position: 'absolute',
-    top: '6%',
-    right: '6%',
+    left: '6%',
+    bottom: '6%',
     borderRadius: RFValue(6),
     paddingHorizontal: RFValue(4),
     backgroundColor: '#E00'

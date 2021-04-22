@@ -15,7 +15,7 @@ export default {
     title: 'Start %{match_name}',
     welcome_team: 'Team #%{number}, Welcome!',
     description:
-      "Team #%{team}, we are glad you joined us for %{event}, we'll now record the %{match}. Choose your camera position and follow the full Robot Game Video Recording document on the resource library on FIRST website. Get ready for the starting of the match.",
+      'Team #%{team}, we are glad you joined us for %{event}! Choose your camera position and follow the full Robot Game Video Recording document on the resource library on FIRST website. Get ready for the starting of the match.',
     start: 'We Are Ready',
     exit: 'Not now, Exit'
   },
@@ -47,7 +47,11 @@ export default {
     mic_access_android:
       'To record this match, allow FIRST access to your microphone. Tap Settings > Permissions, and turn Microphone on.',
     mic_access_ios:
-      'To record this match, allow FIRST access to your microphone. Tap Settings, and turn Microphone on.'
+      'To record this match, allow FIRST access to your microphone. Tap Settings, and turn Microphone on.',
+    storage_access_android:
+      "To record this match, allow FIRST access to your device's storage. Tap Settings > Permissions, and turn Storage on.",
+    storage_access_ios:
+      "To record this match, allow FIRST access to your device's storage. Tap Settings, and turn Photos on."
   },
   processing: {
     title: 'Just a moment',
