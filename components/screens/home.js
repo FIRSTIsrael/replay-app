@@ -22,13 +22,22 @@ export default function HomeScreen({ route, navigation }) {
   const { authToken } = route.params
   const teams = useAsync(() =>
     Backend.fetchTeams(authToken).then(list => {
-      list.sort((a, b) => moment(a.event.start_date).unix - moment(b.event.start_date).unix)
+      list.sort((a, b) => moment(a.event.start_date).unix() - moment(b.event.start_date).unix())
       return list
     })
   )
 
-  const handleTeamSelect = teamAtEvent =>
-    navigation.navigate('TEAM', { teamAtEventId: teamAtEvent.id, authToken })
+  const handleTeamSelect = teamAtEvent => {
+    if (teamAtEvent.config.use_reh_matches) {
+      navigation.navigate('PRE_MATCH', {
+        teamAtEvent,
+        match: { id: 'match', name: 'מקצה זירה' },
+        authToken
+      })
+    } else {
+      navigation.navigate('TEAM', { teamAtEventId: teamAtEvent.id, authToken })
+    }
+  }
 
   return (
     <PageTemplate showMenu={true} route={route} navigation={navigation}>
