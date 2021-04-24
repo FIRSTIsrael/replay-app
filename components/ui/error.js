@@ -30,12 +30,22 @@ export default function Error({
           </Text>
         )}
         {onRetry ? (
-          <Button mode="contained" style={styles.button.wrapper} onPress={onRetry}>
-            <Text style={styles.button.text}>{t('errors.retry')}</Text>
+          <Button
+            mode="contained"
+            style={styles.button.wrapper}
+            labelStyle={styles.button.label}
+            onPress={onRetry}
+          >
+            {t('errors.retry')}
           </Button>
         ) : onClose ? (
-          <Button mode="contained" style={styles.button.wrapper} onPress={onClose}>
-            <Text style={styles.button.text}>{t('errors.close')}</Text>
+          <Button
+            mode="contained"
+            style={styles.button.wrapper}
+            labelStyle={styles.button.label}
+            onPress={onClose}
+          >
+            {t('errors.close')}
           </Button>
         ) : null}
       </View>
@@ -79,7 +89,7 @@ const styles = {
       marginTop: RFValue(36),
       paddingHorizontal: RFValue(18)
     },
-    text: {
+    label: {
       fontSize: RFValue(14),
       color: '#fff',
       fontFamily: 'Heebo_500Medium'
