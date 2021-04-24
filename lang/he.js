@@ -11,6 +11,14 @@ export default {
     UNSUBMITTED: 'לא הוגש',
     SUBMITTED: 'הוגש'
   },
+  team_page: {
+    open_remote_event_hub: {
+      title: 'FIRST Remote Event Hub',
+      description: 'התחברות למערכת התחרות'
+    },
+    report_concern: 'דיווח על תקרית',
+    judging_complaint: 'דיווח על מקרה חריג בחדר השיפוט'
+  },
   pre_match: {
     title: 'צילום %{match_name}',
     welcome_team: 'קבוצת #%{number}, ברוכים הבאים!',
@@ -92,6 +100,10 @@ export default {
   },
   app_info: {
     app_version: 'גרסה %{version}',
+    open_remote_event_hub: {
+      title: 'FIRST Remote Event Hub',
+      description: 'התחברות למערכת התחרויות'
+    },
     contact: {
       title: 'שאלות כלליות',
       description: 'פנייה לצוות FIRST'

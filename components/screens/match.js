@@ -39,6 +39,8 @@ const MatchScreen = ({ navigation, route: { params } }) => {
   const instruction = instructions[instructionIndex]
 
   useEffect(() => {
+    Backend.sendStats(params.authToken, params.teamAtEvent.id, 'MATCH_OPENED')
+
     return () => {
       if (isRecording && cameraRef.current) {
         cameraRef.current.stopRecording()
@@ -72,16 +74,22 @@ const MatchScreen = ({ navigation, route: { params } }) => {
 
   const handleStart = useCallback(async () => {
     if (cameraRef.current && !isRecording) {
+      Backend.sendStats(params.authToken, params.teamAtEvent.id, 'MATCH_STARTED')
       setRecording(true)
       const video = await cameraRef.current.recordAsync({
         quality: Camera.Constants.VideoQuality['720p'] || Camera.Constants.VideoQuality['480p']
       })
-      if (isAborted.current) return
+      if (isAborted.current) {
+        Backend.sendStats(params.authToken, params.teamAtEvent.id, 'MATCH_ABORTED')
+        return
+      }
       setRecording(false)
+      Backend.sendStats(params.authToken, params.teamAtEvent.id, 'MATCH_ENDED')
 
       try {
         videoRef.current = { ...video }
         videoRef.current.uri = await processVideo(video.uri, params.match.id, params.teamAtEvent.id)
+        Backend.sendStats(params.authToken, params.teamAtEvent.id, 'MATCH_PROCESSED')
       } catch (err) {
         console.error(err)
         return setError({
@@ -91,7 +99,9 @@ const MatchScreen = ({ navigation, route: { params } }) => {
       }
 
       if (params.teamAtEvent.config.upload_videos) {
+        Backend.sendStats(params.authToken, params.teamAtEvent.id, 'UPLOADING_MATCH')
         await uploadVideo()
+        Backend.sendStats(params.authToken, params.teamAtEvent.id, 'MATCH_UPLOADED')
       } else {
         setProcessing(false)
         navigation.replace('POST_MATCH', params)

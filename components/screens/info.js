@@ -1,6 +1,6 @@
 import React from 'react'
 import { Image, View, Platform, ScrollView, Linking } from 'react-native'
-import { Card, Text, List } from 'react-native-paper'
+import { Card, Text, List, Button } from 'react-native-paper'
 import { RFValue } from 'react-native-responsive-fontsize'
 import Constants from 'expo-constants'
 import { TouchableOpacity } from 'react-native-gesture-handler'
@@ -41,6 +41,15 @@ export default function InfoScreen({ route, navigation }) {
 
           <View>
             <Card style={styles.support.wrapper}>
+              <TouchableOpacity
+                onPress={() => Linking.openURL('https://remotehub.firstinspires.org')}
+              >
+                <List.Item
+                  title={<FIRST>{t('app_info.open_remote_event_hub.title')}</FIRST>}
+                  description={<FIRST>{t('app_info.open_remote_event_hub.description')}</FIRST>}
+                  left={props => <List.Icon {...props} icon="view-dashboard-outline" />}
+                />
+              </TouchableOpacity>
               <TouchableOpacity onPress={() => Linking.openURL('mailto:fll@firstisrael.org.il')}>
                 <List.Item
                   title={<FIRST>{t('app_info.contact.title')}</FIRST>}
@@ -66,6 +75,22 @@ export default function InfoScreen({ route, navigation }) {
                   left={props => <List.Icon {...props} icon="text-box-multiple-outline" />}
                 />
               </TouchableOpacity>
+            </Card>
+            <Card style={styles.legal.wrapper}>
+              <View style={styles.legal.content}>
+                <Button
+                  onPress={() => Linking.openURL('https://firstisrael.org.il/legal/privacy-policy')}
+                >
+                  מדיניות פרטיות
+                </Button>
+                <Button
+                  onPress={() =>
+                    Linking.openURL('https://firstisrael.org.il/legal/terms-and-conditions')
+                  }
+                >
+                  תנאים והגבלות
+                </Button>
+              </View>
             </Card>
             <Card style={styles.copyright.wrapper}>
               <Text style={styles.copyright.text}>
@@ -121,10 +146,21 @@ const styles = {
       paddingVertical: RFValue(6)
     }
   },
+  legal: {
+    wrapper: {
+      display: 'flex',
+      padding: RFValue(8),
+      marginTop: RFValue(24)
+    },
+    content: {
+      flexDirection: 'row',
+      justifyContent: 'center'
+    }
+  },
   copyright: {
     wrapper: {
       padding: RFValue(12),
-      marginTop: RFValue(24)
+      marginVertical: RFValue(4)
     },
     text: {
       color: '#555',
