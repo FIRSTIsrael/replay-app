@@ -21,13 +21,7 @@ import Backend from '../../lib/backend'
 const MatchScreen = ({ navigation, route: { params } }) => {
   const isOrientated = useOrientation('LANDSCAPE')
   const { t } = useLocalization()
-  const [cameraPermission] = Permissions.usePermissions(Permissions.CAMERA, { ask: true })
-  const [microphonePermission] = Permissions.usePermissions(Permissions.AUDIO_RECORDING, {
-    ask: true
-  })
-  const [storagePermission] = Permissions.usePermissions(Permissions.MEDIA_LIBRARY_WRITE_ONLY, {
-    ask: true
-  })
+  const [permissionResponse] = Permissions.usePermissions([Permissions.CAMERA, Permissions.AUDIO_RECORDING, Permissions.MEDIA_LIBRARY_WRITE_ONLY], { ask: true })
   const cameraRef = useRef()
   const videoRef = useRef()
   const [instructionIndex, setInstructionIndex] = useState(0)
@@ -144,21 +138,21 @@ const MatchScreen = ({ navigation, route: { params } }) => {
         onClose={() => navigation.pop()}
       />
     )
-  } else if (!cameraPermission?.granted) {
+  } else if (!permissionResponse?.permissions[Permissions.CAMERA]?.granted) {
     return (
       <PermissionRequired
         androidText="permissions.cam_access_android"
         iosText="permissions.cam_access_ios"
       />
     )
-  } else if (!microphonePermission?.granted) {
+  } else if (!permissionResponse?.permissions[Permissions.AUDIO_RECORDING]?.granted) {
     return (
       <PermissionRequired
         androidText="permissions.mic_access_andorid"
         iosText="permissions.mic_access_ios"
       />
     )
-  } else if (!storagePermission?.granted) {
+  } else if (!permissionResponse?.permissions[Permissions.MEDIA_LIBRARY_WRITE_ONLY]?.granted) {
     return (
       <PermissionRequired
         androidText="permissions.storage_access_android"
