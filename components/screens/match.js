@@ -4,6 +4,7 @@ import { Button, Text } from 'react-native-paper'
 import * as Permissions from 'expo-permissions'
 import { Camera } from 'expo-camera'
 import { RFValue } from 'react-native-responsive-fontsize'
+import { useKeepAwake } from 'expo-keep-awake'
 
 import config from '../../config'
 import Timer from '../ui/timer'
@@ -20,8 +21,12 @@ import Backend from '../../lib/backend'
 
 const MatchScreen = ({ navigation, route: { params } }) => {
   const isOrientated = useOrientation('LANDSCAPE')
+  useKeepAwake()
   const { t } = useLocalization()
-  const [permissionResponse] = Permissions.usePermissions([Permissions.CAMERA, Permissions.AUDIO_RECORDING, Permissions.MEDIA_LIBRARY_WRITE_ONLY], { ask: true })
+  const [permissionResponse] = Permissions.usePermissions(
+    [Permissions.CAMERA, Permissions.AUDIO_RECORDING, Permissions.MEDIA_LIBRARY_WRITE_ONLY],
+    { ask: true }
+  )
   const cameraRef = useRef()
   const videoRef = useRef()
   const [instructionIndex, setInstructionIndex] = useState(0)
