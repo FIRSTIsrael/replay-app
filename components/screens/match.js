@@ -41,8 +41,8 @@ const MatchScreen = ({ navigation, route: { params } }) => {
     Backend.sendStats(params.authToken, params.teamAtEvent.id, 'MATCH_OPENED')
 
     return () => {
+      isAborted.current = true
       if (isRecording && cameraRef.current) {
-        isAborted.current = true
         cameraRef.current.stopRecording()
         navigation.pop()
       }
@@ -88,6 +88,7 @@ const MatchScreen = ({ navigation, route: { params } }) => {
       try {
         videoRef.current = { ...video }
         videoRef.current.uri = await processVideo(video.uri, params.match.id, params.teamAtEvent.id)
+        if (isAborted.current) return
         Backend.sendStats(params.authToken, params.teamAtEvent.id, 'MATCH_PROCESSED')
       } catch (err) {
         console.error(err)
@@ -100,6 +101,7 @@ const MatchScreen = ({ navigation, route: { params } }) => {
       if (params.teamAtEvent.config.upload_videos) {
         Backend.sendStats(params.authToken, params.teamAtEvent.id, 'UPLOADING_MATCH')
         await uploadVideo()
+        if (isAborted.current) return
         Backend.sendStats(params.authToken, params.teamAtEvent.id, 'MATCH_UPLOADED')
       } else {
         setProcessing(false)
