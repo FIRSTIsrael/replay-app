@@ -42,8 +42,8 @@ const MatchScreen = ({ navigation, route: { params } }) => {
 
     return () => {
       if (isRecording && cameraRef.current) {
-        cameraRef.current.stopRecording()
         isAborted.current = true
+        cameraRef.current.stopRecording()
         navigation.pop()
       }
     }
@@ -79,7 +79,7 @@ const MatchScreen = ({ navigation, route: { params } }) => {
         quality: Camera.Constants.VideoQuality['720p'] || Camera.Constants.VideoQuality['480p']
       })
       if (isAborted.current) {
-        Backend.sendStats(params.authToken, params.teamAtEvent.id, 'MATCH_ABORTED')
+        // Backend.sendStats(params.authToken, params.teamAtEvent.id, 'MATCH_ABORTED')
         return
       }
       setRecording(false)
