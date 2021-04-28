@@ -55,7 +55,9 @@ export default {
   },
   processing: {
     title: 'Just a moment',
-    text:
+    wait_processing:
+      'Please wait while we process the video. This may take a few seconds, do not close the app.',
+    wait_uploading:
       'Please wait while we process the video and upload it to the FIRST Servers. This may take a few minutes, do not close the app.'
   },
   post_match: {

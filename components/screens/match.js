@@ -176,7 +176,13 @@ const MatchScreen = ({ navigation, route: { params } }) => {
           <View style={{ maxWidth: '45%' }}>
             <Text style={styles.processing.title}>{t('processing.title')}</Text>
             <Text style={styles.processing.text}>
-              <FIRST>{t('processing.text')}</FIRST>
+              <FIRST>
+                {t(
+                  params.teamAtEvent.config.upload_videos
+                    ? 'processing.wait_uploading'
+                    : 'processing.wait_processing'
+                )}
+              </FIRST>
             </Text>
           </View>
         </View>
