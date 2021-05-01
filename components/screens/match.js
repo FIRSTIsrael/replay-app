@@ -4,6 +4,7 @@ import { Button, Text } from 'react-native-paper'
 import * as Permissions from 'expo-permissions'
 import { Camera } from 'expo-camera'
 import { RFValue } from 'react-native-responsive-fontsize'
+import { useKeepAwake } from 'expo-keep-awake'
 
 import config from '../../config'
 import Timer from '../ui/timer'
@@ -20,8 +21,12 @@ import Backend from '../../lib/backend'
 
 const MatchScreen = ({ navigation, route: { params } }) => {
   const isOrientated = useOrientation('LANDSCAPE')
+  useKeepAwake()
   const { t } = useLocalization()
-  const [permissionResponse] = Permissions.usePermissions([Permissions.CAMERA, Permissions.AUDIO_RECORDING, Permissions.MEDIA_LIBRARY_WRITE_ONLY], { ask: true })
+  const [permissionResponse] = Permissions.usePermissions(
+    [Permissions.CAMERA, Permissions.AUDIO_RECORDING, Permissions.MEDIA_LIBRARY_WRITE_ONLY],
+    { ask: true }
+  )
   const cameraRef = useRef()
   const videoRef = useRef()
   const [instructionIndex, setInstructionIndex] = useState(0)
@@ -36,9 +41,9 @@ const MatchScreen = ({ navigation, route: { params } }) => {
     Backend.sendStats(params.authToken, params.teamAtEvent.id, 'MATCH_OPENED')
 
     return () => {
+      isAborted.current = true
       if (isRecording && cameraRef.current) {
         cameraRef.current.stopRecording()
-        isAborted.current = true
         navigation.pop()
       }
     }
@@ -74,7 +79,7 @@ const MatchScreen = ({ navigation, route: { params } }) => {
         quality: Camera.Constants.VideoQuality['720p'] || Camera.Constants.VideoQuality['480p']
       })
       if (isAborted.current) {
-        Backend.sendStats(params.authToken, params.teamAtEvent.id, 'MATCH_ABORTED')
+        // Backend.sendStats(params.authToken, params.teamAtEvent.id, 'MATCH_ABORTED')
         return
       }
       setRecording(false)
@@ -83,6 +88,7 @@ const MatchScreen = ({ navigation, route: { params } }) => {
       try {
         videoRef.current = { ...video }
         videoRef.current.uri = await processVideo(video.uri, params.match.id, params.teamAtEvent.id)
+        if (isAborted.current) return
         Backend.sendStats(params.authToken, params.teamAtEvent.id, 'MATCH_PROCESSED')
       } catch (err) {
         console.error(err)
@@ -95,6 +101,7 @@ const MatchScreen = ({ navigation, route: { params } }) => {
       if (params.teamAtEvent.config.upload_videos) {
         Backend.sendStats(params.authToken, params.teamAtEvent.id, 'UPLOADING_MATCH')
         await uploadVideo()
+        if (isAborted.current) return
         Backend.sendStats(params.authToken, params.teamAtEvent.id, 'MATCH_UPLOADED')
       } else {
         setProcessing(false)
@@ -171,7 +178,13 @@ const MatchScreen = ({ navigation, route: { params } }) => {
           <View style={{ maxWidth: '45%' }}>
             <Text style={styles.processing.title}>{t('processing.title')}</Text>
             <Text style={styles.processing.text}>
-              <FIRST>{t('processing.text')}</FIRST>
+              <FIRST>
+                {t(
+                  params.teamAtEvent.config.upload_videos
+                    ? 'processing.wait_uploading'
+                    : 'processing.wait_processing'
+                )}
+              </FIRST>
             </Text>
           </View>
         </View>

@@ -1,65 +1,46 @@
-import React, { Component } from 'react'
+import React, { useRef, useEffect, useMemo, useState } from 'react'
 import { View } from 'react-native'
 import { Text } from 'react-native-paper'
 import { RFValue } from 'react-native-responsive-fontsize'
+import moment from 'moment'
 
-export default class Timer extends Component {
-  state = {}
+const Timer = ({ duration, onStart, onFinished, everySecond }) => {
+  const timerRef = useRef()
+  const [time, setTime] = useState(duration)
+  const startTime = useMemo(() => moment(), [duration])
 
-  componentDidMount() {
-    this.start()
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timer)
-  }
-
-  static getDerivedStateFromProps(props, state) {
-    if (typeof state.time === 'undefined' || state.time <= 0 || props.duration !== state.duration) {
-      return { startTime: Date.now(), time: props.duration, duration: props.duration }
-    }
-    return null
-  }
-
-  start() {
-    this.timer = setInterval(() => this.tick(), 1000)
-    if (this.props.onStart) {
-      this.props.onStart()
-    }
-  }
-
-  tick() {
-    if (this.props.duration <= (Date.now() - this.state.startTime) / 1000) {
-      if (this.props.onFinished) {
-        this.props.onFinished()
-      }
+  const handleTick = () => {
+    const time = duration - Math.round(moment.duration(moment().diff(startTime)).asSeconds())
+    if (time <= 0) {
+      if (onFinished) onFinished()
     } else {
-      this.setState(
-        { time: Math.ceil(this.props.duration - (Date.now() - this.state.startTime) / 1000) },
-        () => {
-          if (this.props.everySecond) {
-            this.props.everySecond(this.state.time)
-          }
-        }
-      )
+      setTime(time)
+      if (everySecond) everySecond(time)
     }
   }
 
-  formatTime(time) {
+  useEffect(() => {
+    if (time !== duration) setTime(duration)
+    timerRef.current = setInterval(() => handleTick(), 1000)
+    if (onStart) onStart()
+    return () => clearInterval(timerRef.current)
+  }, [duration])
+
+  const formatedTime = useMemo(() => {
     const pad = num => (num <= 9 ? `0${num}` : num)
     const minutes = pad(Math.floor(time / 60))
     const seconds = pad(time % 60)
     return `${minutes}:${seconds}`
-  }
+  }, [time])
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.text}>{this.formatTime(this.state.time)}</Text>
-      </View>
-    )
-  }
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>{formatedTime}</Text>
+    </View>
+  )
 }
+
+export default Timer
 
 const styles = {
   container: {
