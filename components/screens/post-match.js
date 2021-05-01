@@ -31,8 +31,9 @@ export default function PostMatchScreen({ navigation, route: { params } }) {
             <Text style={styles.headline}>כמעט סיימנו!</Text>
             <Text style={styles.body_text}>
               <FIRST>
-                השלמתם את צילום המקצה, כעת נותר להעלות את הסרטון למערכת התחרות, FIRST Remote Event
-                Hub. ההנחיות המלאות נמצאות באתר FIRST.
+                השלמתם את צילום המקצה, כעת נותר להעלות את הסרטון ל-FIRST Remote Event Hub. המשיכו
+                למערכת התחרות, בחרו את הקבוצה, והעלו את הסרטון המתאים מגלרית התמונת במכשיר. ההנחיות
+                המלאות נמצאות באתר FIRST.
               </FIRST>
             </Text>
             <Button
